@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.usercontroller">
+   <children>
+      <AnchorPane fx:id="LogIn" layoutX="14.0" layoutY="22.0" prefHeight="362.0" prefWidth="294.0">
+         <children>
+            <JFXTextField fx:id="usernameLogin" layoutX="61.0" layoutY="73.0" promptText="username" />
+            <JFXPasswordField fx:id="passwordLogin" layoutX="61.0" layoutY="118.0" promptText="password" />
+            <Label layoutX="35.0" layoutY="246.0" text="Do not have account?" />
+            <Label fx:id="hint" layoutX="5.0" layoutY="156.0" prefHeight="43.0" prefWidth="285.0" textAlignment="CENTER" textFill="#db0707">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+            <JFXButton fx:id="loginbtn" buttonType="RAISED" layoutX="93.0" layoutY="210.0" onAction="#LogIn" text="Sign In" />
+            <JFXButton fx:id="togglesignup" buttonType="RAISED" layoutX="164.0" layoutY="242.0" onAction="#Toggle" text="Sign Up" />
+               
+
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="SignUp" layoutX="300.0" layoutY="64.0" prefHeight="258.0" prefWidth="255.0" visible="false">
+         <children>
+            <JFXTextField fx:id="usernameSingup" layoutX="69.0" layoutY="44.0" promptText="Username">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+            <JFXPasswordField fx:id="passwordSignup" layoutX="69.0" layoutY="87.0" promptText="Password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXPasswordField>
+            <PasswordField fx:id="confpwdSignup" layoutX="69.0" layoutY="129.0" promptText="confirm password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </PasswordField>
+            <JFXButton fx:id="signupbtn" layoutX="117.0" layoutY="167.0" mnemonicParsing="false" onAction="#SignUp" text="SignUp" />
+            <JFXButton fx:id="togglesignin" layoutX="201.0" layoutY="209.0" mnemonicParsing="false" onAction="#Toggle" text="Sign In" />
+            <Label layoutX="43.0" layoutY="213.0" text="Already have account" />
+         </children>
+      </AnchorPane>
+
+   </children>
+</AnchorPane>

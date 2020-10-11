@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.edituserprofile"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <Pane layoutX="17.0" layoutY="17.0" prefHeight="359.0" prefWidth="261.0">
+        <children>
+            <VBox layoutX="7.0" layoutY="14.0" prefHeight="258.0" prefWidth="248.0" />
+            <Button layoutX="31.0" layoutY="288.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="141.0" layoutY="288.0" mnemonicParsing="false" text="Button" />
+        </children>
+    </Pane>
+</AnchorPane>
