@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -22,11 +20,10 @@
                <children>
                   <Pane prefHeight="326.0" prefWidth="225.0">
                      <children>
-                        <Circle fill="DODGERBLUE" layoutX="107.0" layoutY="74.0" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label fx:id="time" layoutX="38.0" layoutY="155.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
-                        <JFXTimePicker fx:id="timepicker" layoutX="27.0" layoutY="183.0" onAction="#timepickerhandler" />
-                        <JFXDatePicker fx:id="datepicker" layoutX="27.0" layoutY="258.0" onAction="#datepickerhandler" />
-                        <Label fx:id="date" layoutX="38.0" layoutY="241.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+                        <Circle fill="DODGERBLUE" layoutX="102.0" layoutY="91.0" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Label fx:id="time" layoutX="61.0" layoutY="254.0" onMouseClicked="#changetime" prefHeight="17.0" prefWidth="98.0" text="Label" />
+                        <Label fx:id="date" layoutX="61.0" layoutY="290.0" onMouseClicked="#changedate" prefHeight="17.0" prefWidth="98.0" text="Label" />
+                        <Label fx:id="loc" layoutX="61.0" layoutY="213.0" onMouseClicked="#changelocation" text="Label" />
                      </children>
                   </Pane>
 

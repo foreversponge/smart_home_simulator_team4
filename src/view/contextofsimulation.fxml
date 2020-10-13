@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="549.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.contextofsimulationcontroller">
+   <children>
+      <JFXButton layoutX="67.0" layoutY="45.0" onAction="#handleedituser" text="User management" />
+      <JFXTimePicker fx:id="seltimer" layoutX="323.0" layoutY="172.0" />
+      <JFXDatePicker fx:id="seldate" layoutX="323.0" layoutY="239.0" />
+      <JFXButton layoutX="354.0" layoutY="353.0" onAction="#handletodashboard" text="Continue" />
+       <JFXComboBox fx:id="roomlocation" layoutX="380.0" layoutY="300.0" />
+      <TableView fx:id="alluser" layoutX="24.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="colname" prefWidth="75.0" text="username" />
+          <TableColumn fx:id="colstatus" prefWidth="75.0" text="status" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+
+
+   </children>
+</AnchorPane>

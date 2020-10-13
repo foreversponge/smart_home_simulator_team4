@@ -11,20 +11,23 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import view.dashboard;
 
 import java.io.File;
 import java.util.Scanner;
 
-public class houselayout {
+public class houselayoutcontroller {
 
 
-    @FXML private AnchorPane rootanchorpane;
+    public JFXButton todashboardbtn;
+    private Maincontroller maincontroller ;
+    public void setMaincontroller(Maincontroller maincontroller) {
+        this.maincontroller = maincontroller;
+    }
+
     private String pathtofile;
-    private String chosenusertype;
     @FXML private Label pathtofilelabel;
-    @FXML private JFXButton filechooser;
-    @FXML private JFXComboBox usertype;
+
+
 
     public String readfromfile(String url){
         String jsonstring="";
@@ -48,13 +51,12 @@ public class houselayout {
         if(choosenfile != null){
             pathtofile=choosenfile.getAbsolutePath();
             pathtofilelabel.setText(pathtofile);
+            todashboardbtn.setDisable(false);
         }
-    }
-
-    public void handleuserselection(ActionEvent event) {
-        chosenusertype= usertype.getValue().toString();
 
     }
+
+
     public Room[] extractfromjson(String jsontext){
         Room[] arrayroom = new Gson().fromJson(jsontext, Room[].class);
         return arrayroom;
@@ -67,12 +69,16 @@ public class houselayout {
         String jsonstring = readfromfile(pathtofile);
         Room[] aroom = extractfromjson(jsonstring);
         allRoom.setAllroom(aroom);
-        for(Room i : allRoom.getAllroom()){
-            System.out.println(i);
-        }
-        ((Stage) rootanchorpane.getScene().getWindow()).close();
+
+//        for(Room i : allRoom.getAllroom()){
+//            System.out.println(i);
+//        }
+        maincontroller.closewindow();
         try {
-            new dashboard().start(new Stage(), chosenusertype);
+
+            maincontroller.setcontextsimulationwindow();
+            // have to keep track of user type
+
         } catch (Exception e) {
             e.printStackTrace();
         }

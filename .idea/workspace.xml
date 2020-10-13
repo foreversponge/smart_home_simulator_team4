@@ -19,7 +19,26 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0d18f05-98f1-4491-9c08-2abce2345fa9" name="Default Changelist" comment="" />
+    <list default="true" id="a0d18f05-98f1-4491-9c08-2abce2345fa9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controller/Maincontroller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/dashboardcontroller$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/dashboardcontroller$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/dashboardcontroller$IncTask$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/dashboardcontroller$IncTask$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/dashboardcontroller$IncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/dashboardcontroller$IncTask.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/dashboardcontroller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/dashboardcontroller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/controller/houselayout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/maincontroller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/view/dashboard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/view/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Smart_Home_simulator/view/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Smart_Home_simulator/view/houselayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Smart_Home_simulator/view/houselayout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/dashboardcontroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/dashboardcontroller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/houselayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/houselayoutcontroller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maincontroller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/dashboard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/houselayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/houselayout.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,8 +47,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -59,7 +78,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.27586207" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
@@ -70,8 +89,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="maincontroller" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="maincontroller" />
+    <configuration name="Maincontroller" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="controller.Maincontroller" />
       <module name="smart_home_simulator" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -156,7 +175,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.maincontroller" />
+        <item itemvalue="Application.Maincontroller" />
       </list>
     </recent_temporary>
   </component>
@@ -173,7 +192,19 @@
       <workItem from="1602357802988" duration="13676000" />
       <workItem from="1602372718528" duration="4227000" />
       <workItem from="1602382195026" duration="5774000" />
-      <workItem from="1602388999415" duration="357000" />
+      <workItem from="1602388999415" duration="25000" />
+      <workItem from="1602389891058" duration="184000" />
+      <workItem from="1602390100197" duration="80000" />
+      <workItem from="1602390382377" duration="313000" />
+      <workItem from="1602457912522" duration="6611000" />
+      <workItem from="1602468226090" duration="7768000" />
+      <workItem from="1602514606790" duration="1396000" />
+      <workItem from="1602516300230" duration="251000" />
+      <workItem from="1602516667990" duration="1115000" />
+      <workItem from="1602519089911" duration="15752000" />
+      <workItem from="1602552033155" duration="4206000" />
+      <workItem from="1602559910977" duration="1092000" />
+      <workItem from="1602561213321" duration="3944000" />
     </task>
     <servers />
   </component>
@@ -193,34 +224,38 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="575" y="97" key="#com.intellij.ide.util.MemberChooser" timestamp="1602384782144">
+    <state x="575" y="97" key="#com.intellij.ide.util.MemberChooser" timestamp="1602564209363">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="575" y="97" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1602384782144" />
+    <state x="575" y="97" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1602564209363" />
+    <state x="500" y="160" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602561005642">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="500" y="160" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1602561005642" />
     <state x="475" y="154" key="FileChooserDialogImpl" timestamp="1602198332349">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="475" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1602198332349" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1602388865929">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1602565145396">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602388865929" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1602388865929">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602565145396" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1602565145396">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602388865929" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1602388865929">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602565145396" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1602565145396">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602388865929" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1602388865929">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602565145396" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1602565145396">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602388865929" />
-    <state x="250" y="0" key="SettingsEditor" timestamp="1602374000010">
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602565145396" />
+    <state x="250" y="0" key="SettingsEditor" timestamp="1602561488910">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="250" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1602374000010" />
+    <state x="250" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1602561488910" />
     <state x="498" y="305" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1602373992082">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
