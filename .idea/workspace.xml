@@ -23,20 +23,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="766384b7-d38e-4d94-9393-98da26bf3ff7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/smart_home_simulator.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart_home_simulator.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/PrimaryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/SecondaryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/primary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/secondary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/openjfx/primary.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/openjfx/secondary.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/smart_home_simulator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/smart_home_simulator.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,13 +43,16 @@
     </option>
   </component>
   <component name="ProjectId" id="1iqZo8QtxpDNAM8yyEVG0zThnAA" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -117,10 +109,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="768" y="203" width="1404" height="898" key="DiffContextDialog/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1602640411851" />
-    <state x="1060" y="455" key="FileChooserDialogImpl" timestamp="1602640284875">
+    <state x="1060" y="455" key="FileChooserDialogImpl" timestamp="1602705542019">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1602640284875" />
+    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1602705542019" />
     <state width="1544" height="266" key="GridCell.Tab.0.bottom" timestamp="1602637660971">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
