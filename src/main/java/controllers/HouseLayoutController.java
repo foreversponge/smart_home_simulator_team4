@@ -23,6 +23,12 @@ public class HouseLayoutController {
 
     private File chosenFile;
 
+    public void setMainController(Main mainController) {
+        this.mainController = mainController;
+    }
+
+    private Main mainController;
+
     public void onUploadClick(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload House Layout File");
@@ -59,7 +65,14 @@ public class HouseLayoutController {
         String jsonString = readFromFile(pathToFile);
         RoomModel[] allRoomModels = extractFromJson(jsonString);
         HouseRoomsModel.setAllRooms(allRoomModels);
-        System.out.println(allRoomModels.length);
+        mainController.CloseWindow();
+        try{
+            mainController.setSimulatorParameterWindow();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+//        System.out.println(allRoomModels.length);
     }
 
 //    private controllers.Main mainController ;
