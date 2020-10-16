@@ -23,19 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="766384b7-d38e-4d94-9393-98da26bf3ff7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/smart_home_simulator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/smart_home_simulator.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/PrimaryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/SecondaryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/viewTest.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/viewTest.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/cssTest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/primary.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/secondary.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/primary.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/openjfx/secondary.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,10 +66,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="ignore.preview.features.used" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../javafx/javafx-sdk-15/lib" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
     <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$/.idea" />
   </component>
   <component name="RecentsManager">
@@ -215,10 +204,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="810" y="355" key="Maven.ArtifactSearchDialog/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1602804521159" />
-    <state x="950" y="226" key="SettingsEditor" timestamp="1602795729171">
+    <state x="950" y="226" key="SettingsEditor" timestamp="1602808525703">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="950" y="226" key="SettingsEditor/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1602795729171" />
+    <state x="950" y="226" key="SettingsEditor/0.0.2560.1400/-1920.0.1920.1040@0.0.2560.1400" timestamp="1602808525703" />
     <state x="1233" y="556" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1602779818608">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
