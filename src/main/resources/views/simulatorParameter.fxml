@@ -14,6 +14,7 @@
 
     <children>
         <JFXButton layoutX="67.0" layoutY="45.0" onAction="#handleEditUser" text="User management" />
+        <JFXButton layoutX="354.0" layoutY="353.0" onAction="#handleContinueDashboard" text="Continue" />
 
 
 
