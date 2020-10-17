@@ -1,6 +1,5 @@
 package controllers;
 
-//import helper.Person;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.User;
-
 import java.io.IOException;
 
 public class Main extends Application {
@@ -28,33 +26,44 @@ public class Main extends Application {
         currentState = primaryStage;
         try{
             setHouseLayoutWindow();
-
         }
         catch (IOException e){
             e.printStackTrace();
         }
-
     }
+    /**
+     * close the current window before open another window
+     */
     public void CloseWindow(){
         currentState.close();
     }
-
+    /**
+     * userData is store all the collection of user
+     * @return
+     */
     public ObservableList<User> getPersonData() {
         return userData;
     }
-
     public void setPersonData(ObservableList<User> userData) {
         this.userData = userData;
     }
-
+    /**
+     * tempUserData is to store when you open the user management so you can add/edit/delete user
+     * only when you click save the userData would be update with the exist of tempUserData
+     * @return
+     */
     public ObservableList<User> getTempPersonData() {
         return tempUserData;
     }
-
     public void setTempPersonData(ObservableList<User> tempUserData) {
         this.tempUserData = tempUserData;
     }
-
+    /**
+     * method to help load the houselayout
+     * when we load the fxml file and get the controller
+     * so we can set instance of Main to HouseLayoutController
+     * @throws IOException
+     */
     public void setHouseLayoutWindow() throws IOException {
         currentState.setTitle("Smart Home Simulator");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/houseLayout.fxml"));
@@ -64,13 +73,12 @@ public class Main extends Application {
         Scene houseLayoutScene = new Scene(root);
         currentState.setScene(houseLayoutScene);
         currentState.show();
-
-
     }
-
-
+    /**
+     * method to load simulator parameter , where you can choose user set time, date and location
+     * @throws IOException
+     */
     public void setSimulatorParameterWindow() throws IOException {
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/simulatorParameter.fxml"));
         Parent root = fxmlLoader.load();
         SimulatorParameterController simParcontroller = fxmlLoader.getController();
@@ -78,11 +86,13 @@ public class Main extends Application {
         Scene simScene = new Scene(root);
         currentState.setScene(simScene);
         currentState.show();
-
-
     }
+    /**
+     * method to open the user manager window
+     * when you close this window you still on the simulator parameter window
+     * @throws IOException
+     */
     public void setUserManagerWindow() throws IOException{
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/userManager.fxml"));
         Parent root = fxmlLoader.load();
         UserManagerController simParcontroller = fxmlLoader.getController();

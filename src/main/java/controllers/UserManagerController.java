@@ -9,33 +9,43 @@ import javafx.stage.Stage;
 import models.User;
 
 public class UserManagerController {
+
     @FXML private TableView tableView;
     @FXML private TableColumn tableColumnName;
     @FXML private TableColumn tableColumnStatus;
     @FXML private Label errorLabel;
-
-
     private Main mainController;
     private Stage currentStage;
-
-
+    /**
+     * help to set the column of the table view with the attribute from the table list
+     */
     public void initialize(){
         tableColumnName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
         tableColumnStatus.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
     }
-
-
+    /**
+     * keep an instance of Main and currentStage
+     * set the table View with the Observable list
+     * @param maincontroller
+     * @param currentstage
+     */
     public void setMaincontroller(Main maincontroller, Stage currentstage) {
-
         this.mainController = maincontroller;
         this.currentStage = currentstage;
         tableView.setItems(mainController.getTempPersonData());
     }
-
+    /**
+     * cancel all the action that is done during user Manager window
+     * @param event
+     */
     public void handleCancel(ActionEvent event) {
         currentStage.close();
     }
-
+    /**
+     * helper class to create the Dialog of type User object so it can be use when user want to add or delete user
+     * @param editUser
+     * @return
+     */
     public Dialog<User> getDialog(User editUser){
         String editName="";
         String editSta="";
@@ -72,16 +82,20 @@ public class UserManagerController {
             }
             return null;
         });
-
         return addDialog;
     }
-
-
+    /**
+     * display the Dialog to add User
+     * @param event
+     */
     public void handleAdd(ActionEvent event) {
         Dialog<User> addDialog = getDialog(null);
         addDialog.showAndWait();
     }
-
+    /**
+     * display the Dialog to Edit the existing user
+     * @param event
+     */
     public void handleEdit(ActionEvent event) {
         User selectedUser = (User) tableView.getSelectionModel().getSelectedItem();
         if(selectedUser !=null){
@@ -91,9 +105,11 @@ public class UserManagerController {
         else{
             errorLabel.setText("cannot edit");
         }
-
     }
-
+    /**
+     * Delete that is selected and remove from the list
+     * @param event
+     */
     public void handleDelete(ActionEvent event) {
         User selectedUser = (User) tableView.getSelectionModel().getSelectedItem();
         if(selectedUser !=null){
@@ -102,10 +118,11 @@ public class UserManagerController {
         else{
             errorLabel.setText("cannot delete");
         }
-
     }
-
-
+    /**
+     * Save all the action in the window and update the PersonData observable list
+     * @param event
+     */
     public void handleSave(ActionEvent event) {
         mainController.getPersonData().clear();
         mainController.getTempPersonData().forEach((user)->{

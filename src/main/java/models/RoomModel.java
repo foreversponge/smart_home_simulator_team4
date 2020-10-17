@@ -1,12 +1,21 @@
 package models;
 
 public class RoomModel {
+
     private String name;
     private int numWindows;
     private int numDoors;
     private int numLights;
     private String nextRoomName;
 
+    /**
+     * constructor to create RoomModel
+     * @param name
+     * @param numWindows
+     * @param numDoors
+     * @param numLights
+     * @param nextRoomName
+     */
     public RoomModel(String name, int numWindows, int numDoors, int numLights, String nextRoomName) {
         this.name = name;
         this.numWindows = numWindows;
@@ -16,7 +25,6 @@ public class RoomModel {
     }
 
     public String getName() {
-
         return name;
     }
 
