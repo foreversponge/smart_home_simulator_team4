@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
-
 <?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-
-
-<?import javafx.geometry.Insets?>
 
 <AnchorPane prefHeight="549.0" prefWidth="843.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashBoardController">
     <children>
@@ -64,14 +49,14 @@
                         </TabPane>
                         <TabPane prefHeight="359.0" prefWidth="278.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
-                                <Tab text="Untitled Tab 1" >
+                                <Tab text="Untitled Tab 1">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <AnchorPane layoutX="22.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" >
+                                                <AnchorPane layoutX="22.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
                                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                         <children>
-                                                            <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" >
+                                                            <ScrollPane fx:id="scroll" prefHeight="187.0" prefWidth="197.0" styleClass="transparent">
                                                                 <content>
                                                                     <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
                                                                         <rowConstraints>

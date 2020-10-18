@@ -111,10 +111,10 @@ public class dashBoardController {
         RoomModel[] allr = HouseRoomsModel.getAllRoomsArray();
         int column = 0;
         int row = 0;
-        for (int i = 0; i <= allr.length; i++) {
+        for (int i = 0; i < allr.length; i++) {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/view/room.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/views/room.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
 
             RoomController roomController = fxmlLoader.getController();
