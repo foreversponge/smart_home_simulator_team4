@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import models.User;
+import models.UserModel;
 
 public class UserManagerController {
 
@@ -20,8 +20,8 @@ public class UserManagerController {
      * help to set the column of the table view with the attribute from the table list
      */
     public void initialize(){
-        tableColumnName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
-        tableColumnStatus.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
+        tableColumnStatus.setCellValueFactory(new PropertyValueFactory<UserModel, String>("status"));
     }
     /**
      * keep an instance of Main and currentStage
@@ -43,17 +43,17 @@ public class UserManagerController {
     }
     /**
      * helper class to create the Dialog of type User object so it can be use when user want to add or delete user
-     * @param editUser
+     * @param editUserModel
      * @return
      */
-    public Dialog<User> getDialog(User editUser){
+    public Dialog<UserModel> getDialog(UserModel editUserModel){
         String editName="";
         String editSta="";
-        if(editUser !=null){
-            editName = editUser.getName();
-            editSta= editUser.getStatus();
+        if(editUserModel !=null){
+            editName = editUserModel.getName();
+            editSta= editUserModel.getStatus();
         }
-        Dialog<User> addDialog = new Dialog<>();
+        Dialog<UserModel> addDialog = new Dialog<>();
         addDialog.setTitle("Add/Edit a person");
         DialogPane dialogPane = addDialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -75,10 +75,10 @@ public class UserManagerController {
         dialogPane.setContent(grid);
         addDialog.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
-                if(editUser !=null){
-                    mainController.getTempPersonData().remove(editUser);
+                if(editUserModel !=null){
+                    mainController.getTempPersonData().remove(editUserModel);
                 }
-                mainController.getTempPersonData().add(new User(name.getText(),status.getValue()));
+                mainController.getTempPersonData().add(new UserModel(name.getText(),status.getValue()));
             }
             return null;
         });
@@ -89,7 +89,7 @@ public class UserManagerController {
      * @param event
      */
     public void handleAdd(ActionEvent event) {
-        Dialog<User> addDialog = getDialog(null);
+        Dialog<UserModel> addDialog = getDialog(null);
         addDialog.showAndWait();
     }
     /**
@@ -97,9 +97,9 @@ public class UserManagerController {
      * @param event
      */
     public void handleEdit(ActionEvent event) {
-        User selectedUser = (User) tableView.getSelectionModel().getSelectedItem();
-        if(selectedUser !=null){
-            Dialog<User> editdialog = getDialog(selectedUser);
+        UserModel selectedUserModel = (UserModel) tableView.getSelectionModel().getSelectedItem();
+        if(selectedUserModel !=null){
+            Dialog<UserModel> editdialog = getDialog(selectedUserModel);
             editdialog.showAndWait();
         }
         else{
@@ -111,9 +111,9 @@ public class UserManagerController {
      * @param event
      */
     public void handleDelete(ActionEvent event) {
-        User selectedUser = (User) tableView.getSelectionModel().getSelectedItem();
-        if(selectedUser !=null){
-            mainController.getTempPersonData().remove(selectedUser);
+        UserModel selectedUserModel = (UserModel) tableView.getSelectionModel().getSelectedItem();
+        if(selectedUserModel !=null){
+            mainController.getTempPersonData().remove(selectedUserModel);
         }
         else{
             errorLabel.setText("cannot delete");
@@ -125,8 +125,8 @@ public class UserManagerController {
      */
     public void handleSave(ActionEvent event) {
         mainController.getPersonData().clear();
-        mainController.getTempPersonData().forEach((user)->{
-            mainController.getPersonData().add(user);
+        mainController.getTempPersonData().forEach((userModel)->{
+            mainController.getPersonData().add(userModel);
         });
         currentStage.close();
     }

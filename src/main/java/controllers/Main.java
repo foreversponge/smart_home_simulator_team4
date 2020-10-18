@@ -8,14 +8,16 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.User;
+import models.LogMessageModel;
+import models.UserModel;
 import java.io.IOException;
 
 public class Main extends Application {
 
     private Stage currentState;
-    private ObservableList<User> userData = FXCollections.observableArrayList();
-    private ObservableList<User> tempUserData = FXCollections.observableArrayList();
+    private ObservableList<UserModel> userModelData = FXCollections.observableArrayList();
+    private ObservableList<UserModel> tempUserModelData = FXCollections.observableArrayList();
+    private ObservableList<LogMessageModel> logMessageModels = FXCollections.observableArrayList();
 
     public static void main(String[] args) {
         launch(args);
@@ -41,22 +43,38 @@ public class Main extends Application {
      * userData is store all the collection of user
      * @return
      */
-    public ObservableList<User> getPersonData() {
-        return userData;
+    public ObservableList<UserModel> getPersonData() {
+        return userModelData;
     }
-    public void setPersonData(ObservableList<User> userData) {
-        this.userData = userData;
+
+    /**
+     * setter to set the ObservableList of userData
+     * @param userModelData
+     */
+    public void setPersonData(ObservableList<UserModel> userModelData) {
+        this.userModelData = userModelData;
     }
     /**
      * tempUserData is to store when you open the user management so you can add/edit/delete user
      * only when you click save the userData would be update with the exist of tempUserData
      * @return
      */
-    public ObservableList<User> getTempPersonData() {
-        return tempUserData;
+    public ObservableList<UserModel> getTempPersonData() {
+        return tempUserModelData;
     }
-    public void setTempPersonData(ObservableList<User> tempUserData) {
-        this.tempUserData = tempUserData;
+    /**
+     * setter to set the ObservableList of tempUserData
+     * @param tempUserModelData
+     */
+    public void setTempPersonData(ObservableList<UserModel> tempUserModelData) {
+        this.tempUserModelData = tempUserModelData;
+    }
+    /**
+     * getter to get the ObservableList of LogMessages
+     * @return
+     */
+    public ObservableList<LogMessageModel> getLogMessages() {
+        return logMessageModels;
     }
     /**
      * method to help load the houselayout
@@ -99,9 +117,9 @@ public class Main extends Application {
         Stage editstage= new Stage();
         simParcontroller.setMaincontroller(this,editstage);
         editstage.initOwner(currentState);
-        tempUserData.clear();
-        userData.forEach((user)->{
-            tempUserData.add(user);
+        tempUserModelData.clear();
+        userModelData.forEach((userModel)->{
+            tempUserModelData.add(userModel);
         });
         editstage.initModality(Modality.WINDOW_MODAL);
         Scene userManager = new Scene(root);
@@ -109,16 +127,12 @@ public class Main extends Application {
         editstage.show();
     }
     public void setDashboardWindow() throws IOException {
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/dashBoard.fxml"));
         Parent root = fxmlLoader.load();
         dashBoardController dashboardcontroller = fxmlLoader.getController();
         dashboardcontroller.setMainController(this,currentState);
         Scene simScene = new Scene(root);
-
         currentState.setScene(simScene);
         currentState.show();
-
-
     }
 }

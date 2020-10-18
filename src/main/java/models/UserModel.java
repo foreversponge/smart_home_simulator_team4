@@ -3,7 +3,7 @@ package models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class User {
+public class UserModel {
     private String name;
     private String location;
     private String status;
@@ -26,7 +26,7 @@ public class User {
         this.date = date;
     }
 
-    public User(String name, String status) {
+    public UserModel(String name, String status) {
         this.name = name;
         this.location = location;
         this.status = status;

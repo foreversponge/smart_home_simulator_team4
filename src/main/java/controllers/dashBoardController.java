@@ -10,15 +10,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import models.HouseRoomsModel;
-import models.RoomModel;
+import models.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,29 +24,30 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class dashBoardController {
+
+    @FXML private TableView consoleTableView;
+    @FXML private TableColumn columnTime;
+    @FXML private TableColumn columnMessage;
     @FXML private JFXButton edit;
     @FXML private JFXToggleButton toggleSimBtn;
     @FXML private Label userLocation;
     @FXML private Label outsideT;
     @FXML private Label time;
     @FXML private Label date;
-    private Main maincontroller;
+    private Main mainController;
     public ImageView window1;
     public ImageView door1;
     public ImageView light1;
-    @FXML private AnchorPane anchorpaneroom1;
-    @FXML private Label room1;
-    @FXML private JFXButton togglelightbtn;
     Stage currentStage;
-
-
     LocalTime choosentime;
     LocalDate choosendate;
     IncrementTask incrementTask;
     Timer scheduleTimer;
 
-
-
+    /**
+     * inner class which extends TimerTask
+     * so Timer can generate action of this Task at fix rate
+     */
     class IncrementTask extends TimerTask{
         private LocalTime localTime;
         private void setTime(LocalTime ctime) {
@@ -57,90 +55,60 @@ public class dashBoardController {
         }
         @Override
         public void run() {
-            Platform.runLater(new Runnable() {// it has to run from the fx application
+            Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     localTime = localTime.plusSeconds(1);
                     time.setText(localTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
                 }
             });
-
         }
     }
-
-//    @FXML private JFXDatePicker datepicker;
-//    @FXML private JFXTimePicker timepicker;
-
-
-
-    public void togglelight(ActionEvent event){
-        String mode =  ((JFXButton)event.getSource()).getText();
-        if(mode.equals("Off")){
-            togglelightbtn.setText("On");
-            light1.setImage(new Image("file:src/image/lighton.png"));
-            // call to display the light
-        }
-        else {
-            togglelightbtn.setText("Off");
-            light1.setImage(new Image("file:src/image/lightoff.png"));
-        }
-    }
-
-
+    /**
+     * Store an instance of the Main and currentStage
+     * set the schdeuleTimer so that the time would continuous display the value
+     * @param maincontroller
+     * @param currentStage
+     */
     public void setMainController(Main maincontroller, Stage currentStage) {
-
-        this.maincontroller = maincontroller;
+        this.mainController = maincontroller;
         this.currentStage = currentStage;
-//        choosendate = maincontroller.getLoggeduser().getDate();
-//        choosentime = maincontroller.getLoggeduser().getTime();
         choosendate=LocalDate.now();
         choosentime=LocalTime.now();
         incrementTask.setTime(choosentime);
         scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
+        consoleTableView.setItems(mainController.getLogMessages());
     }
+    /**
+     *
+     */
     public void initialize() {
         incrementTask =new IncrementTask();
         scheduleTimer =new Timer(true);
-//        RoomModel[] allr = HouseRoomsModel.getAllRoomsArray();
-//        int index=1;
-//        for(RoomModel i: allr){
-//            switch (index){
-//                case 1:
-//                    room1.setText(i.getName());
-//                    window1.setImage(new Image("file:src/image/closewindow.png"));
-//                    light1.setImage(new Image("file:src/image/lightoff.png"));
-//                    door1.setImage(new Image("file:src/image/closedoor.png"));
-//                    anchorpaneroom1.setVisible(true);
-//                    break;
-//                case 2:
-//                    break;
-//                case 3:
-//                    break;
-//            }
-//            index++;
-//        }
+        columnTime.setCellValueFactory(new PropertyValueFactory<LogMessageModel, LocalTime>("time"));
+        columnMessage.setCellValueFactory(new PropertyValueFactory<LogMessageModel, String>("message"));
+        consoleTableView.setPlaceholder(new Label(""));
     }
-
+    /**
+     * Turn on and Turn off Simulation
+     * @param event
+     */
     public void toggleSimulation(ActionEvent event) {
         String mode = toggleSimBtn.getText();
         switch (mode){
             case "On":
                 toggleSimBtn.setText("Off");
-                edit.setDisable(true);
-                // set value to show it is start simulation
                 break;
             case "Off":
                 toggleSimBtn.setText("On");
-                edit.setDisable(false);
                 break;
-
         }
     }
-
+    /**
+     * Display the dialog , and all the avaible location that logged user can choose to change location
+     * @param mouseEvent
+     */
     public void handleChangeLocation(MouseEvent mouseEvent) {
-
-
-
         Dialog<String> updateLocation  = new Dialog<>();
         updateLocation.setHeaderText("Choose a location ");
         ObservableList<String> name= FXCollections.observableArrayList();
@@ -154,43 +122,26 @@ public class dashBoardController {
         locationDialogPane.setContent(avaiLocation);
         updateLocation.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK && avaiLocation.getValue()!=null) {
-
                 userLocation.setText(avaiLocation.getValue());
             }
             return null;
         });
         updateLocation.showAndWait();
     }
-    
-    public void handleChangeTime(MouseEvent mouseEvent) {
-        Dialog<LocalTime> updateTime = new Dialog<>();
-        updateTime.setHeaderText("Change context time ");
-        Label hour= new Label();
-        Label minute=new Label();
-        ObservableList<Integer> h = FXCollections.observableArrayList();
-        ObservableList<Integer> min = FXCollections.observableArrayList();
-        for(int i=1;i<=24;i++){
-            h.add(i);
-        }
-        for(int i=0;i<=59;i++){
-            min.add(i);
-        }
 
-        JFXComboBox<Integer> hourlist = new JFXComboBox<>();
-        JFXComboBox<Integer> minlist = new JFXComboBox<>();
-        hourlist.setItems(h);
-        minlist.setItems(min);
-        GridPane gridPane = new GridPane();
-        gridPane.add(hourlist, 1, 1);
-        gridPane.add(minlist, 2, 1);
-        DialogPane timeDialogPane = updateTime.getDialogPane();
-        timeDialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        timeDialogPane.setContent(gridPane);
+    /**
+     * display the dialog and allow use to change the time
+     * set the cancel the old scheduleTimer and set the new scheduleTimer to continuous display the time
+     * @param mouseEvent
+     */
+    public void handleChangeTime(MouseEvent mouseEvent) {
+        TimerPickerModel tPicker = new TimerPickerModel();
+        Dialog<LocalTime> updateTime = tPicker.getTimePicker();
         updateTime.setResultConverter((ButtonType button) -> {
-            if (button == ButtonType.OK && hourlist.getValue()!=null &&minlist.getValue()!=null) {
+            if (button == ButtonType.OK && tPicker.getHourList().getValue()!=null &&tPicker.getMinList().getValue()!=null) {
                 scheduleTimer.cancel();
                 scheduleTimer = new Timer(true);
-                LocalTime pickTime = LocalTime.of(hourlist.getValue(),minlist.getValue());
+                LocalTime pickTime = LocalTime.of(tPicker.getHourList().getValue(),tPicker.getMinList().getValue());
                 incrementTask =new IncrementTask();
                 incrementTask.setTime(pickTime);
                 scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
@@ -200,6 +151,10 @@ public class dashBoardController {
         updateTime.showAndWait();
     }
 
+    /**
+     * display dialg and DatePicker to allow logged user choose the date and update it on the dashboard
+     * @param mouseEvent
+     */
     public void handleChangeDate(MouseEvent mouseEvent) {
         Dialog<LocalDate> updateDate = new Dialog<>();
         updateDate.setHeaderText("Change context date ");
@@ -209,14 +164,17 @@ public class dashBoardController {
         dateDialogPane.setContent(newDate);
         updateDate.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK && newDate.getValue()!=null) {
-                // set the time
                 date.setText(newDate.getValue().toString());
             }
             return null;
         });
         updateDate.showAndWait();
     }
-
+    /**
+     * Display the dialog and allow logged user to change temperature outside home
+     * if logged user does not choose the sign before desired number of temperatuer, it consider positive
+     * @param mouseEvent
+     */
     public void handleChangeTemp(MouseEvent mouseEvent) {
         Dialog<String> updateTemp = new Dialog<>();
         updateTemp.setHeaderText("Change Outside Temperature");
@@ -230,7 +188,6 @@ public class dashBoardController {
         content.getChildren().setAll(sign, newTemp);
         TempDialogPane.setContent(content);
         updateTemp.setResultConverter((ButtonType button) -> {
-
             if (button == ButtonType.OK && newTemp.getText()!=null ) {
                 if(newTemp.getText().matches("[0-9]+")){
                     if(sign.getValue()==null || sign.getValue().equals("+")){
@@ -241,22 +198,11 @@ public class dashBoardController {
                     }
                 }
                 else{
-                    // cannot set the temperature keep old value and display on the log
+                    mainController.getLogMessages().add(new LogMessageModel(LocalTime.parse(time.getText()) , "cannot set the time"));
                 }
-
             }
             return null;
         });
         updateTemp.showAndWait();
     }
-
-    public void handleEdit(ActionEvent event) {
-
-    }
-    public void changeLoggedUser(MouseEvent mouseEvent) {
-
-    }
-
-
-
 }
