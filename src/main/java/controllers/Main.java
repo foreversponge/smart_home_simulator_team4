@@ -108,6 +108,7 @@ public class Main extends Application {
         editstage.setScene(userManager);
         editstage.show();
     }
+    
     public void setDashboardWindow() throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/dashBoard.fxml"));
@@ -118,7 +119,23 @@ public class Main extends Application {
 
         currentState.setScene(simScene);
         currentState.show();
-
-
+    }
+    
+    /**
+     * method to open the edit Context of Simulation window
+     * when closing this window, the user is returned to the dashboard
+     * @throws IOException
+     */
+    public void setEditContextWindow() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/EditContextOfSimulation.fxml"));
+        Parent root = fxmlLoader.load();
+        EditContextOfSimulationController editContextController = fxmlLoader.getController();
+        Stage editContextStage= new Stage();
+        editContextController.setMaincontroller(this, editContextStage);
+        editContextStage.initOwner(currentState);
+        editContextStage.initModality(Modality.WINDOW_MODAL);
+        Scene editContextScene = new Scene(root);
+        editContextStage.setScene(editContextScene);
+        editContextStage.show();
     }
 }

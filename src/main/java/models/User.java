@@ -3,12 +3,15 @@ package models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javafx.scene.control.ComboBox;
+
 public class User {
     private String name;
-    private String location;
-    private String status;
-    private LocalTime time;
+	private String status;
+	private String currentLocation;	//current location of the user in the house
+	private LocalTime time;
     private LocalDate date;
+    private ComboBox<String> locationComboBox;	//comboBox storing possible user locations (for edit context of simulation)
 
     public LocalTime getTime() {
         return time;
@@ -28,7 +31,6 @@ public class User {
 
     public User(String name, String status) {
         this.name = name;
-        this.location = location;
         this.status = status;
     }
 
@@ -40,13 +42,21 @@ public class User {
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
+    /**
+     * Getter to obtain the ComboBox containing all possible rooms of the house
+     * @return ComboBox
+     */
+    public ComboBox<String> getLocation() {
+        return locationComboBox;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    /**
+     * Setter to set the ComboBox containing all possible rooms of the house that the user can be placed in
+     * @param location ComboBox
+     */
+    public void setLocation(ComboBox<String> location) {
+		this.locationComboBox = location;
+	}
 
     public String getStatus() {
         return status;
@@ -55,4 +65,12 @@ public class User {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    public String getCurrentLocation() {
+		return currentLocation;
+	}
+
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
+	}
 }

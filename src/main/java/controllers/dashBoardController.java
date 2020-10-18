@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import models.HouseRoomsModel;
 import models.RoomModel;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -250,8 +251,16 @@ public class dashBoardController {
         updateTemp.showAndWait();
     }
 
+    /**
+     * When simulation is ON, if the user clicks the edit button, the Edit Context Of Simulation window will appear
+     * @param event user clicks the edit button
+     */
     public void handleEdit(ActionEvent event) {
-
+    	try {
+			maincontroller.setEditContextWindow();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     public void changeLoggedUser(MouseEvent mouseEvent) {
 
