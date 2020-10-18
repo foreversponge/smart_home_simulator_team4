@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="549.0" prefWidth="843.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashBoardController">
+    <children>
+        <VBox layoutX="20.0" layoutY="25.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <HBox spacing="20.0">
+                    <children>
+                        <Pane prefHeight="326.0" prefWidth="225.0">
+                            <children>
+                        <JFXToggleButton fx:id="toggleSimBtn" layoutX="36.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleSimulation" prefHeight="25.0" prefWidth="128.0" text="Off">
+                        </JFXToggleButton>
+                                <Circle fill="DODGERBLUE" layoutX="100.0" layoutY="99.0" radius="64.0" stroke="BLACK" strokeType="INSIDE" />
+                        <VBox alignment="CENTER" layoutX="51.0" layoutY="189.0" prefHeight="152.0" prefWidth="98.0" spacing="10.0">
+                           <children>
+                              <Label fx:id="loggedUser" onMouseClicked="#changeLoggedUser" text="User" />
+                                      <Label fx:id="userLocation" alignment="CENTER" onMouseClicked="#handleChangeLocation" prefHeight="17.0" prefWidth="96.0" text="Label" />
+                                      <Label fx:id="time" alignment="CENTER" onMouseClicked="#handleChangeTime" prefHeight="17.0" prefWidth="98.0" text="Label" />
+                                      <Label fx:id="date" alignment="CENTER" onMouseClicked="#handleChangeDate" prefHeight="17.0" prefWidth="98.0" text="Label" />
+                              <Label fx:id="outsideT" alignment="CENTER" onMouseClicked="#handleChangeTemp" prefHeight="17.0" prefWidth="96.0" text="Label" />
+                              <JFXButton fx:id="edit" contentDisplay="CENTER" disable="true" onAction="#handleEdit" text="Edit" />
+                           </children>
+                        </VBox>
+                            </children>
+                        </Pane>
+
+                        <TabPane prefHeight="359.0" prefWidth="278.0" tabClosingPolicy="UNAVAILABLE">
+                            <tabs>
+                                <Tab text="Untitled Tab 1">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="330.0" prefWidth="436.0">
+                                            <children>
+                                                <JFXButton fx:id="togglelightbtn" layoutX="93.0" layoutY="114.0" onAction="#togglelight" text="Off" />
+                                            </children></AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab text="Untitled Tab 2">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                        <TabPane prefHeight="359.0" prefWidth="278.0" tabClosingPolicy="UNAVAILABLE">
+                            <tabs>
+                                <Tab text="Untitled Tab 1" >
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <AnchorPane layoutX="22.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" >
+                                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                        <children>
+                                                            <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" >
+                                                                <content>
+                                                                    <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                                                                        <rowConstraints>
+                                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                                                        </rowConstraints>
+                                                                    </GridPane>
+                                                                </content>
+                                                                <HBox.margin>
+                                                                    <Insets top="10.0" />
+                                                                </HBox.margin>
+                                                            </ScrollPane>
+                                                        </children>
+                                                    </HBox>
+                                                </AnchorPane>
+
+                                            </children></AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab text="Untitled Tab 2">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </children>
+                </HBox>
+
+                <Pane fx:id="consolelog" prefHeight="147.0" prefWidth="751.0">
+                    <children>
+                        <Label layoutX="44.0" layoutY="65.0" prefHeight="17.0" prefWidth="134.0" text="Console log" />
+                    </children>
+                </Pane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

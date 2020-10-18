@@ -20,4 +20,13 @@ public class SimulatorParameterController {
             e.printStackTrace();
         }
     }
+
+    public void handleContinueDashboard(ActionEvent event) {
+        mainController.CloseWindow();
+        try{
+            mainController.setDashboardWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

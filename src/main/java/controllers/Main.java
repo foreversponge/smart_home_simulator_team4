@@ -98,4 +98,17 @@ public class Main extends Application {
         editstage.setScene(userManager);
         editstage.show();
     }
+    public void setDashboardWindow() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/dashBoard.fxml"));
+        Parent root = fxmlLoader.load();
+        dashBoardController dashboardcontroller = fxmlLoader.getController();
+        dashboardcontroller.setMainController(this,currentState);
+        Scene simScene = new Scene(root);
+
+        currentState.setScene(simScene);
+        currentState.show();
+
+
+    }
 }
