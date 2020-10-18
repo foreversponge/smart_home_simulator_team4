@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import models.User;
+import models.UserModel;
 
 public class UserManagerController {
     @FXML private TableView tableView;
@@ -14,19 +14,15 @@ public class UserManagerController {
     @FXML private TableColumn tableColumnStatus;
     @FXML private Label errorLabel;
 
-
     private Main mainController;
     private Stage currentStage;
 
-
     public void initialize(){
-        tableColumnName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
-        tableColumnStatus.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
+        tableColumnStatus.setCellValueFactory(new PropertyValueFactory<UserModel, String>("status"));
     }
 
-
     public void setMaincontroller(Main maincontroller, Stage currentstage) {
-
         this.mainController = maincontroller;
         this.currentStage = currentstage;
         tableView.setItems(mainController.getTempPersonData());
@@ -36,14 +32,14 @@ public class UserManagerController {
         currentStage.close();
     }
 
-    public Dialog<User> getDialog(User editUser){
+    public Dialog<UserModel> getDialog(UserModel editUser){
         String editName="";
         String editSta="";
         if(editUser !=null){
             editName = editUser.getName();
             editSta= editUser.getStatus();
         }
-        Dialog<User> addDialog = new Dialog<>();
+        Dialog<UserModel> addDialog = new Dialog<>();
         addDialog.setTitle("Add/Edit a person");
         DialogPane dialogPane = addDialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -54,9 +50,9 @@ public class UserManagerController {
         ComboBox<String> status = new ComboBox<>();
         status.getItems().addAll(
                 "Parent",
-                "child",
-                "guest",
-                "stranger"
+                "Child",
+                "Guest",
+                "Stranger"
         );
         status.setValue(editSta);
         GridPane grid = new GridPane();
@@ -68,7 +64,7 @@ public class UserManagerController {
                 if(editUser !=null){
                     mainController.getTempPersonData().remove(editUser);
                 }
-                mainController.getTempPersonData().add(new User(name.getText(),status.getValue()));
+                mainController.getTempPersonData().add(new UserModel(name.getText(),status.getValue()));
             }
             return null;
         });
@@ -76,35 +72,31 @@ public class UserManagerController {
         return addDialog;
     }
 
-
     public void handleAdd(ActionEvent event) {
-        Dialog<User> addDialog = getDialog(null);
+        Dialog<UserModel> addDialog = getDialog(null);
         addDialog.showAndWait();
     }
 
     public void handleEdit(ActionEvent event) {
-        User selectedUser = (User) tableView.getSelectionModel().getSelectedItem();
+        UserModel selectedUser = (UserModel) tableView.getSelectionModel().getSelectedItem();
         if(selectedUser !=null){
-            Dialog<User> editdialog = getDialog(selectedUser);
+            Dialog<UserModel> editdialog = getDialog(selectedUser);
             editdialog.showAndWait();
         }
         else{
-            errorLabel.setText("cannot edit");
+            errorLabel.setText("Cannot edit");
         }
-
     }
 
     public void handleDelete(ActionEvent event) {
-        User selectedUser = (User) tableView.getSelectionModel().getSelectedItem();
+        UserModel selectedUser = (UserModel) tableView.getSelectionModel().getSelectedItem();
         if(selectedUser !=null){
             mainController.getTempPersonData().remove(selectedUser);
         }
         else{
-            errorLabel.setText("cannot delete");
+            errorLabel.setText("Cannot delete");
         }
-
     }
-
 
     public void handleSave(ActionEvent event) {
         mainController.getPersonData().clear();

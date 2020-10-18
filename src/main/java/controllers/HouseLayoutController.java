@@ -24,12 +24,10 @@ public class HouseLayoutController {
         this.mainController = mainController;
     }
 
-
-
     public void onUploadClick(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload House Layout File");
-        chosenFile = fileChooser.showOpenDialog(null);
+        File chosenFile = fileChooser.showOpenDialog(null);
         if(chosenFile != null) {
             pathToFile = chosenFile.getAbsolutePath();
             pathToFileLabel.setText(pathToFile);
@@ -62,15 +60,33 @@ public class HouseLayoutController {
         String jsonString = readFromFile(pathToFile);
         RoomModel[] allRoomModels = extractFromJson(jsonString);
         HouseRoomsModel.setAllRooms(allRoomModels);
-        mainController.CloseWindow();
+        mainController.closeWindow();
         try{
-            mainController.setSimulatorParameterWindow();
+            mainController.setSimulationParametersWindow();
         }
         catch (Exception e){
             e.printStackTrace();
         }
-//        System.out.println(allRoomModels.length);
     }
-
-
+//
+//    public void toDashboard(ActionEvent event) {
+//        // handle the txt file then proceed to dash board
+//        String jsonString = readFromFile(pathToFile);
+//        Room[] newRoom = extractFromJson(jsonString);
+//        AllRooms.setAllRooms(newRoom);
+//
+////        for(Room i : allRoom.getAllroom()){
+////            System.out.println(i);
+////        }
+////        controllers.Main.closeWindow();
+////        try {
+////
+////            controllers.Main.setContextSimulationWindow();
+////            // have to keep track of user type
+////
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
+//
+//    }
 }
