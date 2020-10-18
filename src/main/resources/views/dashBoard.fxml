@@ -14,19 +14,19 @@
                     <children>
                         <Pane prefHeight="326.0" prefWidth="225.0">
                             <children>
-                        <JFXToggleButton fx:id="toggleSimBtn" layoutX="36.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleSimulation" prefHeight="25.0" prefWidth="128.0" text="Off">
-                        </JFXToggleButton>
+                                <JFXToggleButton fx:id="toggleSimBtn" layoutX="36.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#toggleSimulation" prefHeight="25.0" prefWidth="128.0" text="Off">
+                                </JFXToggleButton>
                                 <Circle fill="DODGERBLUE" layoutX="100.0" layoutY="99.0" radius="64.0" stroke="BLACK" strokeType="INSIDE" />
-                        <VBox alignment="CENTER" layoutX="51.0" layoutY="189.0" prefHeight="152.0" prefWidth="98.0" spacing="10.0">
-                           <children>
-                              <Label fx:id="loggedUser" onMouseClicked="#changeLoggedUser" text="User" />
-                                      <Label fx:id="userLocation" alignment="CENTER" onMouseClicked="#handleChangeLocation" prefHeight="17.0" prefWidth="96.0" text="Label" />
-                                      <Label fx:id="time" alignment="CENTER" onMouseClicked="#handleChangeTime" prefHeight="17.0" prefWidth="98.0" text="Label" />
-                                      <Label fx:id="date" alignment="CENTER" onMouseClicked="#handleChangeDate" prefHeight="17.0" prefWidth="98.0" text="Label" />
-                              <Label fx:id="outsideT" alignment="CENTER" onMouseClicked="#handleChangeTemp" prefHeight="17.0" prefWidth="96.0" text="Label" />
-                              <JFXButton fx:id="edit" contentDisplay="CENTER" disable="true" onAction="#handleEdit" text="Edit" />
-                           </children>
-                        </VBox>
+                                <VBox alignment="CENTER" layoutX="51.0" layoutY="189.0" prefHeight="152.0" prefWidth="98.0" spacing="10.0">
+                                    <children>
+                                        <Label fx:id="loggedUser" onMouseClicked="#changeLoggedUser" text="User" />
+                                        <Label fx:id="userLocation" alignment="CENTER" onMouseClicked="#handleChangeLocation" prefHeight="17.0" prefWidth="96.0" text="Label" />
+                                        <Label fx:id="time" alignment="CENTER" onMouseClicked="#handleChangeTime" prefHeight="17.0" prefWidth="98.0" text="Label" />
+                                        <Label fx:id="date" alignment="CENTER" onMouseClicked="#handleChangeDate" prefHeight="17.0" prefWidth="98.0" text="Label" />
+                                        <Label fx:id="outsideT" alignment="CENTER" onMouseClicked="#handleChangeTemp" prefHeight="17.0" prefWidth="96.0" text="Label" />
+                                        <JFXButton fx:id="edit" contentDisplay="CENTER" disable="true" onAction="#handleEdit" text="Edit" />
+                                    </children>
+                                </VBox>
                             </children>
                         </Pane>
 

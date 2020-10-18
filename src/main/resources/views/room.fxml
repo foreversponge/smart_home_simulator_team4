@@ -20,7 +20,7 @@
                 <Insets top="10.0" />
             </HBox.margin>
         </HBox>
-          <Label fx:id="room1" layoutX="4.0" layoutY="5.0" prefHeight="20.0" prefWidth="82.0" text="ROOM" />
+        <Label fx:id="room1" layoutX="4.0" layoutY="5.0" prefHeight="20.0" prefWidth="82.0" text="ROOM" />
     </children>
 
 </AnchorPane>
