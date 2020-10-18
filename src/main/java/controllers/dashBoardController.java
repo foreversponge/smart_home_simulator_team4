@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import models.HouseRoomsModel;
 import models.RoomModel;
 
+import javafx.scene.layout.Region;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -111,22 +112,33 @@ public class dashBoardController {
         RoomModel[] allr = HouseRoomsModel.getAllRoomsArray();
         int column = 0;
         int row = 0;
-        for (int i = 0; i <= allr.length; i++) {
+        for (int i = 0; i < allr.length; i++) {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/view/room.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/views/room.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
 
             RoomController roomController = fxmlLoader.getController();
             roomController.setData(allr[i]);
 
-            if (column == 3) {
+            if (column == 2) {
                 column = 0;
                 row++;
             }
 
+            grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+            grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+            //set grid height
+            grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+            grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+
             grid.add(anchorPane, column++, row);
-            GridPane.setMargin(anchorPane, new Insets(10));
+            GridPane.setMargin(anchorPane, new Insets(20));
+
         }
 
     }

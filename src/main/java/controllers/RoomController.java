@@ -22,9 +22,9 @@ public class RoomController {
     public void setData(RoomModel room){
         this.room = room;
         room1.setText(room.getName());
-        window1.setImage(new Image("file:src/image/closewindow.png"));
-        light1.setImage(new Image("file:src/image/lightoff.png"));
-        door1.setImage(new Image("file:src/image/closedoor.png"));
+        window1.setImage(new Image("file:src/main/resources/images/closewindow.png"));
+        light1.setImage(new Image("file:src/main/resources/images/lightoff.png"));
+        door1.setImage(new Image("file:src/main/resources/images/closedoor.png"));
 
     }
 }

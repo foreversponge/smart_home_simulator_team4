@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
-
 <?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-
-
-<?import javafx.geometry.Insets?>
 
 <AnchorPane prefHeight="549.0" prefWidth="843.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashBoardController">
     <children>
@@ -62,26 +47,23 @@
                                 </Tab>
                             </tabs>
                         </TabPane>
-                        <TabPane prefHeight="359.0" prefWidth="278.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane prefHeight="1000.0" prefWidth="325.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
-                                <Tab text="Untitled Tab 1" >
+                                <Tab text="House layout">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="325.0" VBox.vgrow="ALWAYS" >
                                             <children>
-                                                <AnchorPane layoutX="22.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" >
-                                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                <AnchorPane layoutY="-50.0" prefHeight="1000.0" prefWidth="325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                                                    <HBox alignment="CENTER" layoutY="-50.0" prefHeight="1000.0" prefWidth="325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                                                         <children>
-                                                            <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" >
+                                                            <ScrollPane fx:id="scroll" pannable="true" prefHeight="989.0" prefWidth="312.0" >
                                                                 <content>
-                                                                    <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                                                                    <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0" translateY="50.0" >
                                                                         <rowConstraints>
-                                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                                                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
                                                                         </rowConstraints>
                                                                     </GridPane>
                                                                 </content>
-                                                                <HBox.margin>
-                                                                    <Insets top="10.0" />
-                                                                </HBox.margin>
                                                             </ScrollPane>
                                                         </children>
                                                     </HBox>
