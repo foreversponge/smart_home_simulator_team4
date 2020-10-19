@@ -70,7 +70,6 @@ public class HouseLayoutController {
      * This method will extract the information from the json and place it in the room model array.
      * @param jsonText string to be read
      * @return array from room model that contains all the rooms in the house layout file.
->>>>>>> 761a4d6e1e469fffeaaaa709802c6f8b86cde5fe
      */
     public RoomModel[] extractFromJson(String jsonText){
         RoomModel[] arrayRoomModel = new Gson().fromJson(jsonText, RoomModel[].class);
