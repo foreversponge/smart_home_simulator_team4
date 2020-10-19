@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -11,8 +12,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-
 <?import javafx.scene.text.Font?>
+
 <AnchorPane prefHeight="618.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashBoardController">
     <children>
         <VBox layoutX="20.0" layoutY="25.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -26,36 +27,37 @@
                                         <Font name="SansSerif Regular" size="15.0" />
                                     </font>
                                 </JFXToggleButton>
-                                <Circle fill="DODGERBLUE" layoutX="100.0" layoutY="99.0" radius="64.0" stroke="BLACK" strokeType="INSIDE" />
+                                <Circle fill="DODGERBLUE" layoutX="113.0" layoutY="137.0" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
                                 <VBox alignment="CENTER" layoutX="15.0" layoutY="189.0" prefHeight="152.0" prefWidth="194.0" spacing="10.0">
                                     <children>
-                                        <Label fx:id="logUser" text="Label" >
+                                        <Label fx:id="logUser" text="Label">
                                             <font>
                                                 <Font name="SansSerif Regular" size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="userLocation" alignment="CENTER" onMouseClicked="#handleChangeLocation" prefHeight="17.0" prefWidth="96.0" text="Label" >
+                                        <Label fx:id="userLocation" alignment="CENTER" onMouseClicked="#handleChangeLocation" prefHeight="17.0" prefWidth="96.0" text="Label">
                                             <font>
                                                 <Font name="SansSerif Regular" size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="time" alignment="CENTER" onMouseClicked="#handleChangeTime" prefHeight="17.0" prefWidth="98.0" text="Label" >
+                                        <Label fx:id="time" alignment="CENTER" onMouseClicked="#handleChangeTime" prefHeight="17.0" prefWidth="98.0" text="Label">
                                             <font>
                                                 <Font name="SansSerif Regular" size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="date" alignment="CENTER" onMouseClicked="#handleChangeDate" prefHeight="17.0" prefWidth="98.0" text="Label" >
+                                        <Label fx:id="date" alignment="CENTER" onMouseClicked="#handleChangeDate" prefHeight="17.0" prefWidth="98.0" text="Label">
                                             <font>
                                                 <Font name="SansSerif Regular" size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="outsideT" alignment="CENTER" onMouseClicked="#handleChangeTemp" prefHeight="17.0" prefWidth="194.0" text="Outside Temperature: " >
+                                        <Label fx:id="outsideT" alignment="CENTER" onMouseClicked="#handleChangeTemp" prefHeight="17.0" prefWidth="194.0" text="Outside Temperature: ">
                                             <font>
                                                 <Font name="SansSerif Regular" size="13.0" />
                                             </font>
                                         </Label>
                                     </children>
                                 </VBox>
+                        <Button layoutX="35.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#onEditClicked" text="Edit Context of Simulation" />
                             </children>
                         </Pane>
 
@@ -95,7 +97,7 @@
 
                 <Pane prefHeight="147.0" prefWidth="751.0">
                 <children>
-                    <JFXListView fx:id="consolelog" layoutX="14.0" layoutY="-1.0" prefHeight="147.0" prefWidth="1065.0" >
+                    <JFXListView fx:id="consolelog" layoutX="14.0" layoutY="-1.0" prefHeight="147.0" prefWidth="1065.0">
                     </JFXListView>
             </children>
         </Pane>
