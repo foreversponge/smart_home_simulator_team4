@@ -1,11 +1,13 @@
 package models;
 
+import javafx.beans.binding.ObjectExpression;
+import javafx.scene.control.ComboBox;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javafx.scene.control.ComboBox;
 
-public class User {
+public class UserModel {
     private String name;
 	private String status;
 	private String currentLocation;	//current location of the user in the house
@@ -29,7 +31,7 @@ public class User {
         this.date = date;
     }
 
-    public User(String name, String status) {
+    public UserModel(String name, String status) {
         this.name = name;
         this.status = status;
     }
