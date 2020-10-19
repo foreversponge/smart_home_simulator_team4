@@ -82,14 +82,14 @@ public class SimulationParametersController {
         if(dateSelected != null && userSelected != null && roomLocation.getValue() != null) { // ADD TIMER HERE
             mainController.setLoggedUser(userSelected);
             mainController.getLoggedUser().setDate(dateSelected.getValue());
-            mainController.getLoggedUser().setLocation(roomLocation.getValue().toString());
+            mainController.getLoggedUser().setCurrentLocation(roomLocation.getValue().toString());
             mainController.closeWindow();
+            try {
+                mainController.setDashboardWindow();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-//        try {
-//            mainController.setDashboardWindow();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing Selections");

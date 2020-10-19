@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.HouseRoomsModel;
-import models.User;
+import models.UserModel;
 
 /**
  * This class acts as a controller for the EditContextOfSimulation.fxml
@@ -24,7 +24,7 @@ public class EditContextOfSimulationController {
 	private Main mainController;	//instance of Main to obtain userData
 	private Stage currentStage;		//instance of the current Stage to open or close it
 	private HouseRoomsModel houseRoomsModel;	//contains data about each room of the house
-	@FXML private TableView<User> tableView;	//Place Users tableView of EditContextOfSimuatlion.fxml
+	@FXML private TableView<UserModel> tableView;	//Place Users tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn nameOfUser;		//Name of user column of tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn permission;		//Permission column of tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn locationColumn;	//location of user column of tableView of EditContextOfSimuatlion.fxml
@@ -33,9 +33,9 @@ public class EditContextOfSimulationController {
 	 * Setup of table (columns) with attributes from the User class
 	 */
 	public void initialize(){
-		nameOfUser.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
-		permission.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
-		locationColumn.setCellValueFactory(new PropertyValueFactory<User, ComboBox<String>>("location"));
+		nameOfUser.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
+		permission.setCellValueFactory(new PropertyValueFactory<UserModel, String>("status"));
+		locationColumn.setCellValueFactory(new PropertyValueFactory<UserModel, ComboBox<String>>("location"));
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class EditContextOfSimulationController {
 	 */
 	public void onSaveClick(MouseEvent event) {
 		ArrayList<String> currentLocations = new ArrayList<String>();	//stores location of each user from the tableView
-		for (User user : tableView.getItems()) {
+		for (UserModel user : tableView.getItems()) {
 			currentLocations.add(user.getLocation().getSelectionModel().getSelectedItem());
 		}
 
