@@ -5,13 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import java.io.File;
-
 import com.google.gson.Gson;
 import javafx.scene.control.Label;
 import models.RoomModel;
 import models.HouseRoomsModel;
-
 import java.util.Scanner;
+
 public class HouseLayoutController {
 
     @FXML private JFXButton continueButton;
@@ -29,7 +28,6 @@ public class HouseLayoutController {
         this.mainController = mainController;
     }
 
-
     /**
      * This method handles when the upload button is clicked. It will prompt a window to
      * let choose a file in the computer system.
@@ -45,7 +43,6 @@ public class HouseLayoutController {
             continueButton.setDisable(false);
         }
     }
-
 
     /**
      * This method will read the file that is chosen to be uploaded. It creates a string that will be
