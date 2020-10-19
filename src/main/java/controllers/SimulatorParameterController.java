@@ -27,7 +27,7 @@ public class SimulatorParameterController {
     }
 
     public void handleContinueDashboard(ActionEvent event) {
-        mainController.CloseWindow();
+        mainController.closeWindow();
         try{
             mainController.setDashboardWindow();
         } catch (IOException e) {
