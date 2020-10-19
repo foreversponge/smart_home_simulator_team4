@@ -15,19 +15,29 @@ import java.time.LocalTime;
 public class TimerPickerModel {
 
     private Dialog<LocalTime> timePicker;
-    JFXComboBox<Integer> hourList;
-    JFXComboBox<Integer> minList;
+    JFXComboBox<String> hourList;
+    JFXComboBox<String> minList;
 
     public TimerPickerModel() {
         timePicker = new Dialog<>();
         timePicker.setHeaderText("Set or change Time");
-        ObservableList<Integer> h = FXCollections.observableArrayList();
-        ObservableList<Integer> min = FXCollections.observableArrayList();
-        for(int i=1;i<=24;i++){
-            h.add(i);
+        ObservableList<String> h = FXCollections.observableArrayList();
+        ObservableList<String> min = FXCollections.observableArrayList();
+        for(int i=0;i<24;i++){
+            if(i<10){
+                h.add("0"+i);
+            }
+            else{
+                h.add(i+"");
+            }
         }
         for(int i=0;i<=59;i++){
-            min.add(i);
+            if(i<10){
+                min.add("0"+i);
+            }
+            else{
+                min.add(i+"");
+            }
         }
         hourList = new JFXComboBox<>();
         minList = new JFXComboBox<>();
@@ -43,10 +53,10 @@ public class TimerPickerModel {
     public Dialog<LocalTime> getTimePicker() {
         return timePicker;
     }
-    public JFXComboBox<Integer> getHourList() {
+    public JFXComboBox<String> getHourList() {
         return hourList;
     }
-    public JFXComboBox<Integer> getMinList() {
+    public JFXComboBox<String> getMinList() {
         return minList;
     }
 }

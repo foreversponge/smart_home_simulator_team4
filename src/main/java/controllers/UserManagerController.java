@@ -21,8 +21,9 @@ public class UserManagerController {
      */
     public void initialize(){
         tableColumnName.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
-        tableColumnStatus.setCellValueFactory(new PropertyValueFactory<UserModel, String>("status"));
+        tableColumnStatus.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
     }
+
     /**
      * keep an instance of Main and currentStage
      * set the table View with the Observable list
@@ -32,7 +33,7 @@ public class UserManagerController {
     public void setMaincontroller(Main maincontroller, Stage currentstage) {
         this.mainController = maincontroller;
         this.currentStage = currentstage;
-        tableView.setItems(mainController.getTempPersonData());
+        tableView.setItems(mainController.getTempUserModelData());
     }
     /**
      * cancel all the action that is done during user Manager window
@@ -41,6 +42,7 @@ public class UserManagerController {
     public void handleCancel(ActionEvent event) {
         currentStage.close();
     }
+
     /**
      * helper class to create the Dialog of type User object so it can be use when user want to add or delete user
      * @param editUserModel
@@ -51,7 +53,7 @@ public class UserManagerController {
         String editSta="";
         if(editUserModel !=null){
             editName = editUserModel.getName();
-            editSta= editUserModel.getStatus();
+            editSta= editUserModel.getRole();
         }
         Dialog<UserModel> addDialog = new Dialog<>();
         addDialog.setTitle("Add/Edit a person");
@@ -64,9 +66,9 @@ public class UserManagerController {
         ComboBox<String> status = new ComboBox<>();
         status.getItems().addAll(
                 "Parent",
-                "child",
-                "guest",
-                "stranger"
+                "Child",
+                "Guest",
+                "Stranger"
         );
         status.setValue(editSta);
         GridPane grid = new GridPane();
@@ -76,14 +78,15 @@ public class UserManagerController {
         addDialog.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
                 if(editUserModel !=null){
-                    mainController.getTempPersonData().remove(editUserModel);
+                    mainController.getTempUserModelData().remove(editUserModel);
                 }
-                mainController.getTempPersonData().add(new UserModel(name.getText(),status.getValue()));
+                mainController.getTempUserModelData().add(new UserModel(name.getText(),status.getValue()));
             }
             return null;
         });
         return addDialog;
     }
+
     /**
      * display the Dialog to add User
      * @param event
@@ -97,13 +100,13 @@ public class UserManagerController {
      * @param event
      */
     public void handleEdit(ActionEvent event) {
-        UserModel selectedUserModel = (UserModel) tableView.getSelectionModel().getSelectedItem();
-        if(selectedUserModel !=null){
-            Dialog<UserModel> editdialog = getDialog(selectedUserModel);
-            editdialog.showAndWait();
+        UserModel selectedUser = (UserModel) tableView.getSelectionModel().getSelectedItem();
+        if(selectedUser !=null){
+            Dialog<UserModel> editDialog = getDialog(selectedUser);
+            editDialog.showAndWait();
         }
         else{
-            errorLabel.setText("cannot edit");
+            errorLabel.setText("*Cannot edit");
         }
     }
     /**
@@ -113,10 +116,10 @@ public class UserManagerController {
     public void handleDelete(ActionEvent event) {
         UserModel selectedUserModel = (UserModel) tableView.getSelectionModel().getSelectedItem();
         if(selectedUserModel !=null){
-            mainController.getTempPersonData().remove(selectedUserModel);
+            mainController.getTempUserModelData().remove(selectedUserModel);
         }
         else{
-            errorLabel.setText("cannot delete");
+            errorLabel.setText("Cannot delete");
         }
     }
     /**
@@ -124,9 +127,9 @@ public class UserManagerController {
      * @param event
      */
     public void handleSave(ActionEvent event) {
-        mainController.getPersonData().clear();
-        mainController.getTempPersonData().forEach((userModel)->{
-            mainController.getPersonData().add(userModel);
+        mainController.getUserModelData().clear();
+        mainController.getTempUserModelData().forEach((userModel)->{
+            mainController.getUserModelData().add(userModel);
         });
         currentStage.close();
     }

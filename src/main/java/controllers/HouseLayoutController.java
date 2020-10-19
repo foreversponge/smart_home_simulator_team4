@@ -20,31 +20,35 @@ public class HouseLayoutController {
     private Main mainController;
 
     /**
-     * help to keep an instance of Main so we can call closeWindow method to close the current screen and load another screen
-     * @param mainController
+     * This method sets the controller provided in the parameter to replace the
+     * main controller so that it can get access to all the users from the user model.
+     * @param mainController controller that will replace the main controller
      */
     public void setMainController(Main mainController) {
         this.mainController = mainController;
     }
+
     /**
-     * method is called when the upload button is clicked
-     * then set the continue button enable to clicked
-     * @param mouseEvent
+     * This method handles when the upload button is clicked. It will prompt a window to
+     * let choose a file in the computer system.
+     * @param mouseEvent on mouse click
      */
     public void onUploadClick(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload House Layout File");
-        chosenFile = fileChooser.showOpenDialog(null);
+        File chosenFile = fileChooser.showOpenDialog(null);
         if(chosenFile != null) {
             pathToFile = chosenFile.getAbsolutePath();
             pathToFileLabel.setText(pathToFile);
             continueButton.setDisable(false);
         }
     }
+
     /**
-     * help to read all content of the file that is choosen by the user
-     * @param url
-     * @return
+     * This method will read the file that is chosen to be uploaded. It creates a string that will be
+     * a replica of the file.
+     * @param url path to the file
+     * @return jsonString that represents the file
      */
     public String readFromFile(String url){
         String jsonString="";
@@ -61,28 +65,30 @@ public class HouseLayoutController {
         }
         return null;
     }
+
     /**
-     * help to extract all the object by converting the json object to RoomModel object
-     * @param jsonText
-     * @return
+     * This method will extract the information from the json and place it in the room model array.
+     * @param jsonText string to be read
+     * @return array from room model that contains all the rooms in the house layout file.
+>>>>>>> 761a4d6e1e469fffeaaaa709802c6f8b86cde5fe
      */
     public RoomModel[] extractFromJson(String jsonText){
         RoomModel[] arrayRoomModel = new Gson().fromJson(jsonText, RoomModel[].class);
         return arrayRoomModel;
     }
+
     /**
-     * set the static HouseRoomModel with the data we get from the user
-     * It is static because we gonna use it for whole application
-     * then use mainController to clsoe the current window and open another window
-     * @param mouseEvent
+     * This method extracts the information from the file provided and creates data
+     * in the Room model. It will then make the window switch to the simulation parameters window.
+     * @param mouseEvent on mouse click
      */
     public void onContinueClick(MouseEvent mouseEvent) {
         String jsonString = readFromFile(pathToFile);
         RoomModel[] allRoomModels = extractFromJson(jsonString);
         HouseRoomsModel.setAllRooms(allRoomModels);
-        mainController.CloseWindow();
+        mainController.closeWindow();
         try{
-            mainController.setSimulatorParameterWindow();
+            mainController.setSimulationParametersWindow();
         }
         catch (Exception e){
             e.printStackTrace();

@@ -1,9 +1,6 @@
 package controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,19 +22,17 @@ import java.util.TimerTask;
 
 public class dashBoardController {
 
+    @FXML private Label logUser;
+    @FXML private JFXListView consolelog;
     @FXML private TableView consoleTableView;
     @FXML private TableColumn columnTime;
     @FXML private TableColumn columnMessage;
-    @FXML private JFXButton edit;
     @FXML private JFXToggleButton toggleSimBtn;
     @FXML private Label userLocation;
     @FXML private Label outsideT;
     @FXML private Label time;
     @FXML private Label date;
     private Main mainController;
-    public ImageView window1;
-    public ImageView door1;
-    public ImageView light1;
     Stage currentStage;
     LocalTime choosentime;
     LocalDate choosendate;
@@ -59,7 +54,7 @@ public class dashBoardController {
                 @Override
                 public void run() {
                     localTime = localTime.plusSeconds(1);
-                    time.setText(localTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+                    time.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                 }
             });
         }
@@ -73,21 +68,21 @@ public class dashBoardController {
     public void setMainController(Main maincontroller, Stage currentStage) {
         this.mainController = maincontroller;
         this.currentStage = currentStage;
-        choosendate=LocalDate.now();
-        choosentime=LocalTime.now();
+        choosendate=maincontroller.getLoggedUser().getDate();
+        choosentime=maincontroller.getLoggedUser().getTime();
+        date.setText(choosendate.toString());
+        userLocation.setText(maincontroller.getLoggedUser().getLocation());
+        logUser.setText(maincontroller.getLoggedUser().getNameAndRole());
         incrementTask.setTime(choosentime);
         scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
-        consoleTableView.setItems(mainController.getLogMessages());
+        consolelog.setItems(mainController.getLogMessages());
     }
     /**
-     *
+     *initialize the list view of the console log
      */
     public void initialize() {
         incrementTask =new IncrementTask();
         scheduleTimer =new Timer(true);
-        columnTime.setCellValueFactory(new PropertyValueFactory<LogMessageModel, LocalTime>("time"));
-        columnMessage.setCellValueFactory(new PropertyValueFactory<LogMessageModel, String>("message"));
-        consoleTableView.setPlaceholder(new Label(""));
     }
     /**
      * Turn on and Turn off Simulation
@@ -141,7 +136,7 @@ public class dashBoardController {
             if (button == ButtonType.OK && tPicker.getHourList().getValue()!=null &&tPicker.getMinList().getValue()!=null) {
                 scheduleTimer.cancel();
                 scheduleTimer = new Timer(true);
-                LocalTime pickTime = LocalTime.of(tPicker.getHourList().getValue(),tPicker.getMinList().getValue());
+                LocalTime pickTime = LocalTime.parse(tPicker.getHourList().getValue()+":"+tPicker.getMinList().getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
                 incrementTask =new IncrementTask();
                 incrementTask.setTime(pickTime);
                 scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
@@ -191,14 +186,14 @@ public class dashBoardController {
             if (button == ButtonType.OK && newTemp.getText()!=null ) {
                 if(newTemp.getText().matches("[0-9]+")){
                     if(sign.getValue()==null || sign.getValue().equals("+")){
-                        outsideT.setText(newTemp.getText());
+                        outsideT.setText("Outside Temperature: "+newTemp.getText());
                     }
                     else{
-                        outsideT.setText("-"+newTemp.getText());
+                        outsideT.setText("Outside Temperature: "+"-"+newTemp.getText());
                     }
                 }
                 else{
-                    mainController.getLogMessages().add(new LogMessageModel(LocalTime.parse(time.getText()) , "cannot set the time"));
+                    mainController.getLogMessages().add(new LogMessageModel(LocalTime.parse(time.getText()) , "cannot set/change the temperature"));
                 }
             }
             return null;

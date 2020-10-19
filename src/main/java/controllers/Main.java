@@ -18,15 +18,16 @@ public class Main extends Application {
     private ObservableList<UserModel> userModelData = FXCollections.observableArrayList();
     private ObservableList<UserModel> tempUserModelData = FXCollections.observableArrayList();
     private ObservableList<LogMessageModel> logMessageModels = FXCollections.observableArrayList();
+    private UserModel loggedUser;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception  {
+    public void start(Stage primaryStage) throws Exception {
         currentState = primaryStage;
-        try{
+        try {
             setHouseLayoutWindow();
         }
         catch (IOException e){
@@ -39,36 +40,23 @@ public class Main extends Application {
     public void CloseWindow(){
         currentState.close();
     }
+
     /**
-     * userData is store all the collection of user
+     * getter method of the UserModelData that is ObservableList of the all the User in the application
      * @return
      */
-    public ObservableList<UserModel> getPersonData() {
+    public ObservableList<UserModel> getUserModelData() {
         return userModelData;
     }
 
     /**
-     * setter to set the ObservableList of userData
-     * @param userModelData
-     */
-    public void setPersonData(ObservableList<UserModel> userModelData) {
-        this.userModelData = userModelData;
-    }
-    /**
-     * tempUserData is to store when you open the user management so you can add/edit/delete user
-     * only when you click save the userData would be update with the exist of tempUserData
+     * getter method of the TempUserModelData, which is use for User Management window
      * @return
      */
-    public ObservableList<UserModel> getTempPersonData() {
+    public ObservableList<UserModel> getTempUserModelData() {
         return tempUserModelData;
     }
-    /**
-     * setter to set the ObservableList of tempUserData
-     * @param tempUserModelData
-     */
-    public void setTempPersonData(ObservableList<UserModel> tempUserModelData) {
-        this.tempUserModelData = tempUserModelData;
-    }
+
     /**
      * getter to get the ObservableList of LogMessages
      * @return
@@ -76,46 +64,68 @@ public class Main extends Application {
     public ObservableList<LogMessageModel> getLogMessages() {
         return logMessageModels;
     }
+
     /**
-     * method to help load the houselayout
-     * when we load the fxml file and get the controller
-     * so we can set instance of Main to HouseLayoutController
+     * close the current window
+     */
+    public void closeWindow() {
+        currentState.close();
+    }
+
+    /**
+     * getter method to get the Logged User
+     * @return
+     */
+    public UserModel getLoggedUser() {
+        return this.loggedUser;
+    }
+    /**
+     * setter method to set the Logged User
+     * @return
+     */
+    public void setLoggedUser(UserModel loggedUser) {
+        this.loggedUser = loggedUser;
+    }
+
+    /**
+     * set house layout window
      * @throws IOException
      */
     public void setHouseLayoutWindow() throws IOException {
         currentState.setTitle("Smart Home Simulator");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/houseLayout.fxml"));
         Parent root = fxmlLoader.load();
-        HouseLayoutController houselay = fxmlLoader.getController();
-        houselay.setMainController(this);
+        HouseLayoutController houseLayout = fxmlLoader.getController();
+        houseLayout.setMainController(this);
         Scene houseLayoutScene = new Scene(root);
         currentState.setScene(houseLayoutScene);
         currentState.show();
     }
     /**
-     * method to load simulator parameter , where you can choose user set time, date and location
+     * method to open Simulation parameter Window
      * @throws IOException
      */
-    public void setSimulatorParameterWindow() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/simulatorParameter.fxml"));
+    public void setSimulationParametersWindow() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/simulationParameters.fxml"));
         Parent root = fxmlLoader.load();
-        SimulatorParameterController simParcontroller = fxmlLoader.getController();
-        simParcontroller.setMainController(this);
-        Scene simScene = new Scene(root);
-        currentState.setScene(simScene);
+        SimulationParametersController simParController = fxmlLoader.getController();
+        simParController.setMainController(this);
+        Scene simulationParametersScene = new Scene(root);
+        currentState.setScene(simulationParametersScene);
         currentState.show();
     }
+
     /**
      * method to open the user manager window
      * when you close this window you still on the simulator parameter window
      * @throws IOException
      */
-    public void setUserManagerWindow() throws IOException{
+    public void setUserManagerWindow() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/userManager.fxml"));
         Parent root = fxmlLoader.load();
         UserManagerController simParcontroller = fxmlLoader.getController();
-        Stage editstage= new Stage();
-        simParcontroller.setMaincontroller(this,editstage);
+        Stage editstage = new Stage();
+        simParcontroller.setMaincontroller(this, editstage);
         editstage.initOwner(currentState);
         tempUserModelData.clear();
         userModelData.forEach((userModel)->{
@@ -126,6 +136,11 @@ public class Main extends Application {
         editstage.setScene(userManager);
         editstage.show();
     }
+
+    /**
+     * method to load teh DashBoard Window
+     * @throws IOException
+     */
     public void setDashboardWindow() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/dashBoard.fxml"));
         Parent root = fxmlLoader.load();
@@ -136,3 +151,4 @@ public class Main extends Application {
         currentState.show();
     }
 }
+

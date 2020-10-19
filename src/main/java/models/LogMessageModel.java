@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class LogMessageModel {
     private LocalTime time;
@@ -19,4 +20,8 @@ public class LogMessageModel {
         return message;
     }
 
+    @Override
+    public String toString() {
+        return time.format(DateTimeFormatter.ofPattern("hh:mm"))+ " : " +message;
+    }
 }
