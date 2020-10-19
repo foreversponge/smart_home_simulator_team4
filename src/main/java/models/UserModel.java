@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 public class UserModel {
     private String name;
-	private String status;
+	private String role;
 	private String currentLocation;	//current location of the user in the house
 	private LocalTime time;
     private LocalDate date;
@@ -31,9 +31,9 @@ public class UserModel {
         this.date = date;
     }
 
-    public UserModel(String name, String status) {
+    public UserModel(String name, String role) {
         this.name = name;
-        this.status = status;
+        this.role = role;
     }
 
     public String getName() {
@@ -60,12 +60,15 @@ public class UserModel {
 		this.locationComboBox = location;
 	}
 
-    public String getStatus() {
-        return status;
+    public String getRole() {
+        return role;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getNameAndRole(){ return name+" : "+ role;
     }
     
     public String getCurrentLocation() {

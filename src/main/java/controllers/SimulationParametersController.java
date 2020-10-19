@@ -2,36 +2,31 @@ package controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.io.IOException;
-
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.input.MouseEvent;
 import models.RoomModel;
 import models.HouseRoomsModel;
+import models.TimerPickerModel;
 import models.UserModel;
-
-import javax.naming.Binding;
 
 public class SimulationParametersController {
 
+    @FXML private Label timeLabel;
     @FXML private DatePicker  dateSelected;
-
     @FXML private TableView<UserModel> allUsers;
     @FXML private TableColumn<UserModel, String> colname;
     @FXML private TableColumn<UserModel, String> colrole;
-
     @FXML private JFXComboBox roomLocation;
     @FXML private JFXComboBox userSelected;
     @FXML private JFXButton continueButton;
-
     private Main mainController;
 
     /**
@@ -40,7 +35,7 @@ public class SimulationParametersController {
      */
     public void initialize(){
         colname.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
-        colrole.setCellValueFactory(new PropertyValueFactory<UserModel, String>("status"));
+        colrole.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
         ObservableList<String> locationNames= FXCollections.observableArrayList();
         for(RoomModel r : HouseRoomsModel.getAllRoomsArray()){
             locationNames.add(r.getName());
@@ -55,7 +50,7 @@ public class SimulationParametersController {
      */
     public void setMainController(Main controller ) {
         this.mainController = controller;
-        allUsers.setItems(mainController.getPersonData());
+        allUsers.setItems(mainController.getUserModelData());
     }
 
     /**
@@ -79,10 +74,11 @@ public class SimulationParametersController {
      */
     public void onContinueClick(MouseEvent mouseEvent) {
         UserModel userSelected = allUsers.getSelectionModel().getSelectedItem();
-        if(dateSelected != null && userSelected != null && roomLocation.getValue() != null) { // ADD TIMER HERE
+        if (dateSelected != null && userSelected != null && roomLocation.getValue() != null && timeLabel.getText()!=null) { // ADD TIMER HERE
             mainController.setLoggedUser(userSelected);
             mainController.getLoggedUser().setDate(dateSelected.getValue());
             mainController.getLoggedUser().setCurrentLocation(roomLocation.getValue().toString());
+            mainController.getLoggedUser().setTime(LocalTime.parse(timeLabel.getText()));
             mainController.closeWindow();
             try {
                 mainController.setDashboardWindow();
@@ -94,8 +90,25 @@ public class SimulationParametersController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing Selections");
             alert.setHeaderText("Missing Selections.");
-            alert.setContentText("You must select a date, user and location to proceed. \nPlease try again.");
+            alert.setContentText("You must select a date,time, user and location to proceed. \nPlease try again.");
             alert.showAndWait();
         }
+    }
+
+    /**
+     * display the dialog and set the label text
+     * @param event
+     */
+    public void setTime(ActionEvent event) {
+        TimerPickerModel timeDialog = new TimerPickerModel();
+        Dialog<LocalTime> updateTime = timeDialog.getTimePicker();
+        updateTime.setResultConverter((ButtonType button) -> {
+            if (button == ButtonType.OK && timeDialog.getHourList().getValue()!=null &&timeDialog.getMinList().getValue()!=null) {
+                LocalTime pickTime = LocalTime.parse(timeDialog.getHourList().getValue()+":"+timeDialog.getMinList().getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+                timeLabel.setText(pickTime.toString());
+            }
+            return null;
+        });
+        updateTime.showAndWait();
     }
 }
