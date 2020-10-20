@@ -240,7 +240,6 @@ public class dashBoardController {
                 }
                 else{
                     consolelog.getItems().add("[" + time.getText() + "] " + "The simulation must be ON to edit its context");
-//                    mainController.getLogMessages().add(new LogMessageModel(LocalTime.parse(time.getText()) , "cannot set/change the temperature"));
                 }
             }
             return null;

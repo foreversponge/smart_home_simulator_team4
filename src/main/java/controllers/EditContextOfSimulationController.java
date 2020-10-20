@@ -101,7 +101,6 @@ public class EditContextOfSimulationController {
 			}
 		}
 		mainController.getLoggedUser().setCurrentLocation(currLocation);
-		//TODO - Before closing stage update house layout with new user locations
 		currentStage.close();
 		mainController.closeWindow();
 		try {
