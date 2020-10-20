@@ -239,7 +239,7 @@ public class dashBoardController {
                     }
                 }
                 else{
-                    mainController.getLogMessages().add(new LogMessageModel(LocalTime.parse(time.getText()) , "cannot set/change the temperature"));
+                    consolelog.getItems().add("[" + time.getText() + "] " + "The simulation must be ON to edit its context");
                 }
             }
             return null;

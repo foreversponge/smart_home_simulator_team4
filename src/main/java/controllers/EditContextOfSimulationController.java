@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -128,9 +129,14 @@ public class EditContextOfSimulationController {
 		for (UserModel user : moveUsersTableView.getItems()) {
 			currentLocations.add(user.getLocationOptions().getSelectionModel().getSelectedItem());
 		}
+		String name = mainController.getLoggedUser().getName();
+		String currLocation = "";
 		//update the current location of each user
 		for (int index = 0; index < currentLocations.size(); index++) {
 			mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
+			if(mainController.getUserModelData().get(index).getName().equals(name)){
+				currLocation = currentLocations.get(index);
+			}
 		}
 
 		//Windows
@@ -147,8 +153,13 @@ public class EditContextOfSimulationController {
 		for (int index = 0; index < windowsStatus.size(); index++) {
 			roomModelData.get(index).setObjectBlockingWindow(windowsStatus.get(index).booleanValue());
 		}
-		//TODO - Before closing stage update house layout with new user locations
-		//TODO - Before closing stage update house layout with new window status
+		mainController.getLoggedUser().setCurrentLocation(currLocation);
 		currentStage.close();
+		mainController.closeWindow();
+		try {
+			mainController.setDashboardWindow();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
