@@ -12,7 +12,7 @@
 <AnchorPane prefHeight="618.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationParametersController">
 
     <children>
-        <JFXButton buttonType="RAISED" layoutX="636.0" layoutY="192.0" onAction="#handleEditUser" prefHeight="36.0" prefWidth="151.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-background-color: #FFFFFF;" text="Set User Profiles">
+        <JFXButton buttonType="RAISED" layoutX="614.0" layoutY="192.0" onAction="#handleEditUser" prefHeight="36.0" prefWidth="200.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-background-color: #FFFFFF;" text="Edit/Set User Profiles">
          <font>
             <Font name="SansSerif Regular" size="16.0" />
          </font></JFXButton>
@@ -39,7 +39,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <JFXButton layoutX="403.0" layoutY="193.0" prefHeight="36.0" prefWidth="129.0" style="-fx-border-color: #000000; -fx-border-radius: 2; -fx-background-color: #FFFFFF;" text="Set Time">
+      <JFXButton buttonType="RAISED" layoutX="403.0" layoutY="193.0" onAction="#setTime" prefHeight="36.0" prefWidth="129.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-background-color: #FFFFFF;" text="Set Time">
          <font>
             <Font name="SansSerif Regular" size="16.0" />
          </font>
@@ -60,5 +60,10 @@
          </font>
       </JFXButton>
       <JFXComboBox fx:id="roomLocation" layoutX="894.0" layoutY="269.0" prefHeight="25.0" prefWidth="173.0" />
+      <Label fx:id="timeLabel" alignment="CENTER" layoutX="406.0" layoutY="273.0" prefHeight="17.0" prefWidth="129.0">
+         <font>
+            <Font name="SansSerif Regular" size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

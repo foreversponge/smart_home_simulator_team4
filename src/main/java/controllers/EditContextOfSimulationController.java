@@ -43,8 +43,8 @@ public class EditContextOfSimulationController {
 	 */
 	public void initialize(){
 		nameOfUser.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
-		permission.setCellValueFactory(new PropertyValueFactory<UserModel, String>("status"));
-		locationColumn.setCellValueFactory(new PropertyValueFactory<UserModel, ComboBox<String>>("location"));
+		permission.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
+		locationColumn.setCellValueFactory(new PropertyValueFactory<UserModel, ComboBox<String>>("locationOptions"));
 
 		//Windows
 		roomNameColumn.setCellValueFactory(new PropertyValueFactory<RoomModel, String>("name"));
@@ -64,10 +64,10 @@ public class EditContextOfSimulationController {
 	public void setMaincontroller(Main maincontroller, Stage currentstage) {
 		this.mainController = maincontroller;
 		this.currentStage = currentstage;	
-		mainController.getPersonData().forEach(person -> {
-			person.setLocation(setupComboBox(person.getCurrentLocation()));
+		mainController.getUserModelData().forEach(person -> {
+			person.setLocationOptions(setupComboBox(person.getCurrentLocation()));
 		});
-		tableView.setItems(mainController.getPersonData());
+		tableView.setItems(mainController.getUserModelData());
 		
 		roomData.forEach(room -> {
 			room.setObjectBlockingWindowComboBox(setupOjectPresentComboBox(room.isObjectBlockingWindow()));
@@ -122,12 +122,12 @@ public class EditContextOfSimulationController {
 	public void onSaveClick(MouseEvent event) {
 		ArrayList<String> currentLocations = new ArrayList<String>();	//stores location of each user from the tableView
 		for (UserModel user : tableView.getItems()) {
-			currentLocations.add(user.getLocation().getSelectionModel().getSelectedItem());
+			currentLocations.add(user.getLocationOptions().getSelectionModel().getSelectedItem());
 		}
 
 		//update the current location of each user
 		for (int index = 0; index < currentLocations.size(); index++) {
-			mainController.getPersonData().get(index).setCurrentLocation(currentLocations.get(index));
+			mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
 		}
 		//TODO - Before closing stage update house layout with new user locations
 		currentStage.close();

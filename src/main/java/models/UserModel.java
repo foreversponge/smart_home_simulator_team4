@@ -9,11 +9,11 @@ import java.time.LocalTime;
 
 public class UserModel {
     private String name;
-	private String status;
+	private String role;
 	private String currentLocation;	//current location of the user in the house
 	private LocalTime time;
     private LocalDate date;
-    private ComboBox<String> locationComboBox;	//comboBox storing possible user locations (for edit context of simulation)
+    private ComboBox<String> locationOptions;	//comboBox storing possible user locations (for edit context of simulation)
 
     public LocalTime getTime() {
         return time;
@@ -31,9 +31,9 @@ public class UserModel {
         this.date = date;
     }
 
-    public UserModel(String name, String status) {
+    public UserModel(String name, String role) {
         this.name = name;
-        this.status = status;
+        this.role = role;
     }
 
     public String getName() {
@@ -48,24 +48,27 @@ public class UserModel {
      * Getter to obtain the ComboBox containing all possible rooms of the house
      * @return ComboBox
      */
-    public ComboBox<String> getLocation() {
-        return locationComboBox;
+    public ComboBox<String> getLocationOptions() {
+        return locationOptions;
     }
 
     /**
      * Setter to set the ComboBox containing all possible rooms of the house that the user can be placed in
      * @param location ComboBox
      */
-    public void setLocation(ComboBox<String> location) {
-		this.locationComboBox = location;
+    public void setLocationOptions(ComboBox<String> locationComboBox) {
+		this.locationOptions = locationComboBox;
 	}
 
-    public String getStatus() {
-        return status;
+    public String getRole() {
+        return role;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getNameAndRole(){ return name+" : "+ role;
     }
     
     public String getCurrentLocation() {
