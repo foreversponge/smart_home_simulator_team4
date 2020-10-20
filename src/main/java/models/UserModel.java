@@ -1,14 +1,19 @@
 package models;
 
+import javafx.beans.binding.ObjectExpression;
+import javafx.scene.control.ComboBox;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
 public class UserModel {
     private String name;
-    private String location;
-    private String role;
-    private LocalTime time;
+	private String role;
+	private String currentLocation;	//current location of the user in the house
+	private LocalTime time;
     private LocalDate date;
+    private ComboBox<String> locationOptions;	//comboBox storing possible user locations (for edit context of simulation)
 
     public LocalTime getTime() {
         return time;
@@ -28,7 +33,6 @@ public class UserModel {
 
     public UserModel(String name, String role) {
         this.name = name;
-        this.location = location;
         this.role = role;
     }
 
@@ -40,13 +44,21 @@ public class UserModel {
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
+    /**
+     * Getter to obtain the ComboBox containing all possible rooms of the house
+     * @return ComboBox
+     */
+    public ComboBox<String> getLocationOptions() {
+        return locationOptions;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    /**
+     * Setter to set the ComboBox containing all possible rooms of the house that the user can be placed in
+     * @param location ComboBox
+     */
+    public void setLocationOptions(ComboBox<String> locationComboBox) {
+		this.locationOptions = locationComboBox;
+	}
 
     public String getRole() {
         return role;
@@ -58,5 +70,12 @@ public class UserModel {
 
     public String getNameAndRole(){ return name+" : "+ role;
     }
+    
+    public String getCurrentLocation() {
+		return currentLocation;
+	}
 
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
+	}
 }

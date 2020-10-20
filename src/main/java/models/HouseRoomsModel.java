@@ -8,10 +8,6 @@ public class HouseRoomsModel {
 
     public static RoomModel[] allRoomsArray;
 
-    /**
-     * @return the array that contains all the rooms that were extracted
-     * from the house layout file
-     */
     public static RoomModel[] getAllRoomsArray() {
         return allRoomsArray;
     }

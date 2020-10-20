@@ -80,7 +80,7 @@ public class dashBoardController {
         choosendate=maincontroller.getLoggedUser().getDate();
         choosentime=maincontroller.getLoggedUser().getTime();
         date.setText(choosendate.toString());
-        userLocation.setText(maincontroller.getLoggedUser().getLocation());
+        userLocation.setText(maincontroller.getLoggedUser().getCurrentLocation());
         logUser.setText(maincontroller.getLoggedUser().getNameAndRole());
         incrementTask.setTime(choosentime);
         scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
@@ -239,11 +239,29 @@ public class dashBoardController {
                     }
                 }
                 else{
-                    mainController.getLogMessages().add(new LogMessageModel(LocalTime.parse(time.getText()) , "cannot set/change the temperature"));
+                    consolelog.getItems().add("[" + time.getText() + "] " + "The simulation must be ON to edit its context");
                 }
             }
             return null;
         });
         updateTemp.showAndWait();
+    }
+
+    /**
+     * When simulation is ON, if the user clicks the edit button, the Edit Context Of Simulation window will appear
+     * @param event user clicks the edit button
+     */
+    public void onEditClicked(MouseEvent event) {
+    	try {
+    		if (toggleSimBtn.getText().equals("On")) {
+    			mainController.setEditContextWindow();
+    		}
+    		else {
+    			//display error message to console if simulation is OFF
+    			consolelog.getItems().add("[" + time.getText() + "] " + "The simulation must be ON to edit its context");
+    		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 }

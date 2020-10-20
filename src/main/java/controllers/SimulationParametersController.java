@@ -77,7 +77,7 @@ public class SimulationParametersController {
         if (dateSelected != null && userSelected != null && roomLocation.getValue() != null && timeLabel.getText()!=null) { // ADD TIMER HERE
             mainController.setLoggedUser(userSelected);
             mainController.getLoggedUser().setDate(dateSelected.getValue());
-            mainController.getLoggedUser().setLocation(roomLocation.getValue().toString());
+            mainController.getLoggedUser().setCurrentLocation(roomLocation.getValue().toString());
             mainController.getLoggedUser().setTime(LocalTime.parse(timeLabel.getText()));
             mainController.closeWindow();
             try {

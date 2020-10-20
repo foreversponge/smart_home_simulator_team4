@@ -14,6 +14,7 @@ public class UserManagerController {
     @FXML private TableColumn tableColumnName;
     @FXML private TableColumn tableColumnStatus;
     @FXML private Label errorLabel;
+
     private Main mainController;
     private Stage currentStage;
     /**
@@ -122,6 +123,7 @@ public class UserManagerController {
             errorLabel.setText("Cannot delete");
         }
     }
+
     /**
      * Save all the action in the window and update the PersonData observable list
      * @param event
