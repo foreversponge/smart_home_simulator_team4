@@ -35,7 +35,7 @@ public class EditContextOfSimulationController {
 	public void initialize(){
 		nameOfUser.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
 		permission.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
-		locationColumn.setCellValueFactory(new PropertyValueFactory<UserModel, ComboBox<String>>("location"));
+		locationColumn.setCellValueFactory(new PropertyValueFactory<UserModel, ComboBox<String>>("locationOptions"));
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class EditContextOfSimulationController {
 		this.mainController = maincontroller;
 		this.currentStage = currentstage;	
 		mainController.getUserModelData().forEach(person -> {
-			person.setLocation(setupComboBox(person.getCurrentLocation()));
+			person.setLocationOptions(setupComboBox(person.getCurrentLocation()));
 		});
 		tableView.setItems(mainController.getUserModelData());
 	}
@@ -88,7 +88,7 @@ public class EditContextOfSimulationController {
 	public void onSaveClick(MouseEvent event) {
 		ArrayList<String> currentLocations = new ArrayList<String>();	//stores location of each user from the tableView
 		for (UserModel user : tableView.getItems()) {
-			currentLocations.add(user.getLocation().getSelectionModel().getSelectedItem());
+			currentLocations.add(user.getLocationOptions().getSelectionModel().getSelectedItem());
 		}
 
 		//update the current location of each user

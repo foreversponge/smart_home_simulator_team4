@@ -13,7 +13,7 @@ public class UserModel {
 	private String currentLocation;	//current location of the user in the house
 	private LocalTime time;
     private LocalDate date;
-    private ComboBox<String> locationComboBox;	//comboBox storing possible user locations (for edit context of simulation)
+    private ComboBox<String> locationOptions;	//comboBox storing possible user locations (for edit context of simulation)
 
     public LocalTime getTime() {
         return time;
@@ -48,16 +48,16 @@ public class UserModel {
      * Getter to obtain the ComboBox containing all possible rooms of the house
      * @return ComboBox
      */
-    public ComboBox<String> getLocation() {
-        return locationComboBox;
+    public ComboBox<String> getLocationOptions() {
+        return locationOptions;
     }
 
     /**
      * Setter to set the ComboBox containing all possible rooms of the house that the user can be placed in
      * @param location ComboBox
      */
-    public void setLocation(ComboBox<String> location) {
-		this.locationComboBox = location;
+    public void setLocationOptions(ComboBox<String> locationComboBox) {
+		this.locationOptions = locationComboBox;
 	}
 
     public String getRole() {
