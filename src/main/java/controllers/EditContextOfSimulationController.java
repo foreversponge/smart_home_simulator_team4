@@ -27,23 +27,23 @@ public class EditContextOfSimulationController {
 	private Main mainController;	//instance of Main to obtain userData
 	private Stage currentStage;		//instance of the current Stage to open or close it
 	private HouseRoomsModel houseRoomsModel;	//contains data about each room of the house
-	@FXML private TableView<UserModel> tableView;	//Place Users tableView of EditContextOfSimuatlion.fxml
-	@FXML private TableColumn nameOfUser;		//Name of user column of tableView of EditContextOfSimuatlion.fxml
-	@FXML private TableColumn permission;		//Permission column of tableView of EditContextOfSimuatlion.fxml
+	@FXML private TableView<UserModel> moveUsersTableView;	//Place Users tableView of EditContextOfSimuatlion.fxml
+	@FXML private TableColumn nameOfUserColumn;		//Name of user column of tableView of EditContextOfSimuatlion.fxml
+	@FXML private TableColumn permissionColumn;		//Permission column of tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn locationColumn;	//location of user column of tableView of EditContextOfSimuatlion.fxml
 
-	private ObservableList<RoomModel> roomData = FXCollections.observableArrayList();
-	@FXML private TableView<RoomModel> objectWindowTableView;	
-	@FXML private TableColumn roomNameColumn;	
-	@FXML private TableColumn windowNumColumn;	
-	@FXML private TableColumn objectPresentColumn;
+	private ObservableList<RoomModel> roomModelData = FXCollections.observableArrayList();	//stores data from RoomModel
+	@FXML private TableView<RoomModel> objectWindowTableView;	//tableView for blocking window movement
+	@FXML private TableColumn roomNameColumn;	//name of room column of tableView
+	@FXML private TableColumn windowNumColumn;	//number of windows column of tableView
+	@FXML private TableColumn objectPresentColumn; //is object present on window column of tableView
 
 	/**
-	 * Setup of table (columns) with attributes from the User class
+	 * Setup of table (columns) with attributes from the UserModel class and from the RoomModel class
 	 */
 	public void initialize(){
-		nameOfUser.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
-		permission.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
+		nameOfUserColumn.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
+		permissionColumn.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
 		locationColumn.setCellValueFactory(new PropertyValueFactory<UserModel, ComboBox<String>>("locationOptions"));
 
 		//Windows
@@ -51,7 +51,7 @@ public class EditContextOfSimulationController {
 		windowNumColumn.setCellValueFactory(new PropertyValueFactory<RoomModel, String>("numWindows"));
 		objectPresentColumn.setCellValueFactory(new PropertyValueFactory<RoomModel, ComboBox<String>>("objectBlockingWindowComboBox"));
 		for (RoomModel room : houseRoomsModel.getAllRoomsArray()) {
-			roomData.add(room);
+			roomModelData.add(room);
 		}
 	}
 
@@ -65,14 +65,14 @@ public class EditContextOfSimulationController {
 		this.mainController = maincontroller;
 		this.currentStage = currentstage;	
 		mainController.getUserModelData().forEach(person -> {
-			person.setLocationOptions(setupComboBox(person.getCurrentLocation()));
+			person.setLocationOptions(setupLocationComboBox(person.getCurrentLocation()));
 		});
-		tableView.setItems(mainController.getUserModelData());
-		
-		roomData.forEach(room -> {
+		moveUsersTableView.setItems(mainController.getUserModelData());
+
+		roomModelData.forEach(room -> {
 			room.setObjectBlockingWindowComboBox(setupOjectPresentComboBox(room.isObjectBlockingWindow()));
 		});
-		objectWindowTableView.setItems(roomData);
+		objectWindowTableView.setItems(roomModelData);
 	}
 
 	/**
@@ -81,25 +81,30 @@ public class EditContextOfSimulationController {
 	 * @param currentUserLocation the current location of a user in the house
 	 * @return ComboBox with a value set at the current location of the user in the house
 	 */
-	public ComboBox setupComboBox(String currentUserLocation) {
+	public ComboBox setupLocationComboBox(String currentUserLocation) {
 		ComboBox<String> locationComboBox = new ComboBox<String>();
-
+		
 		//Add all rooms in the ComboBox
 		Arrays.stream(houseRoomsModel.getAllRoomsArray()).forEach(room -> {
 			locationComboBox.getItems().add(room.getName());
 		});
-
 		locationComboBox.getItems().add("outside");   //add outside since users can be placed outside house
 		locationComboBox.setValue(currentUserLocation == null ? "outside" : currentUserLocation);	//if user location has not been set, the user will be placed outside by default.
 		return locationComboBox;
 	}
-	
+
+	/**
+	 * Setups a ComboBox for the presence of an object for windows of each room in the tableView
+	 * The ComboBox contains "Yes" and "No". 
+	 * "Yes" represents that an object is present on window
+	 * "No" represents that an object is not present on window
+	 * @param isWindowBlocked initial value of the ComboBox
+	 * @return
+	 */
 	public ComboBox setupOjectPresentComboBox(boolean isWindowBlocked) {
 		ComboBox<String> objectPresentComboBox = new ComboBox<String>();
-
 		objectPresentComboBox.getItems().add("Yes");
 		objectPresentComboBox.getItems().add("No");
-
 		objectPresentComboBox.setValue(isWindowBlocked ? "Yes" : "No");	//if user location has not been set, the user will be placed outside by default.
 		return objectPresentComboBox;
 	}
@@ -109,28 +114,41 @@ public class EditContextOfSimulationController {
 	 * @param event user clicks on cancel button
 	 */
 	public void onCancelClick(MouseEvent event) {
-		System.out.println(houseRoomsModel.getAllRoomsArray()[0].getName() + " " + houseRoomsModel.getAllRoomsArray()[0].getNumWindows());
-		System.out.println(houseRoomsModel.getAllRoomsArray()[1].getName());
 		currentStage.close();
 	}
 
 	/**
 	 * When user clicks the save button, the edit context of simulation stage will be closed and
-	 * the current location of each user will be updated
+	 * the current location of each user as well as the window status of each room will be updated
 	 * @param event user clicks on save button
 	 */
 	public void onSaveClick(MouseEvent event) {
+		//User locations
 		ArrayList<String> currentLocations = new ArrayList<String>();	//stores location of each user from the tableView
-		for (UserModel user : tableView.getItems()) {
+		for (UserModel user : moveUsersTableView.getItems()) {
 			currentLocations.add(user.getLocationOptions().getSelectionModel().getSelectedItem());
 		}
-
 		//update the current location of each user
 		for (int index = 0; index < currentLocations.size(); index++) {
 			mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
 		}
+
+		//Windows
+		ArrayList<Boolean> windowsStatus = new ArrayList<Boolean>();	//stores true if a window is open and false if closed
+		for (RoomModel room : objectWindowTableView.getItems()) {
+			if (room.getObjectBlockingWindowComboBox().getSelectionModel().getSelectedItem().equals("Yes")) {
+				windowsStatus.add(true);
+			}
+			else {
+				windowsStatus.add(false);
+			}
+		}
+		//update the status of windows for each room in the house
+		for (int index = 0; index < windowsStatus.size(); index++) {
+			roomModelData.get(index).setObjectBlockingWindow(windowsStatus.get(index).booleanValue());
+		}
 		//TODO - Before closing stage update house layout with new user locations
+		//TODO - Before closing stage update house layout with new window status
 		currentStage.close();
 	}
-
 }

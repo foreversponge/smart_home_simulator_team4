@@ -93,6 +93,7 @@ public class RoomModel {
                 ", numDoors=" + numDoors +
                 ", numLights=" + numLights +
                 ", nextRoomName='" + nextRoomName + '\'' +
+                ", isObjectBlockingWindow=" + isObjectBlockingWindow + 
                 '}';
     }
 }
