@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditContextOfSimulationController">
+  <tabs>
+    <Tab text="Move Users">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="212.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#onSaveClick" prefHeight="29.0" prefWidth="57.0" text="Save">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="335.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#onCancelClick" text="Cancel">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <TableView fx:id="moveUsersTableView" prefHeight="308.0" prefWidth="600.0">
+                    <columns>
+                      <TableColumn fx:id="nameOfUserColumn" prefWidth="195.0" text="Name" />
+                      <TableColumn fx:id="permissionColumn" prefWidth="204.0" text="Permission" />
+                      <TableColumn fx:id="locationColumn" prefWidth="200.0" text="Location" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Add Object on Window">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="objectWindowTableView" prefHeight="299.0" prefWidth="600.0">
+                    <columns>
+                      <TableColumn fx:id="roomNameColumn" prefWidth="196.0" text="Room" />
+                      <TableColumn fx:id="windowNumColumn" prefWidth="189.0" text="Number of Windows" />
+                        <TableColumn fx:id="objectPresentColumn" prefWidth="214.0" text="Object Present" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="340.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#onCancelClick" prefHeight="25.0" prefWidth="60.0" text="Cancel">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="210.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#onSaveClick" prefHeight="25.0" prefWidth="58.0" text="Save">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
