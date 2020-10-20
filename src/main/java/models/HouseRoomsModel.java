@@ -1,8 +1,8 @@
 package models;
 
 /**
- * this class is create all help keep all the avaible room from the text file that is upload
- * it is static class because it is going to be use only one for all the applicaiton
+ * this class is create all help keep all the available room from the text file that is upload
+ * it is static class because it is going to be use only one for all the application
  */
 public class HouseRoomsModel {
 

@@ -38,6 +38,8 @@ public class dashBoardController {
     @FXML private Label outsideT;
     @FXML private Label time;
     @FXML private Label date;
+    @FXML private ListView<String> roomsList;
+    ObservableList listOfRooms = FXCollections.observableArrayList();
     private Main mainController;
     Stage currentStage;
     LocalTime choosentime;
@@ -129,6 +131,11 @@ public class dashBoardController {
             GridPane.setMargin(anchorPane, new Insets(15));
 
         }
+        //Loads the room names to display them in SHC
+        for(RoomModel room : HouseRoomsModel.getAllRoomsArray()){
+            listOfRooms.add(room.getName());
+        }
+        roomsList.getItems().addAll(listOfRooms);
     }
     /**
      * Turn on and Turn off Simulation
@@ -264,4 +271,5 @@ public class dashBoardController {
 			e.printStackTrace();
 		}
     }
+
 }
