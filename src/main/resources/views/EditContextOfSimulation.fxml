@@ -24,10 +24,10 @@
                         <Font size="13.0" />
                      </font>
                   </Button>
-                  <TableView fx:id="tableView" prefHeight="308.0" prefWidth="600.0">
+                  <TableView fx:id="moveUsersTableView" prefHeight="308.0" prefWidth="600.0">
                     <columns>
-                      <TableColumn fx:id="nameOfUser" prefWidth="195.0" text="Name" />
-                      <TableColumn fx:id="permission" prefWidth="204.0" text="Permission" />
+                      <TableColumn fx:id="nameOfUserColumn" prefWidth="195.0" text="Name" />
+                      <TableColumn fx:id="permissionColumn" prefWidth="204.0" text="Permission" />
                       <TableColumn fx:id="locationColumn" prefWidth="200.0" text="Location" />
                     </columns>
                   </TableView>
@@ -36,7 +36,26 @@
     </Tab>
     <Tab text="Add Object on Window">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="objectWindowTableView" prefHeight="299.0" prefWidth="600.0">
+                    <columns>
+                      <TableColumn fx:id="roomNameColumn" prefWidth="196.0" text="Room" />
+                      <TableColumn fx:id="windowNumColumn" prefWidth="189.0" text="Number of Windows" />
+                        <TableColumn fx:id="objectPresentColumn" prefWidth="214.0" text="Object Present" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="340.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#onCancelClick" prefHeight="25.0" prefWidth="60.0" text="Cancel">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="210.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#onSaveClick" prefHeight="25.0" prefWidth="58.0" text="Save">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
       </content>
     </Tab>
   </tabs>

@@ -166,6 +166,7 @@ public class Main extends Application {
         Stage editContextStage= new Stage();
         editContextController.setMaincontroller(this, editContextStage);
         editContextStage.initOwner(currentState);
+        editContextStage.setTitle("Edit Context of Simulation");
         editContextStage.initModality(Modality.WINDOW_MODAL);
         Scene editContextScene = new Scene(root);
         editContextStage.setScene(editContextScene);

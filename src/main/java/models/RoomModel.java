@@ -1,5 +1,7 @@
 package models;
 
+import javafx.scene.control.ComboBox;
+
 public class RoomModel {
 
     private String name;
@@ -7,6 +9,9 @@ public class RoomModel {
     private int numDoors;
     private int numLights;
     private String nextRoomName;
+    private transient boolean isObjectBlockingWindow;
+	private transient ComboBox<String> objectBlockingWindowComboBox;
+
 
     /**
      * constructor to create RoomModel
@@ -63,6 +68,22 @@ public class RoomModel {
     public void setNextRoomName(String nextRoomName) {
         this.nextRoomName = nextRoomName;
     }
+    
+    public boolean isObjectBlockingWindow() {
+ 		return isObjectBlockingWindow;
+ 	}
+
+ 	public void setObjectBlockingWindow(boolean isObjectBlockingWindow) {
+ 		this.isObjectBlockingWindow = isObjectBlockingWindow;
+ 	}
+
+ 	public ComboBox<String> getObjectBlockingWindowComboBox() {
+ 		return objectBlockingWindowComboBox;
+ 	}
+
+ 	public void setObjectBlockingWindowComboBox(ComboBox<String> objectBlockingWindowComboBox) {
+ 		this.objectBlockingWindowComboBox = objectBlockingWindowComboBox;
+ 	}
 
     @Override
     public String toString() {
@@ -72,6 +93,7 @@ public class RoomModel {
                 ", numDoors=" + numDoors +
                 ", numLights=" + numLights +
                 ", nextRoomName='" + nextRoomName + '\'' +
+                ", isObjectBlockingWindow=" + isObjectBlockingWindow + 
                 '}';
     }
 }
