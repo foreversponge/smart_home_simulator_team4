@@ -20,6 +20,7 @@ import models.UserModel;
 /**
  * This class acts as a controller for the EditContextOfSimulation.fxml
  * It allows users to place users in a specific location/room of the house
+ * or block window movement
  * @author Team 4
  *
  */
@@ -84,7 +85,7 @@ public class EditContextOfSimulationController {
 	 */
 	public ComboBox setupLocationComboBox(String currentUserLocation) {
 		ComboBox<String> locationComboBox = new ComboBox<String>();
-		
+
 		//Add all rooms in the ComboBox
 		Arrays.stream(houseRoomsModel.getAllRoomsArray()).forEach(room -> {
 			locationComboBox.getItems().add(room.getName());

@@ -1,0 +1,23 @@
+[
+ {
+   'name':'kitchen',
+   'numWindows': 2, 
+   'numDoors': 1, 
+   'numLights': 2, 
+   'nextRoomName':'livingroom'
+ },
+ {
+   'name':'livingRoom',
+   'numWindows': 2, 
+   'numDoors': 1, 
+   'numLights': 3, 
+   'nextRoomName':'bedroom'
+ },
+ {
+   'name':'Bedroom',
+   'numWindows': 1, 
+   'numDoors': 1, 
+   'numLights': 1, 
+   'nextRoomName':'kitchen'
+ }
+]
