@@ -13,6 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="618.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashBoardController">
     <children>
@@ -75,11 +81,29 @@
                                 </Tab>
                             </tabs>
                         </TabPane>
-                        <TabPane prefHeight="371.0" prefWidth="410.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane prefHeight="370.0" prefWidth="325.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
-                                <Tab text="Untitled Tab 1">
+                                <Tab text="House layout">
                                     <content>
-                                        <AnchorPane prefHeight="330.0" prefWidth="254.0" />
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="325.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <AnchorPane layoutY="-50.0" prefHeight="370.0" prefWidth="325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                                                    <HBox alignment="CENTER" layoutY="-50.0" prefHeight="370.0" prefWidth="325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                                                        <children>
+                                                            <ScrollPane fx:id="scroll" pannable="true" prefHeight="370.0" prefWidth="312.0">
+                                                                <content>
+                                                                    <GridPane fx:id="grid" alignment="CENTER"  prefHeight="0.0" prefWidth="0.0" translateY="10.0">
+                                                                        <rowConstraints>
+                                                                            <RowConstraints minHeight="75.0" prefHeight="75.0" />
+                                                                        </rowConstraints>
+                                                                    </GridPane>
+                                                                </content>
+                                                            </ScrollPane>
+                                                        </children>
+                                                    </HBox>
+                                                </AnchorPane>
+
+                                            </children></AnchorPane>
                                     </content>
                                 </Tab>
                                 <Tab text="Untitled Tab 2">

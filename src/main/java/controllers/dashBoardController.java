@@ -6,11 +6,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import models.*;
 
@@ -39,6 +44,9 @@ public class dashBoardController {
     LocalDate choosendate;
     IncrementTask incrementTask;
     Timer scheduleTimer;
+
+    @FXML private ScrollPane scroll;
+    @FXML private GridPane grid;
 
     /**
      * inner class which extends TimerTask
@@ -81,9 +89,46 @@ public class dashBoardController {
     /**
      *initialize the list view of the console log
      */
-    public void initialize() {
-        incrementTask =new IncrementTask();
-        scheduleTimer =new Timer(true);
+
+    /** Initializes dynamically the house layout depending on the information receive in the layout file
+     *
+     * @throws IOException
+     */
+    public void initialize() throws IOException {
+        incrementTask = new IncrementTask();
+        scheduleTimer = new Timer(true);
+
+        RoomModel[] allr = HouseRoomsModel.getAllRoomsArray();
+        int column = 0;
+        int row = 0;
+        for (int i = 0; i < allr.length; i++) {
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/views/room.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+
+            RoomController roomController = fxmlLoader.getController();
+            roomController.setData(allr[i]);
+
+            if (column == 2) {
+                column = 0;
+                row++;
+            }
+
+            grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+            grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+            //set grid height
+            grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+            grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+
+            grid.add(anchorPane, column++, row);
+            GridPane.setMargin(anchorPane, new Insets(15));
+
+        }
     }
     /**
      * Turn on and Turn off Simulation
