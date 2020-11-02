@@ -33,7 +33,6 @@
                               <ImageView fx:id="door1" fitHeight="20.0" fitWidth="20.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                           </StackPane>
                       </JFXBadge>
-      <!--                <ImageView fx:id="window1" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />-->
                       <JFXBadge fx:id="badgeLight" position="TOP_RIGHT" styleClass="icons-badge" >
                           <StackPane style="-fx-padding: 5;">
                               <ImageView fx:id="light1" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />

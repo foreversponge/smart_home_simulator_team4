@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,12 +35,12 @@ import java.util.TimerTask;
  *
  */
 public class dashBoardController {
+	@FXML private JFXButton autoBtn;
+	@FXML private JFXListView locationView;
+	@FXML private JFXListView itemView;
 	@FXML private JFXSlider timeSlider;
 	@FXML private Label logUser;
 	@FXML private JFXListView consolelog;
-	@FXML private TableView consoleTableView;
-	@FXML private TableColumn columnTime;
-	@FXML private TableColumn columnMessage;
 	@FXML private JFXToggleButton toggleSimBtn;
 	@FXML private Label userLocation;
 	@FXML private Label outsideT;
@@ -109,6 +110,9 @@ public class dashBoardController {
 	public void initialize() throws IOException {
 		incrementTask = new IncrementTask();
 		scheduleTimer = new Timer(true);
+		setItemView();
+		setLocationView();
+		locationView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 
 	/**
@@ -150,6 +154,85 @@ public class dashBoardController {
 			grid.add(anchorPane, column++, row);
 			GridPane.setMargin(anchorPane, new Insets(15));
 		}
+	}
+	public void handleItemSelected(MouseEvent mouseEvent) {
+		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
+		if(listSelectItem.get(0).equalsIgnoreCase("light")){
+			autoBtn.setDisable(false);
+		}
+		else{
+			autoBtn.setDisable(true);
+		}
+
+	}
+
+	public void setItemView(){
+		itemView.getItems().add("light");
+		itemView.getItems().add("door");
+		itemView.getItems().add("window");
+	}
+	public void setLocationView(){
+		for(RoomModel rm:HouseRoomsModel.getAllRoomsArray() ){
+			locationView.getItems().add(rm.getName());
+		}
+	}
+
+	public void handleOnselectioin(ActionEvent event) {
+		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
+		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
+		if(listSelectItem.isEmpty() || listSelectLocation.isEmpty()){
+			consolelog.getItems().add("[" + time.getText() + "] " + "Cannot do the command, please select both item and room");
+			return;
+		}
+		RoomModel[] allRoom= HouseRoomsModel.getAllRoomsArray();
+		String item = listSelectItem.get(0);
+		for(RoomModel rm : allRoom){
+			for(String loc: listSelectLocation){
+				if(rm.getName().equalsIgnoreCase(loc)){
+					switch (item){
+						case "light":
+							rm.setNumOpenLights(rm.getNumLights());
+							break;
+						case "door":
+							rm.setNumOpenDoor(rm.getNumDoors());
+							break;
+						case "window":
+							rm.setNumOpenWindows(rm.getNumWindows());
+					}
+				}
+			}
+		}
+		HouseRoomsModel.setAllRooms(allRoom);
+		displayLayout();
+	}
+	public void handleOffSelection(ActionEvent event) {
+		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
+		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
+		if(listSelectItem.isEmpty() || listSelectLocation.isEmpty()){
+			consolelog.getItems().add("[" + time.getText() + "] " + "Cannot do the command, please select both item and room");
+			return;
+		}
+		RoomModel[] allRoom= HouseRoomsModel.getAllRoomsArray();
+		String item = listSelectItem.get(0);
+		for(RoomModel rm : allRoom){
+			for(String loc: listSelectLocation){
+				if(rm.getName().equalsIgnoreCase(loc)){
+					switch (item){
+						case "light":
+							rm.setNumOpenLights(0);
+							break;
+						case "door":
+							rm.setNumOpenDoor(0);
+							break;
+						case "window":
+							rm.setNumOpenWindows(0);
+					}
+					rm.setMode("regular");
+				}
+			}
+		}
+		HouseRoomsModel.setAllRooms(allRoom);
+		displayLayout();
 	}
 
 	/**
@@ -201,7 +284,6 @@ public class dashBoardController {
 	 */
 	public void updateLoggedLocation(){
 		userLocation.setText(mainController.getLoggedUser().getCurrentLocation());
-
 	}
 	/**
 	 * Display the dialog , and all the avaible location that logged user can choose to change location
@@ -238,12 +320,8 @@ public class dashBoardController {
 		Dialog<LocalTime> updateTime = tPicker.getTimePicker();
 		updateTime.setResultConverter((ButtonType button) -> {
 			if (button == ButtonType.OK && tPicker.getHourList().getValue()!=null &&tPicker.getMinList().getValue()!=null) {
-				scheduleTimer.cancel();
-				scheduleTimer = new Timer(true);
 				LocalTime pickTime = LocalTime.parse(tPicker.getHourList().getValue()+":"+tPicker.getMinList().getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
-				incrementTask =new IncrementTask();
-				incrementTask.setTime(pickTime);
-				scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
+				resetTimerTask(1, pickTime);
 			}
 			return null;
 		});
