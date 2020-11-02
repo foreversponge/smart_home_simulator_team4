@@ -34,7 +34,7 @@ import java.util.TimerTask;
  *
  */
 public class dashBoardController {
-
+	@FXML private JFXSlider timeSlider;
 	@FXML private Label logUser;
 	@FXML private JFXListView consolelog;
 	@FXML private TableView consoleTableView;
@@ -61,6 +61,10 @@ public class dashBoardController {
 	 */
 	class IncrementTask extends TimerTask{
 		private LocalTime localTime;
+		private int timeInc =1;
+		public void setTimeInc(int timeInc) {
+			this.timeInc = timeInc;
+		}
 		private void setTime(LocalTime ctime) {
 			this.localTime = ctime;
 		}
@@ -69,7 +73,7 @@ public class dashBoardController {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
-					localTime = localTime.plusSeconds(1);
+					localTime = localTime.plusSeconds(timeInc);
 					time.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 				}
 			});
@@ -105,7 +109,6 @@ public class dashBoardController {
 	public void initialize() throws IOException {
 		incrementTask = new IncrementTask();
 		scheduleTimer = new Timer(true);
-
 	}
 
 	/**
@@ -148,8 +151,33 @@ public class dashBoardController {
 			GridPane.setMargin(anchorPane, new Insets(15));
 		}
 	}
+
+	/**
+	 * reset the current timer
+	 * @param i increment value of the time(speed time)
+	 * @param time
+	 */
+	public void resetTimerTask(int i, LocalTime time){
+		scheduleTimer.cancel();
+		scheduleTimer = new Timer(true);
+		incrementTask =new IncrementTask();
+		incrementTask.setTimeInc(i);
+		incrementTask.setTime(time);
+		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
+	}
+
+	/**
+	 * handle the slider change of time
+	 * @param mouseEvent
+	 */
+	public void timerSliderHandler(MouseEvent mouseEvent) {
+		resetTimerTask((int) Math.round(timeSlider.getValue()), LocalTime.parse(time.getText()));
+
+	}
 	/**
 	 * Turn on and Turn off Simulation
+	 * when simulation on, the time could adjust by the using time slider
+	 * when simulation is off set back to default which is 1
 	 * @param event
 	 */
 	public void toggleSimulation(ActionEvent event) {
@@ -157,9 +185,13 @@ public class dashBoardController {
 		switch (mode){
 		case "On":
 			toggleSimBtn.setText("Off");
+			resetTimerTask(1, LocalTime.parse(time.getText()));
+			timeSlider.setDisable(true);
 			break;
 		case "Off":
 			toggleSimBtn.setText("On");
+			resetTimerTask((int) timeSlider.getValue(), LocalTime.parse(time.getText()));
+			timeSlider.setDisable(false);
 			break;
 		}
 	}
