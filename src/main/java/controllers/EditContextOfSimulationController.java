@@ -157,5 +157,6 @@ public class EditContextOfSimulationController {
 		mainController.getLoggedUser().setCurrentLocation(currLocation);
 		currentStage.close();
 		mainController.getDashBoardController().updateLoggedLocation();
+		mainController.getDashBoardController().displayLayout();
 	}
 }

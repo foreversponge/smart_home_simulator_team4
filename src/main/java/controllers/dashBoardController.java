@@ -35,6 +35,8 @@ import java.util.TimerTask;
  *
  */
 public class dashBoardController {
+	@FXML private JFXButton OnBtn;
+	@FXML private JFXButton OffBtn;
 	@FXML private JFXButton autoBtn;
 	@FXML private JFXListView locationView;
 	@FXML private JFXListView itemView;
@@ -113,6 +115,7 @@ public class dashBoardController {
 		setItemView();
 		setLocationView();
 		locationView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		toggleDisable(true);
 	}
 
 	/**
@@ -155,6 +158,11 @@ public class dashBoardController {
 			GridPane.setMargin(anchorPane, new Insets(15));
 		}
 	}
+
+	/**
+	 * when the select item is light, the auto mode is enable other wise set to disable
+	 * @param mouseEvent
+	 */
 	public void handleItemSelected(MouseEvent mouseEvent) {
 		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
 		if(listSelectItem.get(0).equalsIgnoreCase("light")){
@@ -166,17 +174,30 @@ public class dashBoardController {
 
 	}
 
+	/**
+	 * initialize the item in the room
+	 */
 	public void setItemView(){
 		itemView.getItems().add("light");
 		itemView.getItems().add("door");
 		itemView.getItems().add("window");
 	}
+
+	/**
+	 * initialize the location of room in the house
+	 */
 	public void setLocationView(){
 		for(RoomModel rm:HouseRoomsModel.getAllRoomsArray() ){
 			locationView.getItems().add(rm.getName());
 		}
 	}
 
+	/**
+	 * handle the on button
+	 * when either item or room not select display error messge on console
+	 * if both is selecte turn on the item in the select room(multiple room can be selected)
+	 * @param event
+	 */
 	public void handleOnselectioin(ActionEvent event) {
 		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
 		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
@@ -205,6 +226,13 @@ public class dashBoardController {
 		HouseRoomsModel.setAllRooms(allRoom);
 		displayLayout();
 	}
+
+	/**
+	 * handle the on button
+	 * when either item or room not select display error messge on console
+	 * if both is selecte turn off the item in the select room(multiple room can be selected)
+	 * @param event
+	 */
 	public void handleOffSelection(ActionEvent event) {
 		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
 		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
@@ -236,6 +264,30 @@ public class dashBoardController {
 	}
 
 	/**
+	 * auto select is for light when there is at least one person in the room, the light is automatically turn on
+	 * if there is no person in the room, it would turn off the light
+	 * @param event
+	 */
+	public void handleAutoSelection(ActionEvent event) {
+		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
+		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
+		if(listSelectItem.isEmpty() || listSelectLocation.isEmpty()){
+			consolelog.getItems().add("[" + time.getText() + "] " + "Cannot do the command, please select both item and room");
+			return;
+		}
+		RoomModel[] allRoom= HouseRoomsModel.getAllRoomsArray();
+		String item = listSelectItem.get(0);
+		for(RoomModel rm: allRoom){
+			for(String s: listSelectLocation){
+				if(rm.getName().equalsIgnoreCase(s)){
+					rm.setMode("auto");
+				}
+			}
+		}
+		displayLayout();
+	}
+
+	/**
 	 * reset the current timer
 	 * @param i increment value of the time(speed time)
 	 * @param time
@@ -257,6 +309,19 @@ public class dashBoardController {
 		resetTimerTask((int) Math.round(timeSlider.getValue()), LocalTime.parse(time.getText()));
 
 	}
+
+	/**
+	 * toggle the disable of the element such as timeslider, item list view, location list view
+	 * @param disable
+	 */
+	public void toggleDisable(boolean disable){
+		timeSlider.setDisable(disable);
+		itemView.setDisable(disable);
+		locationView.setDisable(disable);
+		OnBtn.setDisable(disable);
+		OffBtn.setDisable(disable);
+	}
+
 	/**
 	 * Turn on and Turn off Simulation
 	 * when simulation on, the time could adjust by the using time slider
@@ -269,12 +334,12 @@ public class dashBoardController {
 		case "On":
 			toggleSimBtn.setText("Off");
 			resetTimerTask(1, LocalTime.parse(time.getText()));
-			timeSlider.setDisable(true);
+			toggleDisable(true);
 			break;
 		case "Off":
 			toggleSimBtn.setText("On");
 			resetTimerTask((int) timeSlider.getValue(), LocalTime.parse(time.getText()));
-			timeSlider.setDisable(false);
+			toggleDisable(false);
 			break;
 		}
 	}
@@ -297,6 +362,7 @@ public class dashBoardController {
 		for(RoomModel room : HouseRoomsModel.getAllRoomsArray()){
 			name.add(room.getName());
 		}
+		name.add("outside");
 		avaiLocation.setItems(name);
 		DialogPane locationDialogPane = updateLocation.getDialogPane();
 		locationDialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -304,10 +370,12 @@ public class dashBoardController {
 		updateLocation.setResultConverter((ButtonType button) -> {
 			if (button == ButtonType.OK && avaiLocation.getValue()!=null) {
 				userLocation.setText(avaiLocation.getValue());
+				mainController.getLoggedUser().setCurrentLocation(avaiLocation.getValue());
 			}
 			return null;
 		});
 		updateLocation.showAndWait();
+		displayLayout();
 	}
 
 	/**

@@ -38,7 +38,6 @@ public class RoomController {
 	public ImageView window1;
 	public ImageView door1;
 	public ImageView light1;
-
 	@FXML
 	private AnchorPane anchorpaneroom1;
 	@FXML private Label room1;
@@ -76,6 +75,28 @@ public class RoomController {
 	 * @param room
 	 */
 	public void setData(RoomModel room){
+		boolean userInRoom= false;
+		String loggedLoc= mainController.getLoggedUser().getCurrentLocation();
+		Map<String, Integer> user= extractUserInRoom();
+		this.room = room;
+		if(room.getName().equalsIgnoreCase(loggedLoc)){
+			userInRoom=true;
+			LoggedUser.setImage(new Image("file:src/main/resources/images/loggedUser.png"));
+			user.put(room.getName(),(user.get(room.getName())-1));
+		}
+		if(user.containsKey(room.getName()) && user.get(room.getName())!=0){
+			userInRoom=true;
+			badgeUserNum.setText(user.get(room.getName()).toString());
+			UserNum.setImage(new Image("file:src/main/resources/images/otherusers.png"));
+		}
+		if(room.getMode()!=null && room.getMode().equalsIgnoreCase("auto")){
+			if(userInRoom){
+				room.setNumOpenLights(room.getNumLights());
+			}
+			else{
+				room.setNumOpenLights(0);
+			}
+		}
 		room1.setText(room.getName());
 		badgeDoor.setText(String.valueOf(room.getNumDoors()-room.getNumOpenDoor()));
 		badgeLight.setText(String.valueOf(room.getNumLights()-room.getNumOpenLights()));
@@ -89,8 +110,5 @@ public class RoomController {
 		window11.setImage(new Image("file:src/main/resources/images/openwindow.png"));
 		light11.setImage(new Image("file:src/main/resources/images/lighton.png"));
 		door11.setImage(new Image("file:src/main/resources/images/opendoor.png"));
-
-
-
 	}
 }
