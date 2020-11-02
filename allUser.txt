@@ -1,0 +1,1 @@
+[{"name":"kim","role":"Stranger"},{"name":"sok","role":"Guest"}]

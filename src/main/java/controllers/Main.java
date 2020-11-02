@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +12,10 @@ import javafx.stage.Stage;
 
 import models.LogMessageModel;
 import models.UserModel;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * This class is responsible for running the application and
@@ -30,6 +34,8 @@ public class Main extends Application {
 
 	/**
 	 * Launches the simulator
+	 * if the there is user from text file that save in the previous launching app
+	 * set the userModelData and tempUserModelData to that value
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -39,12 +45,40 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		currentState = primaryStage;
+		UserModel[] all= new Gson().fromJson(readFromFile(), UserModel[].class);
+		if(all!=null){
+			for(UserModel u: all){
+				userModelData.add(u);
+				tempUserModelData.add(u);
+			}
+		}
 		try {
 			setHouseLayoutWindow();
 		}
 		catch (IOException e){
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * to read the user and permission from file
+	 * avoid add every time launching the app
+	 * @return
+	 */
+	public String readFromFile(){
+		String jsonString="";
+		try{
+			File file = new File("allUser.txt");
+			Scanner readFile = new Scanner(file);
+			while(readFile.hasNextLine()){
+				jsonString +=readFile.nextLine()+"\r\n";
+			}
+			readFile.close();
+			return jsonString;
+		} catch (Exception e) {
+			System.out.println("The file can not be found.");
+		}
+		return null;
 	}
 
 	/**
