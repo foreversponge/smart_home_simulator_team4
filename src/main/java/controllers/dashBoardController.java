@@ -92,6 +92,7 @@ public class dashBoardController {
 		incrementTask.setTime(choosentime);
 		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
 		consolelog.setItems(mainController.getLogMessages());
+		displayLayout();
 	}
 	/**
 	 *initialize the list view of the console log
@@ -105,6 +106,12 @@ public class dashBoardController {
 		incrementTask = new IncrementTask();
 		scheduleTimer = new Timer(true);
 
+	}
+
+	/**
+	 * dynamically display the room of the house
+	 */
+	public void displayLayout(){
 		RoomModel[] allr = HouseRoomsModel.getAllRoomsArray();
 		int column = 0;
 		int row = 0;
@@ -112,9 +119,15 @@ public class dashBoardController {
 
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(getClass().getResource("/views/room.fxml"));
-			AnchorPane anchorPane = fxmlLoader.load();
+			AnchorPane anchorPane = null;
+			try {
+				anchorPane = fxmlLoader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 			RoomController roomController = fxmlLoader.getController();
+			roomController.setMainController(mainController);
 			roomController.setData(allr[i]);
 
 			if (column == 2) {
@@ -149,6 +162,14 @@ public class dashBoardController {
 			toggleSimBtn.setText("On");
 			break;
 		}
+	}
+
+	/**
+	 * update the logged user location label
+	 */
+	public void updateLoggedLocation(){
+		userLocation.setText(mainController.getLoggedUser().getCurrentLocation());
+
 	}
 	/**
 	 * Display the dialog , and all the avaible location that logged user can choose to change location

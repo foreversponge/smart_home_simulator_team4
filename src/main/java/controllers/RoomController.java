@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class RoomController {
 
-	private Main maincontroller;
+	private Main mainController;
 	public ImageView window1;
 	public ImageView door1;
 	public ImageView light1;
@@ -24,6 +24,14 @@ public class RoomController {
 	@FXML private Label room1;
 
 	private RoomModel room;
+
+	/**
+	 * to keep an instance of the main
+	 * @param maincontroller
+	 */
+	public void setMainController(Main maincontroller) {
+		this.mainController = maincontroller;
+	}
 
 	/**
 	 * Receives information about a room to display in the house layout tab

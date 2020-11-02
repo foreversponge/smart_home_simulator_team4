@@ -26,6 +26,7 @@ public class Main extends Application {
 	private ObservableList<UserModel> tempUserModelData = FXCollections.observableArrayList();
 	private ObservableList<LogMessageModel> logMessageModels = FXCollections.observableArrayList();
 	private UserModel loggedUser;
+	private dashBoardController dashBoardController;
 
 	/**
 	 * Launches the simulator
@@ -93,6 +94,14 @@ public class Main extends Application {
 	}
 
 	/**
+	 * getter to get the dashboardController
+	 * @return
+	 */
+	public dashBoardController getDashBoardController() {
+		return dashBoardController;
+	}
+
+	/**
 	 * set house layout window
 	 * @throws IOException
 	 */
@@ -150,8 +159,8 @@ public class Main extends Application {
 	public void setDashboardWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/dashBoard.fxml"));
 		Parent root = fxmlLoader.load();
-		dashBoardController dashboardcontroller = fxmlLoader.getController();
-		dashboardcontroller.setMainController(this,currentState);
+		dashBoardController = fxmlLoader.getController();
+		dashBoardController.setMainController(this,currentState);
 		Scene simScene = new Scene(root);
 		currentState.setScene(simScene);
 		currentState.show();
