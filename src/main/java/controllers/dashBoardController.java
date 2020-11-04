@@ -57,6 +57,7 @@ public class dashBoardController {
 
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
+	@FXML private JFXToggleButton toggleAwayMode;
 
 	/**
 	 * inner class which extends TimerTask
@@ -211,14 +212,14 @@ public class dashBoardController {
 			for(String loc: listSelectLocation){
 				if(rm.getName().equalsIgnoreCase(loc)){
 					switch (item){
-						case "light":
-							rm.setNumOpenLights(rm.getNumLights());
-							break;
-						case "door":
-							rm.setNumOpenDoor(rm.getNumDoors());
-							break;
-						case "window":
-							rm.setNumOpenWindows(rm.getNumWindows());
+					case "light":
+						rm.setNumOpenLights(rm.getNumLights());
+						break;
+					case "door":
+						rm.setNumOpenDoor(rm.getNumDoors());
+						break;
+					case "window":
+						rm.setNumOpenWindows(rm.getNumWindows());
 					}
 				}
 			}
@@ -246,14 +247,14 @@ public class dashBoardController {
 			for(String loc: listSelectLocation){
 				if(rm.getName().equalsIgnoreCase(loc)){
 					switch (item){
-						case "light":
-							rm.setNumOpenLights(0);
-							break;
-						case "door":
-							rm.setNumOpenDoor(0);
-							break;
-						case "window":
-							rm.setNumOpenWindows(0);
+					case "light":
+						rm.setNumOpenLights(0);
+						break;
+					case "door":
+						rm.setNumOpenDoor(0);
+						break;
+					case "window":
+						rm.setNumOpenWindows(0);
 					}
 					rm.setMode("regular");
 				}
@@ -320,6 +321,7 @@ public class dashBoardController {
 		locationView.setDisable(disable);
 		OnBtn.setDisable(disable);
 		OffBtn.setDisable(disable);
+		toggleAwayMode.setDisable(disable);
 	}
 
 	/**
@@ -467,5 +469,52 @@ public class dashBoardController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setAwayMode(MouseEvent event) {
+		String awayMode = toggleAwayMode.getText();
+		System.out.println("AWAYMODE=" + awayMode);
+		switch (awayMode){
+		case "ON":
+			toggleAwayMode.setText("OFF");
+			break;
+		case "OFF":
+			toggleAwayMode.setText("ON");
+			mainController.getLoggedUser().setCurrentLocation("outside");
+			updateLoggedLocation();
+			handleAwayModeOn();
+			break;
+		}
+	}
+
+	public void handleAwayModeOn() {
+		System.out.println("POW");
+		RoomModel[] allRooms = HouseRoomsModel.getAllRoomsArray();
+		List<String> items = itemView.getItems();
+		for(RoomModel room : allRooms){
+			for (String item : items) {
+				switch (item) {
+				case "door":
+					room.setNumOpenDoor(0);
+					break;
+				case "window":
+					if (room.isObjectBlockingWindow()) {
+						consolelog.getItems().add("[" + time.getText() + "] " + "Cannot close window in " + room.getName() + " because object present");
+					} else {
+						room.setNumOpenWindows(0);
+					}
+					break;
+				case "light":
+					break;
+				}
+			}
+			for (UserModel user : mainController.getUserModelData()) {
+				if (user.getCurrentLocation() != null && !user.getCurrentLocation().equals("outside")) {
+					consolelog.getItems().add("[" + time.getText() + "] " + "AWAY MODE WARNING: Person present in " + user.getCurrentLocation());
+				}
+			}
+		}
+		HouseRoomsModel.setAllRooms(allRooms);
+		displayLayout();
 	}
 }

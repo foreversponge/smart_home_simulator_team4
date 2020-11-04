@@ -81,7 +81,7 @@
 
                         <TabPane prefHeight="371.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
                      <tabs>
-                        <Tab text="Untitled Tab">
+                        <Tab text="SHC">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -111,9 +111,13 @@
                                  </children></AnchorPane>
                           </content>
                         </Tab>
-                        <Tab text="Untitled Tab">
+                        <Tab text="SHP">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <JFXToggleButton fx:id="toggleAwayMode" layoutX="145.0" layoutY="17.0" onMouseClicked="#setAwayMode" prefHeight="58.0" prefWidth="114.0" text="OFF" />
+                                    <Label layoutX="38.0" layoutY="27.0" prefHeight="37.0" prefWidth="89.0" text="Away Mode:" />
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
                      </tabs></TabPane>
