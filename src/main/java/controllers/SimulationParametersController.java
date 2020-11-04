@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.input.MouseEvent;
@@ -38,6 +39,7 @@ public class SimulationParametersController {
 	/**
 	 * Initalize the values of the table that contains the user names and roles
 	 * & the room names extracted from the house layout file
+	 * set the date to current date and time to current time by default
 	 */
 	public void initialize(){
 		colname.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
@@ -47,6 +49,9 @@ public class SimulationParametersController {
 			locationNames.add(r.getName());
 		}
 		roomLocation.setItems(locationNames);
+		dateSelected.setValue(LocalDate.now());
+		LocalTime pickTime = LocalTime.now();
+		timeLabel.setText(pickTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")).toString());
 	}
 
 	/**

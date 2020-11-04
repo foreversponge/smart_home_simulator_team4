@@ -9,11 +9,15 @@ import javafx.scene.control.ComboBox;
  */
 public class RoomModel {
 
+	private String mode;
 	private String name;
 	private int numWindows;
 	private int numDoors;
 	private int numLights;
 	private String nextRoomName;
+	private int numOpenDoor;
+	private int numOpenLights;
+	private int numOpenWindows;
 	private transient boolean isObjectBlockingWindow;
 	private transient ComboBox<String> objectBlockingWindowComboBox;
 
@@ -33,6 +37,21 @@ public class RoomModel {
 		this.nextRoomName = nextRoomName;
 	}
 
+	/**
+	  * getter to get the mode of light in the room
+	 * @return
+	 */
+	public String getMode() {
+		return mode;
+	}
+
+	/**
+	 * setter to set the mode of light in the room
+	 * @param mode
+	 */
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
 	/**
 	 * Getter to obtain the name of the room
 	 * @return name of the room
@@ -143,6 +162,51 @@ public class RoomModel {
 	 */
 	public void setObjectBlockingWindowComboBox(ComboBox<String> objectBlockingWindowComboBox) {
 		this.objectBlockingWindowComboBox = objectBlockingWindowComboBox;
+	}
+
+	/**
+	 * getter to get the number of open door
+	 * @return
+	 */
+	public int getNumOpenDoor() {
+		return numOpenDoor;
+	}
+
+	/**
+	 * setter to set the number of open door
+	 * @param numOpenDoor
+	 */
+	public void setNumOpenDoor(int numOpenDoor) {
+		this.numOpenDoor = numOpenDoor;
+	}
+
+	/**
+	 * getter to get the number of open light
+	 * @return
+	 */
+	public int getNumOpenLights() {
+		return numOpenLights;
+	}
+	/**
+	 * setter to set the number of open lights
+	 * @param numOpenLights
+	 */
+	public void setNumOpenLights(int numOpenLights) {
+		this.numOpenLights = numOpenLights;
+	}
+	/**
+	 * getter to get the number of open widows
+	 * @return
+	 */
+	public int getNumOpenWindows() {
+		return numOpenWindows;
+	}
+	/**
+	 * setter to set the number of open windows
+	 * @param numOpenWindows
+	 */
+	public void setNumOpenWindows(int numOpenWindows) {
+		this.numOpenWindows = numOpenWindows;
 	}
 
 	@Override

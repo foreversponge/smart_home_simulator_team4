@@ -156,11 +156,7 @@ public class EditContextOfSimulationController {
 		}
 		mainController.getLoggedUser().setCurrentLocation(currLocation);
 		currentStage.close();
-		mainController.closeWindow();
-		try {
-			mainController.setDashboardWindow();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		mainController.getDashBoardController().updateLoggedLocation();
+		mainController.getDashBoardController().displayLayout();
 	}
 }

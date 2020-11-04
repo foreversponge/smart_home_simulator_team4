@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,12 +35,14 @@ import java.util.TimerTask;
  *
  */
 public class dashBoardController {
-
+	@FXML private JFXButton OnBtn;
+	@FXML private JFXButton OffBtn;
+	@FXML private JFXButton autoBtn;
+	@FXML private JFXListView locationView;
+	@FXML private JFXListView itemView;
+	@FXML private JFXSlider timeSlider;
 	@FXML private Label logUser;
 	@FXML private JFXListView consolelog;
-	@FXML private TableView consoleTableView;
-	@FXML private TableColumn columnTime;
-	@FXML private TableColumn columnMessage;
 	@FXML private JFXToggleButton toggleSimBtn;
 	@FXML private Label userLocation;
 	@FXML private Label outsideT;
@@ -61,6 +64,10 @@ public class dashBoardController {
 	 */
 	class IncrementTask extends TimerTask{
 		private LocalTime localTime;
+		private int timeInc =1;
+		public void setTimeInc(int timeInc) {
+			this.timeInc = timeInc;
+		}
 		private void setTime(LocalTime ctime) {
 			this.localTime = ctime;
 		}
@@ -69,7 +76,7 @@ public class dashBoardController {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
-					localTime = localTime.plusSeconds(1);
+					localTime = localTime.plusSeconds(timeInc);
 					time.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 				}
 			});
@@ -92,6 +99,7 @@ public class dashBoardController {
 		incrementTask.setTime(choosentime);
 		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
 		consolelog.setItems(mainController.getLogMessages());
+		displayLayout();
 	}
 	/**
 	 *initialize the list view of the console log
@@ -104,7 +112,16 @@ public class dashBoardController {
 	public void initialize() throws IOException {
 		incrementTask = new IncrementTask();
 		scheduleTimer = new Timer(true);
+		setItemView();
+		setLocationView();
+		locationView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		toggleDisable(true);
+	}
 
+	/**
+	 * dynamically display the room of the house
+	 */
+	public void displayLayout(){
 		RoomModel[] allr = HouseRoomsModel.getAllRoomsArray();
 		int column = 0;
 		int row = 0;
@@ -112,9 +129,15 @@ public class dashBoardController {
 
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(getClass().getResource("/views/room.fxml"));
-			AnchorPane anchorPane = fxmlLoader.load();
+			AnchorPane anchorPane = null;
+			try {
+				anchorPane = fxmlLoader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 			RoomController roomController = fxmlLoader.getController();
+			roomController.setMainController(mainController);
 			roomController.setData(allr[i]);
 
 			if (column == 2) {
@@ -135,8 +158,174 @@ public class dashBoardController {
 			GridPane.setMargin(anchorPane, new Insets(15));
 		}
 	}
+
+	/**
+	 * when the select item is light, the auto mode is enable other wise set to disable
+	 * @param mouseEvent
+	 */
+	public void handleItemSelected(MouseEvent mouseEvent) {
+		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
+		if(listSelectItem.get(0).equalsIgnoreCase("light")){
+			autoBtn.setDisable(false);
+		}
+		else{
+			autoBtn.setDisable(true);
+		}
+
+	}
+
+	/**
+	 * initialize the item in the room
+	 */
+	public void setItemView(){
+		itemView.getItems().add("light");
+		itemView.getItems().add("door");
+		itemView.getItems().add("window");
+	}
+
+	/**
+	 * initialize the location of room in the house
+	 */
+	public void setLocationView(){
+		for(RoomModel rm:HouseRoomsModel.getAllRoomsArray() ){
+			locationView.getItems().add(rm.getName());
+		}
+	}
+
+	/**
+	 * handle the on button
+	 * when either item or room not select display error messge on console
+	 * if both is selecte turn on the item in the select room(multiple room can be selected)
+	 * @param event
+	 */
+	public void handleOnselectioin(ActionEvent event) {
+		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
+		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
+		if(listSelectItem.isEmpty() || listSelectLocation.isEmpty()){
+			consolelog.getItems().add("[" + time.getText() + "] " + "Cannot do the command, please select both item and room");
+			return;
+		}
+		RoomModel[] allRoom= HouseRoomsModel.getAllRoomsArray();
+		String item = listSelectItem.get(0);
+		for(RoomModel rm : allRoom){
+			for(String loc: listSelectLocation){
+				if(rm.getName().equalsIgnoreCase(loc)){
+					switch (item){
+						case "light":
+							rm.setNumOpenLights(rm.getNumLights());
+							break;
+						case "door":
+							rm.setNumOpenDoor(rm.getNumDoors());
+							break;
+						case "window":
+							rm.setNumOpenWindows(rm.getNumWindows());
+					}
+				}
+			}
+		}
+		HouseRoomsModel.setAllRooms(allRoom);
+		displayLayout();
+	}
+
+	/**
+	 * handle the on button
+	 * when either item or room not select display error messge on console
+	 * if both is selecte turn off the item in the select room(multiple room can be selected)
+	 * @param event
+	 */
+	public void handleOffSelection(ActionEvent event) {
+		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
+		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
+		if(listSelectItem.isEmpty() || listSelectLocation.isEmpty()){
+			consolelog.getItems().add("[" + time.getText() + "] " + "Cannot do the command, please select both item and room");
+			return;
+		}
+		RoomModel[] allRoom= HouseRoomsModel.getAllRoomsArray();
+		String item = listSelectItem.get(0);
+		for(RoomModel rm : allRoom){
+			for(String loc: listSelectLocation){
+				if(rm.getName().equalsIgnoreCase(loc)){
+					switch (item){
+						case "light":
+							rm.setNumOpenLights(0);
+							break;
+						case "door":
+							rm.setNumOpenDoor(0);
+							break;
+						case "window":
+							rm.setNumOpenWindows(0);
+					}
+					rm.setMode("regular");
+				}
+			}
+		}
+		HouseRoomsModel.setAllRooms(allRoom);
+		displayLayout();
+	}
+
+	/**
+	 * auto select is for light when there is at least one person in the room, the light is automatically turn on
+	 * if there is no person in the room, it would turn off the light
+	 * @param event
+	 */
+	public void handleAutoSelection(ActionEvent event) {
+		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
+		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
+		if(listSelectItem.isEmpty() || listSelectLocation.isEmpty()){
+			consolelog.getItems().add("[" + time.getText() + "] " + "Cannot do the command, please select both item and room");
+			return;
+		}
+		RoomModel[] allRoom= HouseRoomsModel.getAllRoomsArray();
+		String item = listSelectItem.get(0);
+		for(RoomModel rm: allRoom){
+			for(String s: listSelectLocation){
+				if(rm.getName().equalsIgnoreCase(s)){
+					rm.setMode("auto");
+				}
+			}
+		}
+		displayLayout();
+	}
+
+	/**
+	 * reset the current timer
+	 * @param i increment value of the time(speed time)
+	 * @param time
+	 */
+	public void resetTimerTask(int i, LocalTime time){
+		scheduleTimer.cancel();
+		scheduleTimer = new Timer(true);
+		incrementTask =new IncrementTask();
+		incrementTask.setTimeInc(i);
+		incrementTask.setTime(time);
+		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
+	}
+
+	/**
+	 * handle the slider change of time
+	 * @param mouseEvent
+	 */
+	public void timerSliderHandler(MouseEvent mouseEvent) {
+		resetTimerTask((int) Math.round(timeSlider.getValue()), LocalTime.parse(time.getText()));
+
+	}
+
+	/**
+	 * toggle the disable of the element such as timeslider, item list view, location list view
+	 * @param disable
+	 */
+	public void toggleDisable(boolean disable){
+		timeSlider.setDisable(disable);
+		itemView.setDisable(disable);
+		locationView.setDisable(disable);
+		OnBtn.setDisable(disable);
+		OffBtn.setDisable(disable);
+	}
+
 	/**
 	 * Turn on and Turn off Simulation
+	 * when simulation on, the time could adjust by the using time slider
+	 * when simulation is off set back to default which is 1
 	 * @param event
 	 */
 	public void toggleSimulation(ActionEvent event) {
@@ -144,11 +333,22 @@ public class dashBoardController {
 		switch (mode){
 		case "On":
 			toggleSimBtn.setText("Off");
+			resetTimerTask(1, LocalTime.parse(time.getText()));
+			toggleDisable(true);
 			break;
 		case "Off":
 			toggleSimBtn.setText("On");
+			resetTimerTask((int) timeSlider.getValue(), LocalTime.parse(time.getText()));
+			toggleDisable(false);
 			break;
 		}
+	}
+
+	/**
+	 * update the logged user location label
+	 */
+	public void updateLoggedLocation(){
+		userLocation.setText(mainController.getLoggedUser().getCurrentLocation());
 	}
 	/**
 	 * Display the dialog , and all the avaible location that logged user can choose to change location
@@ -162,6 +362,7 @@ public class dashBoardController {
 		for(RoomModel room : HouseRoomsModel.getAllRoomsArray()){
 			name.add(room.getName());
 		}
+		name.add("outside");
 		avaiLocation.setItems(name);
 		DialogPane locationDialogPane = updateLocation.getDialogPane();
 		locationDialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -169,10 +370,12 @@ public class dashBoardController {
 		updateLocation.setResultConverter((ButtonType button) -> {
 			if (button == ButtonType.OK && avaiLocation.getValue()!=null) {
 				userLocation.setText(avaiLocation.getValue());
+				mainController.getLoggedUser().setCurrentLocation(avaiLocation.getValue());
 			}
 			return null;
 		});
 		updateLocation.showAndWait();
+		displayLayout();
 	}
 
 	/**
@@ -185,12 +388,8 @@ public class dashBoardController {
 		Dialog<LocalTime> updateTime = tPicker.getTimePicker();
 		updateTime.setResultConverter((ButtonType button) -> {
 			if (button == ButtonType.OK && tPicker.getHourList().getValue()!=null &&tPicker.getMinList().getValue()!=null) {
-				scheduleTimer.cancel();
-				scheduleTimer = new Timer(true);
 				LocalTime pickTime = LocalTime.parse(tPicker.getHourList().getValue()+":"+tPicker.getMinList().getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
-				incrementTask =new IncrementTask();
-				incrementTask.setTime(pickTime);
-				scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
+				resetTimerTask(1, pickTime);
 			}
 			return null;
 		});

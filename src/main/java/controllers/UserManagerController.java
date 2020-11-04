@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -7,6 +8,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import models.UserModel;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * This class is responsible for allowing the user of the simulator
@@ -20,7 +26,6 @@ public class UserManagerController {
 	@FXML private TableColumn tableColumnName;
 	@FXML private TableColumn tableColumnStatus;
 	@FXML private Label errorLabel;
-
 	private Main mainController;
 	private Stage currentStage;
 
@@ -135,6 +140,7 @@ public class UserManagerController {
 
 	/**
 	 * Save all the action in the window and update the PersonData observable list
+	 * save all the user to text file to reuse in next launching app
 	 * @param event
 	 */
 	public void handleSave(ActionEvent event) {
@@ -142,6 +148,16 @@ public class UserManagerController {
 		mainController.getTempUserModelData().forEach((userModel)->{
 			mainController.getUserModelData().add(userModel);
 		});
+		try {
+			List<UserModel> all = mainController.getUserModelData();
+			File file = new File("allUser.txt");
+			PrintWriter pw = new PrintWriter(file);
+			pw.print(new Gson().toJson(all));
+			pw.flush();
+			pw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		currentStage.close();
 	}
 }
