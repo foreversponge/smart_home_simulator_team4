@@ -35,6 +35,7 @@ public class SimulationParametersController {
 	@FXML private JFXComboBox userSelected;
 	@FXML private JFXButton continueButton;
 	private Main mainController;
+	private HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();
 
 	/**
 	 * Initalize the values of the table that contains the user names and roles
@@ -45,7 +46,7 @@ public class SimulationParametersController {
 		colname.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
 		colrole.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
 		ObservableList<String> locationNames= FXCollections.observableArrayList();
-		for(RoomModel r : HouseRoomsModel.getAllRoomsArray()){
+		for(RoomModel r : houseRoomsModel.getAllRoomsArray()){
 			locationNames.add(r.getName());
 		}
 		roomLocation.setItems(locationNames);
