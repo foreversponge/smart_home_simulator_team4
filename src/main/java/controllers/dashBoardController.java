@@ -331,6 +331,22 @@ public class dashBoardController {
 			}
 		}
 		return allRoom;
+
+//		HouseRoomsModel.setAllRooms(allRoom);
+//		displayLayout();
+
+//		Timer timer = new Timer();
+//		TimerTask task = new TimerTask() {
+//			public void run() {
+//				for (RoomModel rm : allRoom) {
+//					rm.setNumOpenDoor(0);
+//				}
+//			}
+//		};
+//
+//		timer.schedule(task, 5000);
+//		HouseRoomsModel.setAllRooms(allRoom);
+//		displayLayout();
 	}
 
 	/**

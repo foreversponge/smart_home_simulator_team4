@@ -38,6 +38,9 @@ public class RoomController {
 	public ImageView window1;
 	public ImageView door1;
 	public ImageView light1;
+	public ImageView doorLock;
+	public ImageView windowBlocked;
+
 	@FXML
 	private AnchorPane anchorpaneroom1;
 	@FXML private Label room1;
@@ -98,17 +101,46 @@ public class RoomController {
 			}
 		}
 		room1.setText(room.getName());
-		badgeDoor.setText(String.valueOf(room.getNumDoors()-room.getNumOpenDoor()));
-		badgeLight.setText(String.valueOf(room.getNumLights()-room.getNumOpenLights()));
-		badgeWindow.setText(String.valueOf(room.getNumWindows()-room.getNumOpenWindows()));
-		badgeDoor1.setText(String.valueOf(room.getNumOpenDoor()));
-		badgeLight1.setText(String.valueOf(room.getNumOpenLights()));
-		badgeWindow1.setText(String.valueOf(room.getNumOpenWindows()));
-		window1.setImage(new Image("file:src/main/resources/images/closewindow.png"));
-		light1.setImage(new Image("file:src/main/resources/images/lightoff.png"));
-		door1.setImage(new Image("file:src/main/resources/images/closedoor.png"));
-		window11.setImage(new Image("file:src/main/resources/images/openwindow.png"));
-		light11.setImage(new Image("file:src/main/resources/images/lighton.png"));
-		door11.setImage(new Image("file:src/main/resources/images/opendoor.png"));
+//		badgeDoor.setText(String.valueOf(room.getNumDoors()-room.getNumOpenDoor()));
+//		badgeLight.setText(String.valueOf(room.getNumLights()-room.getNumOpenLights()));
+		badgeDoor.setText(String.valueOf(room.getNumDoors()));
+		badgeLight.setText(String.valueOf(room.getNumLights()));
+		badgeWindow.setText(String.valueOf(room.getNumWindows()));
+//		badgeWindow.setText(String.valueOf(room.getNumWindows()-room.getNumOpenWindows()));
+//		badgeDoor1.setText(String.valueOf(room.getNumOpenDoor()));
+//		badgeLight1.setText(String.valueOf(room.getNumOpenLights()));
+//		badgeWindow1.setText(String.valueOf(room.getNumOpenWindows()));
+
+		if (room.getNumOpenWindows() == 0) {
+			window1.setImage(new Image("file:src/main/resources/images/closewindow.png"));
+		}
+		else {
+			window1.setImage(new Image("file:src/main/resources/images/openwindow.png"));
+		}
+
+		if (room.getNumOpenDoor() == 0) {
+			door1.setImage(new Image("file:src/main/resources/images/closedoor.png"));
+		}
+		else {
+			door1.setImage(new Image("file:src/main/resources/images/opendoor.png"));
+		}
+
+		if (room.getNumOpenLights() == 0) {
+			light1.setImage(new Image("file:src/main/resources/images/lightoff.png"));
+		}
+		else {
+			light1.setImage(new Image("file:src/main/resources/images/lighton.png"));
+		}
+
+		doorLock.setImage(new Image("file:src/main/resources/images/locked.png"));
+		windowBlocked.setImage(new Image("file:src/main/resources/images/windowBlocked.png"));
+
+
+//		window1.setImage(new Image("file:src/main/resources/images/closewindow.png"));
+//		window11.setImage(new Image("file:src/main/resources/images/openwindow.png"));
+//		light1.setImage(new Image("file:src/main/resources/images/lightoff.png"));
+//		door1.setImage(new Image("file:src/main/resources/images/closedoor.png"));
+//		light11.setImage(new Image("file:src/main/resources/images/lighton.png"));
+//		door11.setImage(new Image("file:src/main/resources/images/opendoor.png"));
 	}
 }

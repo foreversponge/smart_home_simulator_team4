@@ -1,23 +1,44 @@
 [
  {
-   'name':'kitchen',
+   'name':'House Entrance',
+   'numWindows': 1,
+   'numDoors': 1,
+   'numLights': 1,
+   'nextRoomName':'Garage'
+ },
+ {
+   'name':'Garage',
+   'numWindows': 1,
+   'numDoors': 1,
+   'numLights': 1,
+   'nextRoomName':'Backyard'
+ },
+ {
+   'name':'Backyard',
+   'numWindows': 1,
+   'numDoors': 1,
+   'numLights': 1,
+   'nextRoomName':'Kitchen'
+ },
+ {
+   'name':'Kitchen',
    'numWindows': 2, 
    'numDoors': 1, 
    'numLights': 2, 
-   'nextRoomName':'livingroom'
+   'nextRoomName':'Living Room'
  },
  {
-   'name':'livingRoom',
+   'name':'Living Room',
    'numWindows': 2, 
    'numDoors': 1, 
    'numLights': 3, 
-   'nextRoomName':'bedroom'
+   'nextRoomName':'Bedroom'
  },
  {
    'name':'Bedroom',
    'numWindows': 1, 
    'numDoors': 1, 
    'numLights': 1, 
-   'nextRoomName':'kitchen'
+   'nextRoomName':'House Entrance'
  }
 ]
