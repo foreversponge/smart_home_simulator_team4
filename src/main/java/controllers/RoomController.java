@@ -41,7 +41,7 @@ public class RoomController {
 	@FXML
 	private AnchorPane anchorpaneroom1;
 	@FXML private Label room1;
-
+	private HouseRoomsModel houseRoomsModel= HouseRoomsModel.getInstance();
 	private RoomModel room;
 
 	/**
@@ -59,7 +59,7 @@ public class RoomController {
 	private Map<String, Integer> extractUserInRoom(){
 		Map<String, Integer> userInRoom = new HashMap<>();
 		ObservableList<UserModel> allUser= mainController.getUserModelData();
-		for(RoomModel rm: HouseRoomsModel.getAllRoomsArray()){
+		for(RoomModel rm: houseRoomsModel.getAllRoomsArray()){
 			userInRoom.put(rm.getName(),0);
 		}
 		for(UserModel u : allUser){
