@@ -516,10 +516,10 @@ public class dashBoardController {
 					break;
 				}
 			}
-			for (UserModel user : mainController.getUserModelData()) {
-				if (user.getCurrentLocation() != null && !user.getCurrentLocation().equals("outside")) {
-					consolelog.getItems().add("[" + time.getText() + "] " + "AWAY MODE WARNING: Person present in " + user.getCurrentLocation());
-				}
+		}
+		for (UserModel user : mainController.getUserModelData()) {
+			if (user.getCurrentLocation() != null && !user.getCurrentLocation().equals("outside")) {
+				consolelog.getItems().add("[" + time.getText() + "] " + "AWAY MODE WARNING: Person present in " + user.getCurrentLocation());
 			}
 		}
 		HouseRoomsModel.setAllRooms(allRooms);
