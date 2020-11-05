@@ -8,15 +8,18 @@ import com.jfoenix.controls.JFXListView;
  *
  */
 public class SHPModel implements Observer {
-	
+
+	private String alertpolice;
 	private boolean isAwayModeOn;
 	private JFXListView consoleLog;
 
 	/**
 	 * Constructor which sets the AwayMode to OFF
+	 * Also sets the delay time for the call to authorities to 0
 	 */
 	public SHPModel() {
 		this.isAwayModeOn = false;
+		this.alertpolice = "0";
 	}
 
 	/**
@@ -34,7 +37,23 @@ public class SHPModel implements Observer {
 	public void setAwayModeOn(boolean isAwayModeOn) {
 		this.isAwayModeOn = isAwayModeOn;
 	}
-	
+
+	/**
+	 * Setter for the delay alert police
+	 * @param minutes
+	 */
+	public void setAlertpolice(String minutes){
+		this.alertpolice = minutes;
+	}
+
+	/**
+	 * Getter for the delay alert police
+	 * @return
+	 */
+	public String getAlertpolice(){
+		return alertpolice;
+	}
+
 	/**
 	 * sets the console
 	 * @param consoleLog console
