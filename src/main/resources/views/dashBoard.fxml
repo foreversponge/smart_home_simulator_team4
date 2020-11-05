@@ -101,7 +101,7 @@
                                           </VBox>
                                           <HBox alignment="CENTER" spacing="10.0">
                                              <children>
-                                                <JFXButton fx:id="OnBtn" alignment="CENTER" disable="true" onAction="#handleOnselection" text="On" />
+                                                <JFXButton fx:id="OnBtn" alignment="CENTER" disable="true" onAction="#handleOnSelection" text="On" />
                                                 <JFXButton fx:id="OffBtn" alignment="CENTER" disable="true" onAction="#handleOffSelection" text="Off" />
                                                 <JFXButton fx:id="autoBtn" alignment="CENTER" disable="true" onAction="#handleAutoSelection" text="Auto" />
                                              </children>
@@ -116,7 +116,7 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Label layoutX="64.0" layoutY="90.0" text="Away Mode" />
-                                    <JFXToggleButton fx:id="toggleAwayMode" layoutX="174.0" layoutY="70.0" onAction="#HandleAwayToggle" text="Off" />
+                                    <JFXToggleButton fx:id="toggleAwayMode" layoutX="174.0" layoutY="70.0" onAction="#handleAwayToggle" text="Off" />
                                  </children></AnchorPane>
                            </content>
                         </Tab>
@@ -162,7 +162,7 @@
         </Pane>
     </children>
 </VBox>
-      <JFXButton layoutX="30.0" layoutY="17.0" onAction="#HandleBack" text="Back" />
+      <JFXButton layoutX="30.0" layoutY="17.0" onAction="#handleBack" text="Back" />
         </children>
 
 

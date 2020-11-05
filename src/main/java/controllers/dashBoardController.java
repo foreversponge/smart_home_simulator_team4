@@ -52,7 +52,7 @@ public class dashBoardController {
 	IncrementTask incrementTask;
 	Timer scheduleTimer;
 	private String selectItem;
-	private List<String> selectLocaiton;
+	private List<String> selectLocation;
 
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
@@ -121,7 +121,7 @@ public class dashBoardController {
 	 * reset the block window, close the dashboard screen to go back to simulation parameter
 	 * @param event
 	 */
-	public void HandleBack(ActionEvent event) {
+	public void handleBack(ActionEvent event) {
 		UserModel userModel = mainController.getLoggedUser();
 		userModel.setTime(null);
 		userModel.setDate(null);
@@ -150,32 +150,32 @@ public class dashBoardController {
 	public boolean checkPermission(UserModel user,String location){
 		String role = user.getRole();
 		String userLocation = user.getCurrentLocation();
-		boolean retBoolean =false;
+		boolean permission =false;
 		switch (role.toLowerCase()){
 			case "parent":
-				retBoolean = true;
+				permission = true;
 				break;
 			case "child":
 			case "guest":
 				if(userLocation.equalsIgnoreCase(location)){
-					retBoolean= true;
+					permission= true;
 				}
 				else {
-					retBoolean= false;
+					permission= false;
 				}
 				break;
 			case "stranger":
-				retBoolean= false;
+				permission= false;
 				break;
 		}
-		return retBoolean;
+		return permission;
 	}
 
 	/**
 	 * to close all the door window light when the away is on
 	 * @param event
 	 */
-	public void HandleAwayToggle(ActionEvent event) {
+	public void handleAwayToggle(ActionEvent event) {
 		String mode = toggleAwayMode.getText();
 		switch (mode){
 			case "On":
@@ -186,7 +186,7 @@ public class dashBoardController {
 				//on
 				if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") ||
 						mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")){
-					addToConoleLog("Cannot do the command, Permission denial");
+					addToConsoleLog("Cannot do the command, Permission denial");
 					toggleAwayMode.setText("Off");
 					return;
 				}
@@ -206,10 +206,10 @@ public class dashBoardController {
 	 * dynamically display the room of the house
 	 */
 	public void displayLayout(){
-		RoomModel[] allr = houseRoomsModel.getAllRoomsArray();
+		RoomModel[] allRoom = houseRoomsModel.getAllRoomsArray();
 		int column = 0;
 		int row = 0;
-		for (int i = 0; i < allr.length; i++) {
+		for (int i = 0; i < allRoom.length; i++) {
 
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(getClass().getResource("/views/room.fxml"));
@@ -222,7 +222,7 @@ public class dashBoardController {
 
 			RoomController roomController = fxmlLoader.getController();
 			roomController.setMainController(mainController);
-			roomController.setData(allr[i]);
+			roomController.setData(allRoom[i]);
 
 			if (column == 2) {
 				column = 0;
@@ -252,7 +252,7 @@ public class dashBoardController {
 	 * add the error message to the console list view
 	 * @param err
 	 */
-	public void addToConoleLog(String err){
+	public void addToConsoleLog(String err){
 		consolelog.getItems().add("[" + time.getText() + "] " + err);
 
 	}
@@ -275,7 +275,7 @@ public class dashBoardController {
 		}
 	}
 
-	public void checkItemAndLocationSelectioin(){
+	public void checkItemAndLocationSelection(){
 		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
 		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
 		if(listSelectItem.isEmpty() || listSelectLocation.isEmpty()){
@@ -283,7 +283,7 @@ public class dashBoardController {
 			return;
 		}
 		selectItem = listSelectItem.get(0);
-		selectLocaiton = listSelectLocation;
+		selectLocation = listSelectLocation;
 	}
 
 	/**
@@ -292,19 +292,19 @@ public class dashBoardController {
 	 * if both is selecte turn on the item in the select room(multiple room can be selected)
 	 * @param event
 	 */
-	public void handleOnselection(ActionEvent event) {
+	public void handleOnSelection(ActionEvent event) {
 		RoomModel[] allRoom = toggleOnOff("on");
 		houseRoomsModel.setAllRooms(allRoom);
 		displayLayout();
 	}
 
 	public RoomModel[] toggleOnOff(String mode){
-		checkItemAndLocationSelectioin();
+		checkItemAndLocationSelection();
 		RoomModel[] allRoom= houseRoomsModel.getAllRoomsArray();
 		for(RoomModel rm : allRoom){
-			for(String loc: selectLocaiton){
+			for(String loc: selectLocation){
 				if(!checkPermission(mainController.getLoggedUser(),loc) && rm.getName().equalsIgnoreCase(loc)) {
-					addToConoleLog("Cannot do the command, permission denial. Trying to turn "+mode +" in "+loc);
+					addToConsoleLog("Cannot do the command, permission denial. Trying to turn "+mode +" in "+loc);
 					continue;
 				}
 				if(rm.getName().equalsIgnoreCase(loc)){
@@ -320,7 +320,7 @@ public class dashBoardController {
 								rm.setNumOpenWindows(mode.equals("on")?rm.getNumWindows():0);
 							}
 							else{
-								addToConoleLog("Cannot do the command, Object block the window of room "+loc);
+								addToConsoleLog("Cannot do the command, Object block the window of room "+loc);
 							}
 							break;
 					}
@@ -367,12 +367,12 @@ public class dashBoardController {
 	 * @param event
 	 */
 	public void handleAutoSelection(ActionEvent event) {
-		checkItemAndLocationSelectioin();
+		checkItemAndLocationSelection();
 		RoomModel[] allRoom= houseRoomsModel.getAllRoomsArray();
 		for(RoomModel rm: allRoom){
-			for(String loc: selectLocaiton){
+			for(String loc: selectLocation){
 				if(!checkPermission(mainController.getLoggedUser(),loc) && rm.getName().equalsIgnoreCase(loc)) {
-					addToConoleLog("Cannot do the command, permission denial, trying to set auto in "+loc);
+					addToConsoleLog("Cannot do the command, permission denial, trying to set auto in "+loc);
 					continue;
 				}
 				if(rm.getName().equalsIgnoreCase(loc)){
@@ -539,7 +539,7 @@ public class dashBoardController {
 					}
 				}
 				else{
-					addToConoleLog("The temperature cannot contain a letter. Please try again.");
+					addToConsoleLog("The temperature cannot contain a letter. Please try again.");
 				}
 			}
 			return null;
@@ -558,7 +558,7 @@ public class dashBoardController {
 			}
 			else {
 				//display error message to console if simulation is OFF
-				addToConoleLog("The simulation must be ON to edit its context");
+				addToConsoleLog("The simulation must be ON to edit its context");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
