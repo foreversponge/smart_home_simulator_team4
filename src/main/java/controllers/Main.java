@@ -36,10 +36,6 @@ public class Main extends Application {
 	private dashBoardController dashBoardController;
 	private SHPModel shpModel = new SHPModel();
 
-	public SHPModel getShpModel() {
-		return shpModel;
-	}
-
 	/**
 	 * Launches the simulator
 	 * if the there is user from text file that save in the previous launching app
@@ -59,8 +55,7 @@ public class Main extends Application {
 				u.setListOfObservers(new ArrayList<Observer>());
 				userModelData.add(u);
 				tempUserModelData.add(u);
-				u.attach(shpModel);
-				System.out.println(u.getListOfObservers());
+				u.registerObserver(shpModel);	//each user observes the SHP Model
 			}
 		}
 		try {
@@ -228,6 +223,14 @@ public class Main extends Application {
 		Scene editContextScene = new Scene(root);
 		editContextStage.setScene(editContextScene);
 		editContextStage.show();
+	}
+	
+	/**
+	 * Getter to obtain the SHPModel
+	 * @return SHPModel
+	 */
+	public SHPModel getShpModel() {
+		return shpModel;
 	}
 }
 

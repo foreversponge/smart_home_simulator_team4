@@ -23,14 +23,6 @@ public class UserModel implements Subject {
 	private transient ComboBox<String> locationOptions;	//comboBox storing possible user locations (for edit context of simulation)
 	private transient List<Observer> listOfObservers;
 
-	public List<Observer> getListOfObservers() {
-		return listOfObservers;
-	}
-
-	public void setListOfObservers(List<Observer> listOfObservers) {
-		this.listOfObservers = listOfObservers;
-	}
-
 	/**
 	 * Getter to obtain the time
 	 * @return time
@@ -147,15 +139,32 @@ public class UserModel implements Subject {
 			notifyObservers();
 		}
 	}
+	
+	/**
+	 * Getter to obtain the list containing all observers
+	 * @return list of observers
+	 */
+	public List<Observer> getListOfObservers() {
+		return listOfObservers;
+	}
+
+	/**
+	 * Setter to set the list of observers
+	 * @param listOfObservers
+	 */
+	public void setListOfObservers(List<Observer> listOfObservers) {
+		this.listOfObservers = listOfObservers;
+	}
+
 
 	@Override
-	public void attach(Observer o) {
-		listOfObservers.add(o);
+	public void registerObserver(Observer observer) {
+		listOfObservers.add(observer);
 	}
 
 	@Override
-	public void detach(Observer o) {
-		listOfObservers.remove(o);		
+	public void unregisterObserver(Observer observer) {
+		listOfObservers.remove(observer);		
 	}
 
 	@Override

@@ -99,6 +99,7 @@ public class dashBoardController {
 		logUser.setText(maincontroller.getLoggedUser().getNameAndRole());
 		incrementTask.setTime(choosentime);
 		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
+		mainController.getShpModel().setConsoleLog(consolelog);
 		consolelog.setItems(mainController.getLogMessages());
 		displayLayout();
 	}
@@ -471,9 +472,12 @@ public class dashBoardController {
 		}
 	}
 
+	/**
+	 * Turn On or Off away Mode
+	 * @param event user clicks the away mode toggle
+	 */
 	public void setAwayMode(MouseEvent event) {
 		String awayMode = toggleAwayMode.getText();
-		System.out.println("AWAYMODE=" + awayMode);
 		switch (awayMode){
 		case "ON":
 			toggleAwayMode.setText("OFF");
@@ -489,8 +493,10 @@ public class dashBoardController {
 		}
 	}
 
+	/**
+	 * When away mode is turned ON, all doors and windows must be closed 
+	 */
 	public void handleAwayModeOn() {
-		System.out.println("POW");
 		RoomModel[] allRooms = HouseRoomsModel.getAllRoomsArray();
 		List<String> items = itemView.getItems();
 		for(RoomModel room : allRooms){
