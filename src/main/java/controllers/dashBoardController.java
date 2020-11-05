@@ -58,7 +58,7 @@ public class dashBoardController {
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
 	@FXML private JFXToggleButton toggleAwayMode;
-
+	
 	/**
 	 * inner class which extends TimerTask
 	 * so Timer can generate action of this Task at fix rate
@@ -477,11 +477,13 @@ public class dashBoardController {
 		switch (awayMode){
 		case "ON":
 			toggleAwayMode.setText("OFF");
+			mainController.getShpModel().setAwayModeOn(false);
 			break;
 		case "OFF":
 			toggleAwayMode.setText("ON");
 			mainController.getLoggedUser().setCurrentLocation("outside");
 			updateLoggedLocation();
+			mainController.getShpModel().setAwayModeOn(true);
 			handleAwayModeOn();
 			break;
 		}

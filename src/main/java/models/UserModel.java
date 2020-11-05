@@ -5,13 +5,15 @@ import javafx.scene.control.ComboBox;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class stores the data about each user profile
  * @author Team 4
  *
  */
-public class UserModel {
+public class UserModel implements Subject {
 
 	private String name;
 	private String role;
@@ -19,6 +21,15 @@ public class UserModel {
 	private transient LocalTime time;
 	private transient LocalDate date;
 	private transient ComboBox<String> locationOptions;	//comboBox storing possible user locations (for edit context of simulation)
+	private transient List<Observer> listOfObservers;
+
+	public List<Observer> getListOfObservers() {
+		return listOfObservers;
+	}
+
+	public void setListOfObservers(List<Observer> listOfObservers) {
+		this.listOfObservers = listOfObservers;
+	}
 
 	/**
 	 * Getter to obtain the time
@@ -132,5 +143,25 @@ public class UserModel {
 	 */
 	public void setCurrentLocation(String currentLocation) {
 		this.currentLocation = currentLocation;
+		if (listOfObservers != null) {
+			notifyObservers();
+		}
+	}
+
+	@Override
+	public void attach(Observer o) {
+		listOfObservers.add(o);
+	}
+
+	@Override
+	public void detach(Observer o) {
+		listOfObservers.remove(o);		
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (Observer observer : listOfObservers) {
+			observer.update(this);			
+		}
 	}
 }
