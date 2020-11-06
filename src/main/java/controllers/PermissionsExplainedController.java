@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-
 /**
  * This class acts as a controller for permissionsExplained.fxml
  * It explains to the user the permissions that come with each role
@@ -26,5 +25,4 @@ public class PermissionsExplainedController {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
-
 }
