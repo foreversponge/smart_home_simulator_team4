@@ -102,7 +102,7 @@ public class RoomController {
 		badgeLight.setText(String.valueOf(room.getNumLights()));
 		badgeWindow.setText(String.valueOf(room.getNumWindows()));
 
-		if(dashBoardController.getAwayModeOn()) {
+		if(mainController.getShpModel().isAwayModeOn()) {
 			if (room.getName().equalsIgnoreCase("House Entrance") || room.getName().equalsIgnoreCase("Garage") || room.getName().equalsIgnoreCase("Backyard")) {
 				doorLock.setImage(new Image("file:src/main/resources/images/locked.png"));
 				Tooltip doorLockedTooltip = new Tooltip("Door is locked");

@@ -134,7 +134,12 @@ public class EditContextOfSimulationController {
 		String currLocation = "";
 		//update the current location of each user
 		for (int index = 0; index < currentLocations.size(); index++) {
-			mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
+			if (mainController.getUserModelData().get(index).getCurrentLocation() == null) {
+				mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
+			}
+			else if (!mainController.getUserModelData().get(index).getCurrentLocation().equals(currentLocations.get(index))) {
+				mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
+			}
 			if(mainController.getUserModelData().get(index).getName().equals(name)){
 				currLocation = currentLocations.get(index);
 			}

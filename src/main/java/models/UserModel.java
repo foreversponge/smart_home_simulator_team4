@@ -5,13 +5,15 @@ import javafx.scene.control.ComboBox;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class stores the data about each user profile
  * @author Team 4
  *
  */
-public class UserModel {
+public class UserModel implements Subject {
 
 	private String name;
 	private String role;
@@ -19,6 +21,7 @@ public class UserModel {
 	private transient LocalTime time;
 	private transient LocalDate date;
 	private transient ComboBox<String> locationOptions;	//comboBox storing possible user locations (for edit context of simulation)
+	private transient List<Observer> listOfObservers;
 
 	/**
 	 * Getter to obtain the time
@@ -132,5 +135,50 @@ public class UserModel {
 	 */
 	public void setCurrentLocation(String currentLocation) {
 		this.currentLocation = currentLocation;
+		if (listOfObservers != null) {
+			notifyObservers();
+		}
+	}
+	
+	/**
+	 * Getter to obtain the list containing all observers
+	 * @return list of observers
+	 */
+	public List<Observer> getListOfObservers() {
+		return listOfObservers;
+	}
+
+	/**
+	 * Setter to set the list of observers
+	 * @param listOfObservers
+	 */
+	public void setListOfObservers(List<Observer> listOfObservers) {
+		this.listOfObservers = listOfObservers;
+	}
+
+	/**
+	 * Adds an observer to the list of observers
+	 */
+	@Override
+	public void registerObserver(Observer observer) {
+		listOfObservers.add(observer);
+	}
+
+	/**
+	 * Removes an observer from the list of observers
+	 */
+	@Override
+	public void unregisterObserver(Observer observer) {
+		listOfObservers.remove(observer);		
+	}
+
+	/**
+	 * Notifies observers that a change occurred in the subject
+	 */
+	@Override
+	public void notifyObservers() {
+		for (Observer observer : listOfObservers) {
+			observer.update(this);			
+		}
 	}
 }

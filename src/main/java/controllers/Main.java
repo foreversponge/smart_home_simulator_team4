@@ -11,10 +11,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import models.LogMessageModel;
+import models.Observer;
+import models.SHPModel;
 import models.UserModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -31,6 +34,7 @@ public class Main extends Application {
 	private ObservableList<LogMessageModel> logMessageModels = FXCollections.observableArrayList();
 	private UserModel loggedUser;
 	private dashBoardController dashBoardController;
+	private SHPModel shpModel = new SHPModel();
 
 	/**
 	 * Launches the simulator
@@ -48,8 +52,10 @@ public class Main extends Application {
 		UserModel[] all= new Gson().fromJson(readFromFile(), UserModel[].class);
 		if(all!=null){
 			for(UserModel u: all){
+				u.setListOfObservers(new ArrayList<Observer>());
 				userModelData.add(u);
 				tempUserModelData.add(u);
+				u.registerObserver(shpModel);	//each user observes the SHP Model
 			}
 		}
 		try {
@@ -217,6 +223,14 @@ public class Main extends Application {
 		Scene editContextScene = new Scene(root);
 		editContextStage.setScene(editContextScene);
 		editContextStage.show();
+	}
+	
+	/**
+	 * Getter to obtain the SHPModel
+	 * @return SHPModel
+	 */
+	public SHPModel getShpModel() {
+		return shpModel;
 	}
 
 	/**
