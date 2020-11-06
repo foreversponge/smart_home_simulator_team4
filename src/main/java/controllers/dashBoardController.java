@@ -128,6 +128,7 @@ public class dashBoardController {
 		userModel.setDate(null);
 		userModel.setCurrentLocation("outside");
 		consolelog.getItems().clear();
+		mainController.getShpModel().setAwayModeOn(false);
 		for(RoomModel rm : houseRoomsModel.getAllRoomsArray()){
 			rm.setObjectBlockingWindow(false);
 			rm.setNumOpenWindows(0);
@@ -171,37 +172,6 @@ public class dashBoardController {
 		}
 		return permission;
 	}
-
-	/**
-	 * to close all the door window light when the away is on
-	 * @param event
-	 */
-	public void handleAwayToggle(ActionEvent event) {
-		String mode = toggleAwayMode.getText();
-		switch (mode){
-		case "On":
-			// off
-			toggleAwayMode.setText("Off");
-			break;
-		case "Off":
-			//on
-			if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") ||
-					mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")){
-				addToConsoleLog("Cannot do the command, Permission denial");
-				toggleAwayMode.setText("Off");
-				return;
-			}
-			for(RoomModel rm: houseRoomsModel.getAllRoomsArray()){
-				rm.setNumOpenLights(0);
-				rm.setNumOpenWindows(0);
-				rm.setNumOpenDoor(0);
-			}
-			toggleAwayMode.setText("On");
-			displayLayout();
-			break;
-		}
-	}
-
 
 	/**
 	 * dynamically display the room of the house
@@ -392,7 +362,7 @@ public class dashBoardController {
 	}
 
 	/**
-	 * toggle the disable of the element such as timeslider, item list view, location list view
+	 * toggle the disable of the element such as time slider, item list view, location list view
 	 * @param disable
 	 */
 	public void toggleDisable(boolean disable){
@@ -433,7 +403,7 @@ public class dashBoardController {
 		userLocation.setText(mainController.getLoggedUser().getCurrentLocation());
 	}
 	/**
-	 * Display the dialog , and all the avaible location that logged user can choose to change location
+	 * Display the dialog , and all the available location that logged user can choose to change location
 	 * @param mouseEvent
 	 */
 	public void handleChangeLocation(MouseEvent mouseEvent) {
@@ -479,7 +449,7 @@ public class dashBoardController {
 	}
 
 	/**
-	 * display dialg and DatePicker to allow logged user choose the date and update it on the dashboard
+	 * display dialog and DatePicker to allow logged user to choose the date and update it on the dashboard
 	 * @param mouseEvent
 	 */
 	public void handleChangeDate(MouseEvent mouseEvent) {
@@ -565,9 +535,15 @@ public class dashBoardController {
 		case "OFF":
 			if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") || mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")) {
 				addToConsoleLog("Cannot do the command, Permission denial");
+				toggleAwayMode.setSelected(false);
+			}
+			else if (!mainController.getLoggedUser().getCurrentLocation().equals("outside")) {
+				addToConsoleLog("Away Mode can only be set if not home. You must be outside.");
+				toggleAwayMode.setSelected(false);
 			}
 			else {
 				toggleAwayMode.setText("ON");
+				addToConsoleLog("Away Mode is now ON!");
 				mainController.getLoggedUser().setCurrentLocation("outside");
 				updateLoggedLocation();
 				mainController.getShpModel().setAwayModeOn(true);
@@ -581,28 +557,10 @@ public class dashBoardController {
 	 * When away mode is turned ON, all doors and windows must be closed 
 	 */
 	public void handleAwayModeOn() {
-//		RoomModel[] allRooms = houseRoomsModel.getAllRoomsArray();
-//		List<String> items = itemView.getItems();
 		for(RoomModel room : houseRoomsModel.getAllRoomsArray()){
-//			for (String item : items) {
-//				switch (item) {
-//				case "door":
-//					room.setNumOpenDoor(0);
-//					break;
-//				case "window":
-//					if (room.isObjectBlockingWindow()) {
-//						consolelog.getItems().add("[" + time.getText() + "] " + "Cannot close window in " + room.getName() + " because object present");
-//					} else {
-//						room.setNumOpenWindows(0);
-//					}
-//					break;
-//				case "light":
-//					break;
-//				}
-//			}
 			room.setNumOpenLights(0);
 			if (room.isObjectBlockingWindow()) {
-				consolelog.getItems().add("[" + time.getText() + "] " + "Cannot close window in " + room.getName() + " because object present");
+				addToConsoleLog("AWAY MODE WARNING: Cannot close window in " + room.getName() + " because object present");
 			} else {
 				room.setNumOpenWindows(0);
 			}
@@ -610,10 +568,9 @@ public class dashBoardController {
 		}
 		for (UserModel user : mainController.getUserModelData()) {
 			if (user.getCurrentLocation() != null && !user.getCurrentLocation().equals("outside")) {
-				consolelog.getItems().add("[" + time.getText() + "] " + "AWAY MODE WARNING: Person present in " + user.getCurrentLocation());
+				addToConsoleLog("AWAY MODE WARNING: Person present in " + user.getCurrentLocation());
 			}
 		}
-//		houseRoomsModel.setAllRooms(allRooms);
 		displayLayout();
 	}
 }
