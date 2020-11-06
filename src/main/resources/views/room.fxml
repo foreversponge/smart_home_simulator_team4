@@ -8,13 +8,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpaneroom" prefHeight="90.0" prefWidth="130.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RoomController">
+<AnchorPane fx:id="anchorpaneroom" prefHeight="109.0" prefWidth="159.0" style="-fx-background-color: #00E6EE;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RoomController">
     <children>
         <HBox alignment="CENTER" layoutX="7.0" prefHeight="28.0" prefWidth="147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <VBox layoutX="7.0" layoutY="38.0">
+      <VBox layoutY="38.0" prefHeight="71.0" prefWidth="161.0" style="-fx-background-color: AFEEEE;">
          <children>
-              <HBox prefHeight="35.0" prefWidth="223.0" spacing="10.0" style="-fx-background-color: pink;">
+              <HBox prefHeight="71.0" prefWidth="267.0" spacing="10.0" style="-fx-background-color: AFEEEE;">
                   <children>
                       <JFXBadge fx:id="badgeWindow" position="TOP_RIGHT" styleClass="icons-badge">
                           <StackPane prefHeight="37.0" prefWidth="35.0" style="-fx-padding: 7.5;">
@@ -45,7 +46,7 @@
                   </JFXBadge>
                        </children>
               </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="118.0" spacing="5.0" style="-fx-background-color: pink;">
+            <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="174.0" spacing="5.0">
                <children>
                   <JFXBadge fx:id="badgeWindowBlocked" position="TOP_RIGHT" prefHeight="36.0" prefWidth="16.0" styleClass="icons-badge">
                      <control>
@@ -78,7 +79,10 @@
             </HBox>
          </children>
       </VBox>
-        <Label fx:id="room1" layoutX="7.0" layoutY="4.0" prefHeight="20.0" prefWidth="151.0" text="ROOM" />
+        <Label fx:id="room1" layoutX="7.0" layoutY="4.0" prefHeight="28.0" prefWidth="154.0" text="ROOM">
+         <font>
+            <Font name="MS Reference Sans Serif" size="14.0" />
+         </font></Label>
     </children>
 
 </AnchorPane>
