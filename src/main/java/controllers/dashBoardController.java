@@ -543,7 +543,7 @@ public class dashBoardController {
 			}
 			else {
 				toggleAwayMode.setText("ON");
-				addToConsoleLog("Away Mode is now ON!");
+				addToConsoleLog("Away Mode is now ON");
 				mainController.getLoggedUser().setCurrentLocation("outside");
 				updateLoggedLocation();
 				mainController.getShpModel().setAwayModeOn(true);
