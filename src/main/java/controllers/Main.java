@@ -232,5 +232,23 @@ public class Main extends Application {
 	public SHPModel getShpModel() {
 		return shpModel;
 	}
+
+	/**
+	 * Method to open the permissions explained window
+	 * 
+	 * @throws IOException
+	 */
+	public void setPermissionsWindow() throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/permissionsExplained.fxml"));
+		Parent root = fxmlLoader.load();
+		Stage permissionsStage = new Stage();
+		permissionsStage.initOwner(currentState);
+		permissionsStage.setTitle("Roles and Permissions");
+		permissionsStage.initModality(Modality.WINDOW_MODAL);
+		Scene permissionsScene = new Scene(root);
+		permissionsStage.setScene(permissionsScene);
+		permissionsStage.setResizable(false);
+		permissionsStage.show();
+	}
 }
 

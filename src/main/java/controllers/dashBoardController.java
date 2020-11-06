@@ -14,7 +14,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 import models.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -115,6 +117,7 @@ public class dashBoardController {
 		setLocationView();
 		locationView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		toggleDisable(true);
+		toggleAwayMode.setDisable(true);
 	}
 
 	/**
@@ -272,31 +275,40 @@ public class dashBoardController {
 	public RoomModel[] toggleOnOff(String mode){
 		checkItemAndLocationSelection();
 		RoomModel[] allRoom= houseRoomsModel.getAllRoomsArray();
-		for(RoomModel rm : allRoom){
-			for(String loc: selectLocation){
-				if(!checkPermission(mainController.getLoggedUser(),loc) && rm.getName().equalsIgnoreCase(loc)) {
-					addToConsoleLog("Cannot do the command, permission denial. Trying to turn "+mode +" in "+loc);
-					continue;
-				}
-				if(rm.getName().equalsIgnoreCase(loc)){
-					switch (selectItem){
-					case "light":
-						rm.setNumOpenLights(mode.equals("on")?rm.getNumLights():0);
-						break;
-					case "door":
-						rm.setNumOpenDoor(mode.equals("on")?rm.getNumDoors():0);
-						break;
-					case "window":
-						if(!rm.isObjectBlockingWindow()){
-							rm.setNumOpenWindows(mode.equals("on")?rm.getNumWindows():0);
-						}
-						else{
-							addToConsoleLog("Cannot do the command, Object block the window of room "+loc);
-						}
-						break;
+		if(selectLocation != null) {
+			for(RoomModel rm : allRoom){
+				for (String loc : selectLocation) {
+					if (!checkPermission(mainController.getLoggedUser(), loc) && rm.getName().equalsIgnoreCase(loc)) {
+						addToConsoleLog("Cannot execute the command, you do not have the necessary permissions (Attempt to set " + mode + " mode in " + loc + ").");
+						continue;
 					}
-					if(mode.equals("off")){
-						rm.setMode("regular");
+					if (rm.getName().equalsIgnoreCase(loc)) {
+						switch (selectItem) {
+							case "light":
+								rm.setNumOpenLights(mode.equals("on") ? rm.getNumLights() : 0);
+								break;
+							case "door":
+								if (!mainController.getShpModel().isAwayModeOn()) {
+									rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
+								} else if (mainController.getShpModel().isAwayModeOn() && !(rm.getName().equalsIgnoreCase("House Entrance")
+										|| rm.getName().equalsIgnoreCase("Garage")
+										|| rm.getName().equalsIgnoreCase("Backyard"))) {
+									rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
+								} else {
+									addToConsoleLog("Cannot execute command, away mode is turned on.");
+								}
+								break;
+							case "window":
+								if (!rm.isObjectBlockingWindow()) {
+									rm.setNumOpenWindows(mode.equals("on") ? rm.getNumWindows() : 0);
+								} else {
+									addToConsoleLog("Cannot execute the command, there is an object blocking the window of the " + loc);
+								}
+								break;
+						}
+						if (mode.equals("off")) {
+							rm.setMode("regular");
+						}
 					}
 				}
 			}
@@ -327,7 +339,7 @@ public class dashBoardController {
 		for(RoomModel rm: allRoom){
 			for(String loc: selectLocation){
 				if(!checkPermission(mainController.getLoggedUser(),loc) && rm.getName().equalsIgnoreCase(loc)) {
-					addToConsoleLog("Cannot do the command, permission denial, trying to set auto in "+loc);
+					addToConsoleLog("Cannot execute the command, you do not have the necessary permissions (attempt to set auto mode in "+loc + ").");
 					continue;
 				}
 				if(rm.getName().equalsIgnoreCase(loc)){
@@ -387,11 +399,13 @@ public class dashBoardController {
 			toggleSimBtn.setText("Off");
 			resetTimerTask(1, LocalTime.parse(time.getText()));
 			toggleDisable(true);
+			toggleAwayMode.setDisable(false);
 			break;
 		case "Off":
 			toggleSimBtn.setText("On");
 			resetTimerTask((int) timeSlider.getValue(), LocalTime.parse(time.getText()));
 			toggleDisable(false);
+			toggleAwayMode.setDisable(false);
 			break;
 		}
 	}

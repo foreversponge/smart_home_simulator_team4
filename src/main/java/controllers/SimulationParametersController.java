@@ -123,4 +123,16 @@ public class SimulationParametersController {
 		});
 		updateTime.showAndWait();
 	}
+
+	/**
+	 * On the simulation parameters page, when the user clicks the help icon, the explanation of the permissions window appears
+	 * @param event user clicks the help icon
+	 */
+	public void onPermissionsClick(MouseEvent event) {
+		try {
+			mainController.setPermissionsWindow();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
