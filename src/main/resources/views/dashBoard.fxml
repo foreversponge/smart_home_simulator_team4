@@ -101,8 +101,8 @@
                                           </VBox>
                                           <HBox alignment="CENTER" spacing="10.0">
                                              <children>
-                                                <JFXButton fx:id="OnBtn" alignment="CENTER" disable="true" onAction="#handleOnSelection" text="On" />
-                                                <JFXButton fx:id="OffBtn" alignment="CENTER" disable="true" onAction="#handleOffSelection" text="Off" />
+                                                <JFXButton fx:id="OnBtn" alignment="CENTER" disable="true" onAction="#handleOnSelection" text="Open" />
+                                                <JFXButton fx:id="OffBtn" alignment="CENTER" disable="true" onAction="#handleOffSelection" text="Close" />
                                                 <JFXButton fx:id="autoBtn" alignment="CENTER" disable="true" onAction="#handleAutoSelection" text="Auto" />
                                              </children>
                                           </HBox>
