@@ -28,7 +28,7 @@ public class EditContextOfSimulationController {
 
 	private Main mainController;	//instance of Main to obtain userData
 	private Stage currentStage;		//instance of the current Stage to open or close it
-	private HouseRoomsModel houseRoomsModel;	//contains data about each room of the house
+	private HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();	//contains data about each room of the house
 	@FXML private TableView<UserModel> moveUsersTableView;	//Place Users tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn nameOfUserColumn;		//Name of user column of tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn permissionColumn;		//Permission column of tableView of EditContextOfSimuatlion.fxml

@@ -1,1 +1,1 @@
-[{"name":"kim","role":"Stranger"},{"name":"jimmy","role":"Child"},{"name":"Ricky","role":"Parent"}]
+[{"name":"kim","role":"Stranger"},{"name":"jimmy","role":"Child"},{"name":"Ricky","role":"Parent"},{"name":"tim","role":"Guest"}]
