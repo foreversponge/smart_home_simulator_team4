@@ -156,17 +156,25 @@ public class UserModel implements Subject {
 		this.listOfObservers = listOfObservers;
 	}
 
-
+	/**
+	 * Adds an observer to the list of observers
+	 */
 	@Override
 	public void registerObserver(Observer observer) {
 		listOfObservers.add(observer);
 	}
 
+	/**
+	 * Removes an observer from the list of observers
+	 */
 	@Override
 	public void unregisterObserver(Observer observer) {
 		listOfObservers.remove(observer);		
 	}
 
+	/**
+	 * Notifies observers that a change occurred in the subject
+	 */
 	@Override
 	public void notifyObservers() {
 		for (Observer observer : listOfObservers) {

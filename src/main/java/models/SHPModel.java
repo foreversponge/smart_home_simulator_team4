@@ -43,6 +43,10 @@ public class SHPModel implements Observer {
 		this.consoleLog = consoleLog;
 	}
 	
+	/**
+	 * Logs to console when subject notifies observer that someone present in a room
+	 * during away mode
+	 */
 	@Override
 	public void update(UserModel user) {
 		if (isAwayModeOn && !user.getCurrentLocation().equals("outside")) {
