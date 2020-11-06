@@ -1,18 +1,18 @@
 package controllers;
 
 import com.jfoenix.controls.JFXBadge;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Tooltip;
+
 import models.HouseRoomsModel;
 import models.RoomModel;
 import models.UserModel;
 
-import javax.tools.Tool;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +27,6 @@ public class RoomController {
 	public JFXBadge badgeWindow;
 	public JFXBadge badgeDoor;
 	public JFXBadge badgeLight;
-//	public ImageView window11;
-//	public ImageView door11;
-//	public ImageView light11;
-//	public JFXBadge badgeLight1;
-//	public JFXBadge badgeDoor1;
-//	public JFXBadge badgeWindow1;
     public JFXBadge badgeUserNum;
 	public ImageView UserNum;
 	public ImageView LoggedUser;
