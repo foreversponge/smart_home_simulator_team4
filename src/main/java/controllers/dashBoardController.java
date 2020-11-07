@@ -48,6 +48,7 @@ public class dashBoardController {
 	@FXML private Label outsideT;
 	@FXML private Label time;
 	@FXML private Label date;
+	@FXML private Label delay_minutes_label;
 	private Main mainController;
 	Stage currentStage;
 	LocalTime choosentime;
@@ -384,6 +385,7 @@ public class dashBoardController {
 		OnBtn.setDisable(disable);
 		OffBtn.setDisable(disable);
 		toggleAwayMode.setDisable(disable);
+		delay_minutes_label.setDisable(disable);
 	}
 
 	/**
@@ -586,5 +588,40 @@ public class dashBoardController {
 			}
 		}
 		displayLayout();
+	}
+
+	/**
+	 *
+	 * The user will be able to enter the number of minutes they want to delay the call to the authorities
+	 */
+	public void handleAuthoritiesDelayMin(MouseEvent mouseEvent){
+
+		SHPModel delay_time = new SHPModel();
+
+		Dialog<String> updateDelayTime = new Dialog<>();
+		updateDelayTime.setHeaderText("Set Authorities Call delay in minutes");
+		JFXTextField newDelay = new JFXTextField();
+		ObservableList<String> symbol = FXCollections.observableArrayList();
+		DialogPane TempDialogPane = updateDelayTime.getDialogPane();
+		TempDialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+		HBox content = new HBox();
+		content.getChildren().setAll(newDelay);
+		TempDialogPane.setContent(content);
+
+		updateDelayTime.setResultConverter((ButtonType button) -> {
+			if (button == ButtonType.OK && newDelay.getText()!=null ) {
+				if(newDelay.getText().matches("[0-9]+")){
+
+					delay_minutes_label.setText(newDelay.getText() + " minutes");
+
+					delay_time.setAlertpolice(newDelay.toString());
+				}
+				else{
+					consolelog.getItems().add("[" + time.getText() + "] " + "The time cannot contain a letter. Please try again.");
+				}
+			}
+			return null;
+		});
+		updateDelayTime.showAndWait();
 	}
 }
