@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
 
 /**
  * This class acts as a controller for the dashBoard.fxml
@@ -103,9 +104,6 @@ public class dashBoardController {
 		consolelog.setItems(mainController.getLogMessages());
 		displayLayout();
 	}
-	/**
-	 *initialize the list view of the console log
-	 */
 
 	/** Initializes dynamically the house layout depending on the information receive in the layout file
 	 *
@@ -229,6 +227,7 @@ public class dashBoardController {
 	 */
 	public void addToConsoleLog(String err){
 		consolelog.getItems().add("[" + time.getText() + "] " + err);
+		LogToFileModel.log(Level.INFO, err);
 
 	}
 
@@ -250,6 +249,9 @@ public class dashBoardController {
 		}
 	}
 
+	/**
+	 * This method checks if an item was selected as well as a location
+	 */
 	public void checkItemAndLocationSelection(){
 		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
 		List<String> listSelectLocation = locationView.getSelectionModel().getSelectedItems();
@@ -264,7 +266,7 @@ public class dashBoardController {
 	/**
 	 * handle the on button
 	 * when either item or room not select display error message on console
-	 * if both is selecte turn on the item in the select room(multiple room can be selected)
+	 * if both is selected turn on the item in the select room(multiple room can be selected)
 	 * @param event
 	 */
 	public void handleOnSelection(ActionEvent event) {
@@ -273,6 +275,11 @@ public class dashBoardController {
 		displayLayout();
 	}
 
+	/**
+	 * This method handles the ON or OFF requests for items
+	 * @param mode of the simulator
+	 * @return an array containing information about each room
+	 */
 	public RoomModel[] toggleOnOff(String mode){
 		checkItemAndLocationSelection();
 		RoomModel[] allRoom= houseRoomsModel.getAllRoomsArray();
@@ -285,27 +292,27 @@ public class dashBoardController {
 					}
 					if (rm.getName().equalsIgnoreCase(loc)) {
 						switch (selectItem) {
-							case "light":
-								rm.setNumOpenLights(mode.equals("on") ? rm.getNumLights() : 0);
-								break;
-							case "door":
-								if (!mainController.getShpModel().isAwayModeOn()) {
-									rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
-								} else if (mainController.getShpModel().isAwayModeOn() && !(rm.getName().equalsIgnoreCase("House Entrance")
-										|| rm.getName().equalsIgnoreCase("Garage")
-										|| rm.getName().equalsIgnoreCase("Backyard"))) {
-									rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
-								} else {
-									addToConsoleLog("Cannot execute command, away mode is turned on.");
-								}
-								break;
-							case "window":
-								if (!rm.isObjectBlockingWindow()) {
-									rm.setNumOpenWindows(mode.equals("on") ? rm.getNumWindows() : 0);
-								} else {
-									addToConsoleLog("Cannot execute the command, there is an object blocking the window of the " + loc);
-								}
-								break;
+						case "light":
+							rm.setNumOpenLights(mode.equals("on") ? rm.getNumLights() : 0);
+							break;
+						case "door":
+							if (!mainController.getShpModel().isAwayModeOn()) {
+								rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
+							} else if (mainController.getShpModel().isAwayModeOn() && !(rm.getName().equalsIgnoreCase("House Entrance")
+									|| rm.getName().equalsIgnoreCase("Garage")
+									|| rm.getName().equalsIgnoreCase("Backyard"))) {
+								rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
+							} else {
+								addToConsoleLog("Cannot execute command, away mode is turned on.");
+							}
+							break;
+						case "window":
+							if (!rm.isObjectBlockingWindow()) {
+								rm.setNumOpenWindows(mode.equals("on") ? rm.getNumWindows() : 0);
+							} else {
+								addToConsoleLog("Cannot execute the command, there is an object blocking the window of the " + loc);
+							}
+							break;
 						}
 						if (mode.equals("off")) {
 							rm.setMode("regular");
@@ -483,6 +490,7 @@ public class dashBoardController {
 		});
 		updateDate.showAndWait();
 	}
+
 	/**
 	 * Display the dialog and allow logged user to change temperature outside home
 	 * if logged user does not choose the sign before desired number of temperatuer, it consider positive
@@ -573,6 +581,7 @@ public class dashBoardController {
 	 * When away mode is turned ON, all doors and windows must be closed 
 	 */
 	public void handleAwayModeOn() {
+		addToConsoleLog("Request sent to SHC to close doors, windows and lights");
 		for(RoomModel room : houseRoomsModel.getAllRoomsArray()){
 			room.setNumOpenLights(0);
 			if (room.isObjectBlockingWindow()) {
@@ -608,7 +617,7 @@ public class dashBoardController {
 		}
 	}
 
-  	/**
+	/**
 	 *
 	 * The user will be able to enter the number of minutes they want to delay the call to the authorities
 	 */
