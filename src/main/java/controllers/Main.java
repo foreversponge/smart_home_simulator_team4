@@ -235,7 +235,7 @@ public class Main extends Application {
 
 	/**
 	 * Method to open the permissions explained window
-	 * 
+	 * when closing this window, the user is returned to the simulation parameter window
 	 * @throws IOException
 	 */
 	public void setPermissionsWindow() throws IOException{
@@ -249,6 +249,27 @@ public class Main extends Application {
 		permissionsStage.setScene(permissionsScene);
 		permissionsStage.setResizable(false);
 		permissionsStage.show();
+	}
+
+	/**
+	 * Method to open the setup of lights to remain on window
+	 * when closing this window, the user is returned to the dashboard
+	 * @throws IOException
+	 */
+	public void setLightsToRemainOpenWindow() throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/lightsToRemainOn.fxml"));
+		Parent root = fxmlLoader.load();
+		LightsToRemainOnController lightsToRemainOnController = fxmlLoader.getController();
+		Stage lightsToRemainOnStage = new Stage();
+		lightsToRemainOnController.setCurrentStage(lightsToRemainOnStage);
+		lightsToRemainOnController.setCurrentDashboard(dashBoardController);
+		lightsToRemainOnStage.initOwner(currentState);
+		lightsToRemainOnStage.setTitle("Lights to Remain On");
+		lightsToRemainOnStage.initModality(Modality.WINDOW_MODAL);
+		Scene lightsToRemainOnScene = new Scene(root);
+		lightsToRemainOnStage.setScene(lightsToRemainOnScene);
+		lightsToRemainOnStage.setResizable(false);
+		lightsToRemainOnStage.show();
 	}
 }
 

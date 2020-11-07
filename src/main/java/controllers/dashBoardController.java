@@ -263,7 +263,7 @@ public class dashBoardController {
 
 	/**
 	 * handle the on button
-	 * when either item or room not select display error messge on console
+	 * when either item or room not select display error message on console
 	 * if both is selecte turn on the item in the select room(multiple room can be selected)
 	 * @param event
 	 */
@@ -319,7 +319,7 @@ public class dashBoardController {
 
 	/**
 	 * handle the on button
-	 * when either item or room not select display error messge on console
+	 * when either item or room not select display error message on console
 	 * if both is selecte turn off the item in the select room(multiple room can be selected)
 	 * @param event
 	 */
@@ -591,6 +591,24 @@ public class dashBoardController {
 	}
 
 	/**
+	 * When the away mode is on, if the user clicks the Pick Lights to Keep On button, a window handling lights to remain on will appear
+	 * @param event user clicks the Pick Lights to Keep On button
+	 */
+	public void pickLightsToKeepOnClick(MouseEvent event) {
+		String awayMode = toggleAwayMode.getText();
+		try {
+			if (awayMode.equals("ON")) {
+				mainController.setLightsToRemainOpenWindow();
+			} else {
+				//display error message to console if away mode is OFF
+				addToConsoleLog("The away mode must be ON to be able to pick lights that will remain on");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+  	/**
 	 *
 	 * The user will be able to enter the number of minutes they want to delay the call to the authorities
 	 */
