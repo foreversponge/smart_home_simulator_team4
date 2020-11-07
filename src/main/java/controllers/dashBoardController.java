@@ -599,16 +599,16 @@ public class dashBoardController {
 		try {
 			if (awayMode.equals("ON")) {
 				mainController.setLightsToRemainOpenWindow();
-			}
-			else {
+			} else {
 				//display error message to console if away mode is OFF
 				addToConsoleLog("The away mode must be ON to be able to pick lights that will remain on");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
-  /** 
+  	/**
 	 *
 	 * The user will be able to enter the number of minutes they want to delay the call to the authorities
 	 */
