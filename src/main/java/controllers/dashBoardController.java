@@ -587,4 +587,12 @@ public class dashBoardController {
 		}
 		displayLayout();
 	}
+
+	/**
+	 * When the away mode is on, if the user clicks the Pick Lights to Keep On button, a window handling rooms lights will appear
+	 * @param event user clicks the Pick Lights to Keep On button
+	 */
+	public void pickLightsToKeepOnClick(MouseEvent event) {
+
+	}
 }
