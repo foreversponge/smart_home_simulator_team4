@@ -235,7 +235,7 @@ public class Main extends Application {
 
 	/**
 	 * Method to open the permissions explained window
-	 * 
+	 * when closing this window, the user is returned to the simulation parameter window
 	 * @throws IOException
 	 */
 	public void setPermissionsWindow() throws IOException{
@@ -251,6 +251,11 @@ public class Main extends Application {
 		permissionsStage.show();
 	}
 
+	/**
+	 * Method to open the setup of lights to remain on window
+	 * when closing this window, the user is returned to the dashboard
+	 * @throws IOException
+	 */
 	public void setLightsToRemainOpenWindow() throws IOException{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/lightsToRemainOn.fxml"));
 		Parent root = fxmlLoader.load();

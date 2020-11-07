@@ -589,7 +589,7 @@ public class dashBoardController {
 	}
 
 	/**
-	 * When the away mode is on, if the user clicks the Pick Lights to Keep On button, a window handling rooms lights will appear
+	 * When the away mode is on, if the user clicks the Pick Lights to Keep On button, a window handling lights to remain on will appear
 	 * @param event user clicks the Pick Lights to Keep On button
 	 */
 	public void pickLightsToKeepOnClick(MouseEvent event) {
@@ -599,7 +599,7 @@ public class dashBoardController {
 				mainController.setLightsToRemainOpenWindow();
 			}
 			else {
-				//display error message to console if simulation is OFF
+				//display error message to console if away mode is OFF
 				addToConsoleLog("The away mode must be ON to be able to pick lights that will remain on");
 			}
 		} catch (IOException e) {

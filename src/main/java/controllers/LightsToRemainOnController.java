@@ -22,9 +22,7 @@ public class LightsToRemainOnController {
 
     private Stage currentStage;
     private dashBoardController dashboardController;
-
     private List<String> selectRooms;
-
     private HouseRoomsModel houseRoomsModel=HouseRoomsModel.getInstance();
     @FXML
     private JFXListView roomsView;
@@ -37,6 +35,10 @@ public class LightsToRemainOnController {
     @FXML
     private ComboBox toMinute;
 
+    /**
+     * Initializes the list of rooms and sets up the ComboBox items related to the time frame
+     * @throws IOException
+     */
     public void initialize() throws IOException {
         setRoomsView();
         roomsView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -44,20 +46,34 @@ public class LightsToRemainOnController {
         setMinuteComboBox();
     }
 
-    public void setCurrentStage(Stage currentstage) {
-        this.currentStage = currentstage;
+    /**
+     * Keeps an instance of the current stage to allow for stage transitions
+     * @param currentStage is the stage that is currently displayed
+     */
+    public void setCurrentStage(Stage currentStage) {
+        this.currentStage = currentStage;
     }
 
+    /**
+     * Keeps an instance of the current dashboard to allow commands to be sent
+     * @param dashboardController is the dashboard that is currently displayed
+     */
     public void setCurrentDashboard(dashBoardController dashboardController){
         this.dashboardController = dashboardController;
     }
 
-        private void setRoomsView() {
+    /**
+     * Method that initializes the list of rooms that is going to be displayed to the user
+     */
+    private void setRoomsView() {
         for(RoomModel room:houseRoomsModel.getAllRoomsArray() ){
             roomsView.getItems().add(room.getName());
         }
     }
 
+    /**
+     * Method that sets up the ComboBoxes responsible for representing hours
+     */
     private void setHourComboBox(){
         DecimalFormat formatter = new DecimalFormat("00");
         for(int i = 0 ; i<24 ; i++){
@@ -67,6 +83,9 @@ public class LightsToRemainOnController {
         }
     }
 
+    /**
+     * Method that sets up the ComboBoxes responsible for representing minutes
+     */
     private void setMinuteComboBox(){
         DecimalFormat formatter = new DecimalFormat("00");
         for(int i = 0 ; i<60 ; i++){
@@ -76,11 +95,17 @@ public class LightsToRemainOnController {
         }
     }
 
+    /**
+     * When user clicks the confirm button, the lights to remain on stage will close
+     * and the house layout will be updated
+     * @param event
+     */
     public void confirmClick(MouseEvent event) {
         List<String> listSelectedRooms = roomsView.getSelectionModel().getSelectedItems();
         if (listSelectedRooms.isEmpty()) {
             currentStage.close();
-        } else {
+        }
+        else {
             RoomModel[] allRooms = houseRoomsModel.getAllRoomsArray();
             for (RoomModel room : allRooms) {
                 for (String location : listSelectedRooms) {
@@ -94,8 +119,11 @@ public class LightsToRemainOnController {
         }
     }
 
+    /**
+     * When user clicks the Cancel button, the lights to remain on stage will close
+     * @param event
+     */
     public void cancelClick(MouseEvent event) {
         currentStage.close();
     }
-
 }
