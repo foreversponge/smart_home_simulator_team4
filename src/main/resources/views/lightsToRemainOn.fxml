@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="375.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LightsToRemainOnController">
+   <children>
+       <VBox layoutX="25.0" layoutY="25.0" prefHeight="133.0" prefWidth="267.0" AnchorPane.bottomAnchor="217.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="25.0">
+           <children>
+               <Label text="Select the room(s) where lights should remain on" />
+               <JFXListView fx:id="roomsView" prefHeight="112.0" prefWidth="266.0" />
+           </children>
+       </VBox>
+       <ComboBox fx:id="fromHour" layoutX="77.0" layoutY="211.0" />
+       <ComboBox fx:id="fromMinute" layoutX="158.0" layoutY="211.0" />
+       <ComboBox fx:id="toHour" layoutX="77.0" layoutY="249.0" />
+       <ComboBox fx:id="toMinute" layoutX="158.0" layoutY="249.0" />
+      <Label layoutX="25.0" layoutY="183.0" text="Pick a timeframe for the lights to stay on*:" />
+      <Label layoutX="25.0" layoutY="216.0" text="From" />
+      <Label layoutX="25.0" layoutY="254.0" text="To" />
+      <Label layoutX="147.0" layoutY="216.0" text=":" />
+      <Label layoutX="147.0" layoutY="254.0" text=":" />
+      <Button fx:id="confirmButton" layoutX="160.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#confirmClick" text="Confirm" />
+      <Button fx:id="cancelButton" layoutX="235.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#cancelClick" text="Cancel" />
+      <Label layoutX="25.0" layoutY="299.0" text="* If a timeframe is not selected, the lights will stay on indefinitely">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

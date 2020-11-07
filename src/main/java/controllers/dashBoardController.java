@@ -262,7 +262,7 @@ public class dashBoardController {
 
 	/**
 	 * handle the on button
-	 * when either item or room not select display error messge on console
+	 * when either item or room not select display error message on console
 	 * if both is selecte turn on the item in the select room(multiple room can be selected)
 	 * @param event
 	 */
@@ -318,7 +318,7 @@ public class dashBoardController {
 
 	/**
 	 * handle the on button
-	 * when either item or room not select display error messge on console
+	 * when either item or room not select display error message on console
 	 * if both is selecte turn off the item in the select room(multiple room can be selected)
 	 * @param event
 	 */
@@ -593,6 +593,17 @@ public class dashBoardController {
 	 * @param event user clicks the Pick Lights to Keep On button
 	 */
 	public void pickLightsToKeepOnClick(MouseEvent event) {
-
+		String awayMode = toggleAwayMode.getText();
+		try {
+			if (awayMode.equals("ON")) {
+				mainController.setLightsToRemainOpenWindow();
+			}
+			else {
+				//display error message to console if simulation is OFF
+				addToConsoleLog("The away mode must be ON to be able to pick lights that will remain on");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
