@@ -532,7 +532,6 @@ public class dashBoardController {
 	 *
 	 * The user will be able to enter the number of minutes they want to delay the call to the authorities
 	 */
-
 	public void handleAuthoritiesDelayMin(MouseEvent mouseEvent){
 
 		SHPModel delay_time = new SHPModel();
