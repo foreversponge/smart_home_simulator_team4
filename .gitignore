@@ -14,3 +14,6 @@
 # Maven
 log/
 target/
+
+# Log file
+logs.txt
