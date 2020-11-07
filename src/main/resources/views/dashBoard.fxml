@@ -105,6 +105,8 @@
                                     <JFXToggleButton fx:id="toggleAwayMode" layoutX="145.0" layoutY="17.0" onMouseClicked="#setAwayMode" prefHeight="58.0" prefWidth="114.0" text="OFF" />
                                     <Label layoutX="38.0" layoutY="27.0" prefHeight="37.0" prefWidth="89.0" text="Away Mode:" />
                                     <Button fx:id="pickLightsToKeepOnButton" layoutX="133.0" layoutY="279.0" mnemonicParsing="false" onMouseClicked="#pickLightsToKeepOnClick" text="Pick Lights to Keep On" />
+                                    <Label fx:id="call_authorities_label" layoutX="38.0" layoutY="90.0" text="Call authorities delay:" />
+                                    <Label fx:id="delay_minutes_label" layoutX="174.0" layoutY="90.0" text="Enter delay in minutes" onMouseClicked="#handleAuthoritiesDelayMin"/>
                                  </children></AnchorPane>
                            </content>
                         </Tab>
