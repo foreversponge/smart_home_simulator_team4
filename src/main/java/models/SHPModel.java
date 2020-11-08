@@ -1,5 +1,7 @@
 package models;
 
+import java.util.logging.Level;
+
 import com.jfoenix.controls.JFXListView;
 
 /**
@@ -61,15 +63,17 @@ public class SHPModel implements Observer {
 	public void setConsoleLog(JFXListView consoleLog) {
 		this.consoleLog = consoleLog;
 	}
-	
+
 	/**
-	 * Logs to console when subject notifies observer that someone present in a room
+	 * Logs to console and to external file when subject notifies observer that someone present in a room
 	 * during away mode
 	 */
 	@Override
 	public void update(UserModel user) {
 		if (isAwayModeOn && !user.getCurrentLocation().equals("outside")) {
-			consoleLog.getItems().add("!!!AWAY MODE WARNING!!! Person present in " + user.getCurrentLocation());
+			String message = "!!!AWAY MODE WARNING!!! Person present in " + user.getCurrentLocation();
+			consoleLog.getItems().add(message);
+			LogToFileModel.log(Level.SEVERE, message);
 		}
 	}
 }
