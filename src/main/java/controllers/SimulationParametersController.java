@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.input.MouseEvent;
@@ -34,19 +35,24 @@ public class SimulationParametersController {
 	@FXML private JFXComboBox userSelected;
 	@FXML private JFXButton continueButton;
 	private Main mainController;
+	private HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();
 
 	/**
 	 * Initalize the values of the table that contains the user names and roles
 	 * & the room names extracted from the house layout file
+	 * set the date to current date and time to current time by default
 	 */
 	public void initialize(){
 		colname.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
 		colrole.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
 		ObservableList<String> locationNames= FXCollections.observableArrayList();
-		for(RoomModel r : HouseRoomsModel.getAllRoomsArray()){
+		for(RoomModel r : houseRoomsModel.getAllRoomsArray()){
 			locationNames.add(r.getName());
 		}
 		roomLocation.setItems(locationNames);
+		dateSelected.setValue(LocalDate.now());
+		LocalTime pickTime = LocalTime.now();
+		timeLabel.setText(pickTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")).toString());
 	}
 
 	/**
@@ -116,5 +122,17 @@ public class SimulationParametersController {
 			return null;
 		});
 		updateTime.showAndWait();
+	}
+
+	/**
+	 * On the simulation parameters page, when the user clicks the help icon, the explanation of the permissions window appears
+	 * @param event user clicks the help icon
+	 */
+	public void onPermissionsClick(MouseEvent event) {
+		try {
+			mainController.setPermissionsWindow();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

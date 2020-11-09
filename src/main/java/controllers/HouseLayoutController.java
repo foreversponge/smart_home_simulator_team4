@@ -90,7 +90,7 @@ public class HouseLayoutController {
 	public void onContinueClick(MouseEvent mouseEvent) {
 		String jsonString = readFromFile(pathToFile);
 		RoomModel[] allRoomModels = extractFromJson(jsonString);
-		HouseRoomsModel.setAllRooms(allRoomModels);
+		HouseRoomsModel.getInstance().setAllRooms(allRoomModels);
 		mainController.closeWindow();
 		try{
 			mainController.setSimulationParametersWindow();

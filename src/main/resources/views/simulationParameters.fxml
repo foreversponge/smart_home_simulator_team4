@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="618.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationParametersController">
 
@@ -65,5 +62,10 @@
             <Font name="SansSerif Regular" size="18.0" />
          </font>
       </Label>
+      <ImageView fx:id="permissionsExplained" fitHeight="30.0" fitWidth="30.0" layoutX="812.0" layoutY="264.0" onMouseClicked="#onPermissionsClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/help-icon.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

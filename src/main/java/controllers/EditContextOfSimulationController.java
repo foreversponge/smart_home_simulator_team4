@@ -28,7 +28,7 @@ public class EditContextOfSimulationController {
 
 	private Main mainController;	//instance of Main to obtain userData
 	private Stage currentStage;		//instance of the current Stage to open or close it
-	private HouseRoomsModel houseRoomsModel;	//contains data about each room of the house
+	private HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();	//contains data about each room of the house
 	@FXML private TableView<UserModel> moveUsersTableView;	//Place Users tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn nameOfUserColumn;		//Name of user column of tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn permissionColumn;		//Permission column of tableView of EditContextOfSimuatlion.fxml
@@ -134,7 +134,12 @@ public class EditContextOfSimulationController {
 		String currLocation = "";
 		//update the current location of each user
 		for (int index = 0; index < currentLocations.size(); index++) {
-			mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
+			if (mainController.getUserModelData().get(index).getCurrentLocation() == null) {
+				mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
+			}
+			else if (!mainController.getUserModelData().get(index).getCurrentLocation().equals(currentLocations.get(index))) {
+				mainController.getUserModelData().get(index).setCurrentLocation(currentLocations.get(index));
+			}
 			if(mainController.getUserModelData().get(index).getName().equals(name)){
 				currLocation = currentLocations.get(index);
 			}
@@ -156,11 +161,7 @@ public class EditContextOfSimulationController {
 		}
 		mainController.getLoggedUser().setCurrentLocation(currLocation);
 		currentStage.close();
-		mainController.closeWindow();
-		try {
-			mainController.setDashboardWindow();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		mainController.getDashBoardController().updateLoggedLocation();
+		mainController.getDashBoardController().displayLayout();
 	}
 }

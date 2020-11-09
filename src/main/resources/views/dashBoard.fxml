@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="618.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashBoardController">
     <children>
@@ -66,11 +55,63 @@
                               <Image url="@../images/userPicture.png" />
                            </image>
                         </ImageView>
+                        <HBox layoutX="25.0" layoutY="341.0" visible="false">
+                           <children>
+                              <JFXButton text="1.5" />
+                              <JFXButton text="2" />
+                              <JFXButton text="4" />
+                           </children>
+                        </HBox>
+                        <JFXSlider fx:id="timeSlider" disable="true" layoutX="42.0" layoutY="338.0" majorTickUnit="1.0" max="4.0" min="1.0" onMouseClicked="#timerSliderHandler" showTickLabels="true" showTickMarks="true" value="1.0" />
                             </children>
                         </Pane>
 
-                        <TabPane prefHeight="371.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" />
-                        <TabPane prefHeight="370.0" prefWidth="325.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane prefHeight="371.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="SHC">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="52.0" layoutY="20.0" spacing="15.0">
+                                       <children>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Item" />
+                                                <JFXListView fx:id="itemView" onMouseClicked="#handleItemSelected" prefHeight="96.0" prefWidth="200.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Location" />
+                                                <JFXListView fx:id="locationView" prefHeight="96.0" prefWidth="200.0" />
+                                             </children>
+                                          </VBox>
+                                          <HBox alignment="CENTER" spacing="10.0">
+                                             <children>
+                                                <JFXButton fx:id="OnBtn" alignment="CENTER" disable="true" onAction="#handleOnSelection" text="Open" />
+                                                <JFXButton fx:id="OffBtn" alignment="CENTER" disable="true" onAction="#handleOffSelection" text="Close" />
+                                                <JFXButton fx:id="autoBtn" alignment="CENTER" disable="true" onAction="#handleAutoSelection" text="Auto" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab text="SHP">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <JFXToggleButton fx:id="toggleAwayMode" layoutX="145.0" layoutY="17.0" onMouseClicked="#setAwayMode" prefHeight="58.0" prefWidth="114.0" text="OFF" />
+                                    <Label layoutX="38.0" layoutY="27.0" prefHeight="37.0" prefWidth="89.0" text="Away Mode:" />
+                                    <Button fx:id="pickLightsToKeepOnButton" layoutX="133.0" layoutY="279.0" mnemonicParsing="false" onMouseClicked="#pickLightsToKeepOnClick" text="Pick Lights to Keep On" />
+                                    <Label fx:id="call_authorities_label" layoutX="38.0" layoutY="90.0" text="Call authorities delay:" />
+                                    <Label fx:id="delay_minutes_label" layoutX="174.0" layoutY="90.0" text="Enter delay in minutes" onMouseClicked="#handleAuthoritiesDelayMin"/>
+                                 </children></AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs></TabPane>
+                        <TabPane prefHeight="371.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
                                 <Tab text="House layout">
                                     <content>
@@ -79,9 +120,9 @@
                                                 <AnchorPane layoutY="-50.0" prefHeight="370.0" prefWidth="325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                                                     <HBox alignment="CENTER" layoutY="-50.0" prefHeight="370.0" prefWidth="325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                                                         <children>
-                                                            <ScrollPane fx:id="scroll" pannable="true" prefHeight="370.0" prefWidth="312.0">
+                                                            <ScrollPane fx:id="scroll" pannable="true" prefHeight="342.0" prefWidth="407.0">
                                                                 <content>
-                                                                    <GridPane fx:id="grid" alignment="CENTER" prefHeight="0.0" prefWidth="0.0" translateY="10.0">
+                                                                    <GridPane fx:id="grid" alignment="CENTER" translateY="10.0">
                                                                         <rowConstraints>
                                                                             <RowConstraints minHeight="75.0" prefHeight="75.0" />
                                                                         </rowConstraints>
@@ -111,6 +152,7 @@
         </Pane>
     </children>
 </VBox>
+      <JFXButton layoutX="30.0" layoutY="17.0" onAction="#handleBack" text="Back" />
         </children>
 
 
