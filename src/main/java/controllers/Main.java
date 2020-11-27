@@ -224,7 +224,7 @@ public class Main extends Application {
 		editContextStage.setScene(editContextScene);
 		editContextStage.show();
 	}
-	
+
 	/**
 	 * Getter to obtain the SHPModel
 	 * @return SHPModel
@@ -270,6 +270,18 @@ public class Main extends Application {
 		lightsToRemainOnStage.setScene(lightsToRemainOnScene);
 		lightsToRemainOnStage.setResizable(false);
 		lightsToRemainOnStage.show();
+	}
+	public void setZoneRoomWindow(SHHController shhCont) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/setUpZoneRoom.fxml"));
+		Parent root = fxmlLoader.load();
+		setUpZoneRoomController setUpZoneRoomController = fxmlLoader.getController();
+		Stage editstage = new Stage();
+		setUpZoneRoomController.setMaincontroller(this, editstage, shhCont);
+		editstage.initOwner(currentState);
+		editstage.initModality(Modality.WINDOW_MODAL);
+		Scene userManager = new Scene(root);
+		editstage.setScene(userManager);
+		editstage.show();
 	}
 }
 

@@ -68,9 +68,20 @@ public class dashBoardController {
 	}
 
 	private Map<String, ArrayList<LocalTime>> awayModeLight= new HashMap<>();
+
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
 
+//	public void HandleSHH(Event event) {
+//		FXMLLoader fxmlLoader = new FXMLLoader();
+//		fxmlLoader.setLocation(getClass().getResource("/views/setUpZoneRoom.fxml"));
+//		AnchorPane anchorPane = null;
+//		try {
+//			anchorPane = fxmlLoader.load();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	/**
 	 * inner class which extends TimerTask
 	 * so Timer can generate action of this Task at fix rate
@@ -96,6 +107,7 @@ public class dashBoardController {
 		private void awayModeLight(){
 			boolean update =false;
 			if(!awayModeLight.isEmpty()) {
+//				System.out.println(houseRoomsModel.getAllRoomsArray());
 				RoomModel[] allRoom = houseRoomsModel.getAllRoomsArray();
 				for(RoomModel rm : allRoom){
 					if(awayModeLight.containsKey(rm.getName())){
@@ -127,7 +139,9 @@ public class dashBoardController {
 		}
 		private void decrement(){
 			localTime = localTime.minusSeconds(timeInc);
+
 		}
+
 
 		@Override
 		public void run() {
@@ -162,6 +176,14 @@ public class dashBoardController {
 		mainController.getShpModel().setConsoleLog(consolelog);
 		consolelog.setItems(mainController.getLogMessages());
 		displayLayout();
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/SHH.fxml"));
+		try {
+			Parent root = fxmlLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		SHHController shhController = fxmlLoader.getController();
+		shhController.setMainController(mainController);
 
 	}
 
