@@ -1,0 +1,4 @@
+Nov 26, 2020 9:11:40 PM models.LogToFileModel log
+INFO: Away Mode is now ON
+Nov 26, 2020 9:11:40 PM models.LogToFileModel log
+INFO: Request sent to SHC to close doors, windows and lights
