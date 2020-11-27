@@ -5,11 +5,10 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import models.LogMessageModel;
 import models.Observer;
 import models.SHPModel;
@@ -224,7 +223,7 @@ public class Main extends Application {
 		editContextStage.setScene(editContextScene);
 		editContextStage.show();
 	}
-
+	
 	/**
 	 * Getter to obtain the SHPModel
 	 * @return SHPModel
@@ -271,6 +270,13 @@ public class Main extends Application {
 		lightsToRemainOnStage.setResizable(false);
 		lightsToRemainOnStage.show();
 	}
+
+	/**
+	 * set the zone Room set up window
+	 * to add new zone and add room to the existing zone
+	 * @param shhCont
+	 * @throws IOException
+	 */
 	public void setZoneRoomWindow(SHHController shhCont) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/setUpZoneRoom.fxml"));
 		Parent root = fxmlLoader.load();

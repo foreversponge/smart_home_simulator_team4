@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import models.*;
 
 import java.io.IOException;
@@ -139,7 +137,7 @@ public class dashBoardController {
 		}
 		private void decrement(){
 			localTime = localTime.minusSeconds(timeInc);
-
+			
 		}
 
 
@@ -238,21 +236,21 @@ public class dashBoardController {
 		String userLocation = user.getCurrentLocation();
 		boolean permission =false;
 		switch (role.toLowerCase()){
-			case "parent":
-				permission = true;
-				break;
-			case "child":
-			case "guest":
-				if(userLocation.equalsIgnoreCase(location)){
-					permission= true;
-				}
-				else {
-					permission= false;
-				}
-				break;
-			case "stranger":
+		case "parent":
+			permission = true;
+			break;
+		case "child":
+		case "guest":
+			if(userLocation.equalsIgnoreCase(location)){
+				permission= true;
+			}
+			else {
 				permission= false;
-				break;
+			}
+			break;
+		case "stranger":
+			permission= false;
+			break;
 		}
 		return permission;
 	}
@@ -374,27 +372,27 @@ public class dashBoardController {
 					}
 					if (rm.getName().equalsIgnoreCase(loc)) {
 						switch (selectItem) {
-							case "light":
-								rm.setNumOpenLights(mode.equals("on") ? rm.getNumLights() : 0);
-								break;
-							case "door":
-								if (!mainController.getShpModel().isAwayModeOn()) {
-									rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
-								} else if (mainController.getShpModel().isAwayModeOn() && !(rm.getName().equalsIgnoreCase("House Entrance")
-										|| rm.getName().equalsIgnoreCase("Garage")
-										|| rm.getName().equalsIgnoreCase("Backyard"))) {
-									rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
-								} else {
-									addToConsoleLog("Cannot execute command, away mode is turned on.");
-								}
-								break;
-							case "window":
-								if (!rm.isObjectBlockingWindow()) {
-									rm.setNumOpenWindows(mode.equals("on") ? rm.getNumWindows() : 0);
-								} else {
-									addToConsoleLog("Cannot execute the command, there is an object blocking the window of the " + loc);
-								}
-								break;
+						case "light":
+							rm.setNumOpenLights(mode.equals("on") ? rm.getNumLights() : 0);
+							break;
+						case "door":
+							if (!mainController.getShpModel().isAwayModeOn()) {
+								rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
+							} else if (mainController.getShpModel().isAwayModeOn() && !(rm.getName().equalsIgnoreCase("House Entrance")
+									|| rm.getName().equalsIgnoreCase("Garage")
+									|| rm.getName().equalsIgnoreCase("Backyard"))) {
+								rm.setNumOpenDoor(mode.equals("on") ? rm.getNumDoors() : 0);
+							} else {
+								addToConsoleLog("Cannot execute command, away mode is turned on.");
+							}
+							break;
+						case "window":
+							if (!rm.isObjectBlockingWindow()) {
+								rm.setNumOpenWindows(mode.equals("on") ? rm.getNumWindows() : 0);
+							} else {
+								addToConsoleLog("Cannot execute the command, there is an object blocking the window of the " + loc);
+							}
+							break;
 						}
 						if (mode.equals("off")) {
 							rm.setMode("regular");
@@ -486,18 +484,18 @@ public class dashBoardController {
 	public void toggleSimulation(ActionEvent event) {
 		String mode = toggleSimBtn.getText();
 		switch (mode){
-			case "On":
-				toggleSimBtn.setText("Off");
-				resetTimerTask(1, LocalTime.parse(time.getText()));
-				toggleDisable(true);
-				toggleAwayMode.setDisable(false);
-				break;
-			case "Off":
-				toggleSimBtn.setText("On");
-				resetTimerTask((int) timeSlider.getValue(), LocalTime.parse(time.getText()));
-				toggleDisable(false);
-				toggleAwayMode.setDisable(false);
-				break;
+		case "On":
+			toggleSimBtn.setText("Off");
+			resetTimerTask(1, LocalTime.parse(time.getText()));
+			toggleDisable(true);
+			toggleAwayMode.setDisable(false);
+			break;
+		case "Off":
+			toggleSimBtn.setText("On");
+			resetTimerTask((int) timeSlider.getValue(), LocalTime.parse(time.getText()));
+			toggleDisable(false);
+			toggleAwayMode.setDisable(false);
+			break;
 		}
 	}
 
@@ -634,33 +632,33 @@ public class dashBoardController {
 	public void setAwayMode(MouseEvent event) {
 		String awayMode = toggleAwayMode.getText();
 		switch (awayMode){
-			case "ON":
-				toggleAwayMode.setText("OFF");
-				mainController.getShpModel().setAwayModeOn(false);
-				break;
-			case "OFF":
-				if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") || mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")) {
-					addToConsoleLog("Cannot do the command, Permission denial");
-					toggleAwayMode.setSelected(false);
-				}
-				else if (!mainController.getLoggedUser().getCurrentLocation().equals("outside")) {
-					addToConsoleLog("Away Mode can only be set if not home. You must be outside.");
-					toggleAwayMode.setSelected(false);
-				}
-				else {
-					toggleAwayMode.setText("ON");
-					addToConsoleLog("Away Mode is now ON");
-					mainController.getLoggedUser().setCurrentLocation("outside");
-					updateLoggedLocation();
-					mainController.getShpModel().setAwayModeOn(true);
-					handleAwayModeOn();
-				}
-				break;
+		case "ON":
+			toggleAwayMode.setText("OFF");
+			mainController.getShpModel().setAwayModeOn(false);
+			break;
+		case "OFF":
+			if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") || mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")) {
+				addToConsoleLog("Cannot do the command, Permission denial");
+				toggleAwayMode.setSelected(false);
+			}
+			else if (!mainController.getLoggedUser().getCurrentLocation().equals("outside")) {
+				addToConsoleLog("Away Mode can only be set if not home. You must be outside.");
+				toggleAwayMode.setSelected(false);
+			}
+			else {
+				toggleAwayMode.setText("ON");
+				addToConsoleLog("Away Mode is now ON");
+				mainController.getLoggedUser().setCurrentLocation("outside");
+				updateLoggedLocation();
+				mainController.getShpModel().setAwayModeOn(true);
+				handleAwayModeOn();
+			}
+			break;
 		}
 	}
 
 	/**
-	 * When away mode is turned ON, all doors and windows must be closed
+	 * When away mode is turned ON, all doors and windows must be closed 
 	 */
 	public void handleAwayModeOn() {
 		addToConsoleLog("Request sent to SHC to close doors, windows and lights");

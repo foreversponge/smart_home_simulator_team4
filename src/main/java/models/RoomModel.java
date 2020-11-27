@@ -20,6 +20,7 @@ public class RoomModel {
 	private int numOpenWindows;
 	private transient boolean isObjectBlockingWindow;
 	private transient ComboBox<String> objectBlockingWindowComboBox;
+	private transient Temperature temperature; // each room would create with instance of Temperature with default temperature
 
 	/**
 	 * constructor to create RoomModel
@@ -35,6 +36,7 @@ public class RoomModel {
 		this.numDoors = numDoors;
 		this.numLights = numLights;
 		this.nextRoomName = nextRoomName;
+		this.temperature = new Temperature();
 	}
 
 	/**
@@ -207,6 +209,22 @@ public class RoomModel {
 	 */
 	public void setNumOpenWindows(int numOpenWindows) {
 		this.numOpenWindows = numOpenWindows;
+	}
+
+	/**
+	 * getter of the Temperature instance
+	 * @return
+	 */
+	public Temperature getTemperature() {
+		return temperature;
+	}
+
+	/**
+	 * setter of the Temperature instance
+	 * @param temperature
+	 */
+	public void setTemperature(Temperature temperature) {
+		this.temperature = temperature;
 	}
 
 	@Override

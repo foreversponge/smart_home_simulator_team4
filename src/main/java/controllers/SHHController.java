@@ -22,15 +22,28 @@ public class SHHController {
     HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();
     RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
 
+    /**
+     * keep an instance of the mainController
+     * @param main
+     */
     public void setMainController(Main main){
         mainController=main;
     }
 
+    /**
+     * update the zone room view after finish adding zone and room
+     * @param observableZoneRoomList
+     */
     public void updateListView(ObservableList<String> observableZoneRoomList){
         zoneRoomList.setItems(observableZoneRoomList);
     }
-    //TO Do check permission before set
+
+    /**
+     * open the new set up zone room window
+     * @param event
+     */
     public void handleZoneRoom(ActionEvent event) {
+        // check permission before open this
         try {
             mainController.setZoneRoomWindow(this);
         } catch (IOException e) {
@@ -38,4 +51,96 @@ public class SHHController {
         }
     }
 
+    /**
+     * set the morning temperature to the selected zone and room
+     * each room have an instance of the Temperature so change the new value with the existing one
+     * @param event
+     */
+    public void setMorningTemperature(ActionEvent event) {
+        temperatureInput.clear();
+        if(!checkSelectZone() || !checkValue()){
+            return ;
+        }
+        String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
+        double inputT = Double.parseDouble(temperatureInput.getText());
+        String [] zoneRoomArray = selectZone.split(":");
+        Set<String> roomInZone = houseRoomsModel.getZoneRoomMap().get(zoneRoomArray[0]);
+        for(String s: roomInZone){
+            for(RoomModel rm : roomModels){
+                if(s.equalsIgnoreCase(rm.getName())){
+                    rm.getTemperature().setMorningTemp(inputT);
+                }
+            }
+        }
+    }
+
+    /**
+     * set the day temperature to the select zone and room
+     * each room have an instance of the Temperature so change the new value with the existing one
+     * @param event
+     */
+    public void setDayTemperature(ActionEvent event) {
+        temperatureInput.clear();
+        if(!checkSelectZone() || !checkValue()){
+            return ;
+        }
+        String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
+        double inputT = Double.parseDouble(temperatureInput.getText());
+        String [] zoneRoomArray = selectZone.split(":");
+        Set<String> roomInZone = houseRoomsModel.getZoneRoomMap().get(zoneRoomArray[0]);
+        for(String s: roomInZone){
+            for(RoomModel rm : roomModels){
+                if(s.equalsIgnoreCase(rm.getName())){
+                    rm.getTemperature().setMorningTemp(inputT);
+                }
+            }
+        }
+    }
+
+    /**
+     * set the night temperature to the zone and room
+     * each room have an instance of the Temperature so change the new value with the existing one
+     * @param event
+     */
+    public void setNightTemperature(ActionEvent event) {
+        temperatureInput.clear();
+        if(!checkSelectZone() || !checkValue()){
+            return ;
+        }
+        String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
+        double inputT = Double.parseDouble(temperatureInput.getText());
+        String [] zoneRoomArray = selectZone.split(":");
+        Set<String> roomInZone = houseRoomsModel.getZoneRoomMap().get(zoneRoomArray[0]);
+        for(String s: roomInZone){
+            for(RoomModel rm : roomModels){
+                if(s.equalsIgnoreCase(rm.getName())){
+                    rm.getTemperature().setMorningTemp(inputT);
+                }
+            }
+        }
+    }
+    public Boolean checkSelectZone(){
+        String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
+        if(selectZone == null){
+            errorLabel.setText("* please select the zone");
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean checkValue(){
+        String tempValue = temperatureInput.getText();
+        boolean isNumber=false;
+        double inputT;
+        try{
+            inputT = Double.parseDouble(tempValue);
+            isNumber =true;
+        }
+        catch (NumberFormatException e){
+            errorLabel.setText("* input temperature have to be number");
+
+        }
+        return isNumber;
+    }
+    
 }

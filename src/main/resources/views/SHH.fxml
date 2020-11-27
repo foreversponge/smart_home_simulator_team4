@@ -25,7 +25,20 @@
                               <Label fx:id="errorLabel" alignment="CENTER" prefHeight="17.0" prefWidth="243.0" textFill="#f60a0a" />
                            </children>
                         </VBox>
-
+                        <VBox alignment="CENTER" prefHeight="334.0" prefWidth="117.0" spacing="20.0">
+                           <children>
+                              <Label text="Set Desired Temperature" />
+                              <JFXButton onAction="#setMorningTemperature" text="Morning" />
+                              <JFXButton onAction="#setDayTemperature" text="Day" />
+                              <JFXButton onAction="#setNightTemperature" text="Night" />
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" text="T:" />
+                                    <JFXTextField fx:id="temperatureInput" prefHeight="25.0" prefWidth="102.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>

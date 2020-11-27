@@ -7,10 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import models.HouseRoomsModel;
-import models.RoomModel;
-import models.UserModel;
-
+import models.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -133,6 +130,13 @@ public class setUpZoneRoomController {
             errorLabel.setText("*each room have to have a zone");
             return;
         }
+        else{
+            houseRoomsModel.setZoneRoomMap(zoneRoomMap);
+        }
+        zoneRoomMap.forEach((k,v)->{
+            observableZoneRoomList.add(k+":"+v);
+        });
+        shhController.updateListView(observableZoneRoomList);
         currentStage.close();
     }
 }
