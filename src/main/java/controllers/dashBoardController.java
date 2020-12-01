@@ -70,16 +70,6 @@ public class dashBoardController {
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
 
-//	public void HandleSHH(Event event) {
-//		FXMLLoader fxmlLoader = new FXMLLoader();
-//		fxmlLoader.setLocation(getClass().getResource("/views/setUpZoneRoom.fxml"));
-//		AnchorPane anchorPane = null;
-//		try {
-//			anchorPane = fxmlLoader.load();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
 	/**
 	 * inner class which extends TimerTask
 	 * so Timer can generate action of this Task at fix rate
@@ -88,24 +78,42 @@ public class dashBoardController {
 		private LocalTime localTime;
 		private int timeInc =1;
 		private String mode;
+
+		/**
+		 * constructor by defautl it increment timerTask
+		 */
 		public IncrementTask(){
 			this.mode = "Increment";
 		}
-
+		/**
+		 * constructor to set the mode
+		 */
 		public IncrementTask(String mode){
 			this.mode = mode;
 		}
 
+		/**
+		 * set how much would the time increment
+		 * @param timeInc
+		 */
 		public void setTimeInc(int timeInc) {
 			this.timeInc = timeInc;
 		}
+
+		/**
+		 * set the Time
+		 * @param ctime
+		 */
 		private void setTime(LocalTime ctime) {
 			this.localTime = ctime;
 		}
+
+		/**
+		 * to handle the light to be open by checking the autolight in the away mode
+		 */
 		private void awayModeLight(){
 			boolean update =false;
 			if(!awayModeLight.isEmpty()) {
-//				System.out.println(houseRoomsModel.getAllRoomsArray());
 				RoomModel[] allRoom = houseRoomsModel.getAllRoomsArray();
 				for(RoomModel rm : allRoom){
 					if(awayModeLight.containsKey(rm.getName())){
@@ -130,17 +138,27 @@ public class dashBoardController {
 				displayLayout();
 			}
 		}
+
+		/**
+		 * to increment the time and handle the awayModeLight
+		 */
 		private void increment(){
 			localTime = localTime.plusSeconds(timeInc);
 			time.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 			awayModeLight();
 		}
+
+		/**
+		 * to decreemnt the time
+		 */
 		private void decrement(){
 			localTime = localTime.minusSeconds(timeInc);
 			
 		}
 
-
+		/**
+		 * would call different method if it is increment or decrement
+		 */
 		@Override
 		public void run() {
 			Platform.runLater(new Runnable() {

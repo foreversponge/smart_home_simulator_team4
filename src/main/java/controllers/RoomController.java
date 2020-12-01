@@ -38,8 +38,6 @@ public class RoomController {
 	private HouseRoomsModel houseRoomsModel= HouseRoomsModel.getInstance();
 	private RoomModel room;
 
-
-
 	/**
 	 * keep an instance of the Main
 	 * @param maincontroller

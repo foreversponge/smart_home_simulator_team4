@@ -13,6 +13,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * this is controller to handle the set up zone and room
+ * so the user can add new zone and room to the zone
+ */
 public class setUpZoneRoomController {
     @FXML private Label errorLabel;
     @FXML private JFXListView zoneList;

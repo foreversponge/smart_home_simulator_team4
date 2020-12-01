@@ -1,5 +1,10 @@
 package models;
 
+/**
+ * the temperature class which have 4 attribute
+ * so each room would have instance of temperature which have default temperature
+ * then user can change the temperature of the room according to their zone or individually
+ */
 public class Temperature {
     private double defaultTemp=20;
     private double morningTemp;

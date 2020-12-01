@@ -13,6 +13,11 @@ import models.RoomModel;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * responsible for the SHHTab
+ * it is the controller of the SHHTab
+ * dashboard would load this tab and view in their setMainController
+ */
 public class SHHController {
     private static Main mainController;
     @FXML private Label errorLabel;
@@ -62,13 +67,13 @@ public class SHHController {
             return ;
         }
         String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
-        double inputT = Double.parseDouble(temperatureInput.getText());
+        double inputTemperature = Double.parseDouble(temperatureInput.getText());
         String [] zoneRoomArray = selectZone.split(":");
         Set<String> roomInZone = houseRoomsModel.getZoneRoomMap().get(zoneRoomArray[0]);
         for(String s: roomInZone){
             for(RoomModel rm : roomModels){
                 if(s.equalsIgnoreCase(rm.getName())){
-                    rm.getTemperature().setMorningTemp(inputT);
+                    rm.getTemperature().setMorningTemp(inputTemperature);
                 }
             }
         }
@@ -85,13 +90,13 @@ public class SHHController {
             return ;
         }
         String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
-        double inputT = Double.parseDouble(temperatureInput.getText());
+        double inputTemperature = Double.parseDouble(temperatureInput.getText());
         String [] zoneRoomArray = selectZone.split(":");
         Set<String> roomInZone = houseRoomsModel.getZoneRoomMap().get(zoneRoomArray[0]);
         for(String s: roomInZone){
             for(RoomModel rm : roomModels){
                 if(s.equalsIgnoreCase(rm.getName())){
-                    rm.getTemperature().setMorningTemp(inputT);
+                    rm.getTemperature().setMorningTemp(inputTemperature);
                 }
             }
         }
@@ -108,17 +113,24 @@ public class SHHController {
             return ;
         }
         String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
-        double inputT = Double.parseDouble(temperatureInput.getText());
+        double inputTemperature = Double.parseDouble(temperatureInput.getText());
         String [] zoneRoomArray = selectZone.split(":");
         Set<String> roomInZone = houseRoomsModel.getZoneRoomMap().get(zoneRoomArray[0]);
         for(String s: roomInZone){
             for(RoomModel rm : roomModels){
                 if(s.equalsIgnoreCase(rm.getName())){
-                    rm.getTemperature().setMorningTemp(inputT);
+                    rm.getTemperature().setMorningTemp(inputTemperature);
                 }
             }
         }
     }
+
+    /**
+     * check if the zone is select or not
+     * if it is not select display error log return false
+     * else return true
+     * @return
+     */
     public Boolean checkSelectZone(){
         String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
         if(selectZone == null){
@@ -128,19 +140,23 @@ public class SHHController {
         return true;
     }
 
+    /**
+     * check the value of the desired temperature is a number or not
+     * if it is not a number or cannot cast to double display error log and return fasle
+     * else return true
+     * @return
+     */
     public Boolean checkValue(){
         String tempValue = temperatureInput.getText();
         boolean isNumber=false;
-        double inputT;
+        double inputTemperature;
         try{
-            inputT = Double.parseDouble(tempValue);
+            inputTemperature = Double.parseDouble(tempValue);
             isNumber =true;
         }
         catch (NumberFormatException e){
             errorLabel.setText("* input temperature have to be number");
-
         }
         return isNumber;
     }
-    
 }
