@@ -55,20 +55,25 @@ public class dashBoardController {
 	Timer scheduleTimer;
 	private String selectItem;
 	private List<String> selectLocation;
+	private Map<String, ArrayList<LocalTime>> awayModeLight= new HashMap<>();
+	// the key of this map it the roomName and arrayList would store the fromTime to ToTime that the light should be on
+	@FXML private ScrollPane scroll;
+	@FXML private GridPane grid;
 
-
+	/**
+	 * getter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
+	 * @return
+	 */
 	public Map<String, ArrayList<LocalTime>> getAwayModeLight() {
 		return awayModeLight;
 	}
-
+	/**
+	 * setter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
+	 * @param awayModeLight
+	 */
 	public void setAwayModeLight(Map<String, ArrayList<LocalTime>> awayModeLight) {
 		this.awayModeLight = awayModeLight;
 	}
-
-	private Map<String, ArrayList<LocalTime>> awayModeLight= new HashMap<>();
-
-	@FXML private ScrollPane scroll;
-	@FXML private GridPane grid;
 
 	/**
 	 * inner class which extends TimerTask
@@ -80,7 +85,7 @@ public class dashBoardController {
 		private String mode;
 
 		/**
-		 * constructor by defautl it increment timerTask
+		 * constructor by default it increment timerTask
 		 */
 		public IncrementTask(){
 			this.mode = "Increment";
