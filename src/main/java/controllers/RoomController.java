@@ -1,14 +1,12 @@
 package controllers;
 
 import com.jfoenix.controls.JFXBadge;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Tooltip;
-
 import models.HouseRoomsModel;
 import models.RoomModel;
 import models.UserModel;

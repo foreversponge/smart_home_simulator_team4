@@ -33,7 +33,6 @@ public class EditContextOfSimulationController {
 	@FXML private TableColumn nameOfUserColumn;		//Name of user column of tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn permissionColumn;		//Permission column of tableView of EditContextOfSimuatlion.fxml
 	@FXML private TableColumn locationColumn;	//location of user column of tableView of EditContextOfSimuatlion.fxml
-
 	private ObservableList<RoomModel> roomModelData = FXCollections.observableArrayList();	//stores data from RoomModel
 	@FXML private TableView<RoomModel> objectWindowTableView;	//tableView for blocking window movement
 	@FXML private TableColumn roomNameColumn;	//name of room column of tableView

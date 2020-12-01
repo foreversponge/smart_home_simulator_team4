@@ -10,7 +10,11 @@ import models.HouseRoomsModel;
 import models.RoomModel;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class acts as a controller for the lightsToRemainOn.fxml
@@ -106,16 +110,19 @@ public class LightsToRemainOnController {
             currentStage.close();
         }
         else {
-            RoomModel[] allRooms = houseRoomsModel.getAllRoomsArray();
-            for (RoomModel room : allRooms) {
+            if(fromHour.getValue()!=null && fromMinute.getValue() !=null && toHour.getValue()!=null && toMinute.getValue()!=null){
+                LocalTime startTime = LocalTime.parse(fromHour.getValue()+":"+fromMinute.getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+                LocalTime finishTime = LocalTime.parse(toHour.getValue()+":"+toMinute.getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+                Map<String, ArrayList<LocalTime>> awayModeLight = dashboardController.getAwayModeLight();
+                ArrayList<LocalTime> times = new ArrayList<>();
+                times.add(0,startTime);
+                times.add(1, finishTime);
                 for (String location : listSelectedRooms) {
-                    if (room.getName().equalsIgnoreCase(location)) {
-                        room.setNumOpenLights(room.getNumLights());
-                    }
+                    awayModeLight.put(location, times);
                 }
+                dashboardController.setAwayModeLight(awayModeLight);
             }
             currentStage.close();
-            dashboardController.displayLayout();
         }
     }
 

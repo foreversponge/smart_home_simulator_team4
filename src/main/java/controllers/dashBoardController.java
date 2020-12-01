@@ -8,22 +8,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import models.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.logging.Level;
 
 /**
@@ -57,9 +55,25 @@ public class dashBoardController {
 	Timer scheduleTimer;
 	private String selectItem;
 	private List<String> selectLocation;
-
+	private Map<String, ArrayList<LocalTime>> awayModeLight= new HashMap<>();
+	// the key of this map it the roomName and arrayList would store the fromTime to ToTime that the light should be on
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
+
+	/**
+	 * getter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
+	 * @return
+	 */
+	public Map<String, ArrayList<LocalTime>> getAwayModeLight() {
+		return awayModeLight;
+	}
+	/**
+	 * setter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
+	 * @param awayModeLight
+	 */
+	public void setAwayModeLight(Map<String, ArrayList<LocalTime>> awayModeLight) {
+		this.awayModeLight = awayModeLight;
+	}
 
 	/**
 	 * inner class which extends TimerTask
@@ -68,19 +82,99 @@ public class dashBoardController {
 	class IncrementTask extends TimerTask{
 		private LocalTime localTime;
 		private int timeInc =1;
+		private String mode;
+
+		/**
+		 * constructor by default it increment timerTask
+		 */
+		public IncrementTask(){
+			this.mode = "Increment";
+		}
+		/**
+		 * constructor to set the mode
+		 */
+		public IncrementTask(String mode){
+			this.mode = mode;
+		}
+
+		/**
+		 * set how much would the time increment
+		 * @param timeInc
+		 */
 		public void setTimeInc(int timeInc) {
 			this.timeInc = timeInc;
 		}
+
+		/**
+		 * set the Time
+		 * @param ctime
+		 */
 		private void setTime(LocalTime ctime) {
 			this.localTime = ctime;
 		}
+
+		/**
+		 * to handle the light to be open by checking the autolight in the away mode
+		 */
+		private void awayModeLight(){
+			boolean update =false;
+			if(!awayModeLight.isEmpty()) {
+				RoomModel[] allRoom = houseRoomsModel.getAllRoomsArray();
+				for(RoomModel rm : allRoom){
+					if(awayModeLight.containsKey(rm.getName())){
+						if(localTime.isAfter(awayModeLight.get(rm.getName()).get(0))
+								&& localTime.isBefore(awayModeLight.get(rm.getName()).get(1)))
+						{
+							if(rm.getNumOpenLights()==0){
+								rm.setNumOpenLights(rm.getNumLights());
+								update = true;
+							}
+						}
+						else{
+							if(rm.getNumOpenLights()!=0){
+								rm.setNumOpenLights(0);
+								update = true;
+							}
+						}
+					}
+				}
+			}
+			if(update){
+				displayLayout();
+			}
+		}
+
+		/**
+		 * to increment the time and handle the awayModeLight
+		 */
+		private void increment(){
+			localTime = localTime.plusSeconds(timeInc);
+			time.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+			awayModeLight();
+		}
+
+		/**
+		 * to decreemnt the time
+		 */
+		private void decrement(){
+			localTime = localTime.minusSeconds(timeInc);
+			
+		}
+
+		/**
+		 * would call different method if it is increment or decrement
+		 */
 		@Override
 		public void run() {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
-					localTime = localTime.plusSeconds(timeInc);
-					time.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+					if(mode.equalsIgnoreCase("increment")){
+						increment();
+					}
+					else{
+						decrement();
+					}
 				}
 			});
 		}
@@ -103,6 +197,15 @@ public class dashBoardController {
 		mainController.getShpModel().setConsoleLog(consolelog);
 		consolelog.setItems(mainController.getLogMessages());
 		displayLayout();
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/SHH.fxml"));
+		try {
+			Parent root = fxmlLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		SHHController shhController = fxmlLoader.getController();
+		shhController.setMainController(mainController);
+
 	}
 
 	/** Initializes dynamically the house layout depending on the information receive in the layout file

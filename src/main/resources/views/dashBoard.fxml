@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="618.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashBoardController">
     <children>
@@ -106,9 +119,12 @@
                                     <Label layoutX="38.0" layoutY="27.0" prefHeight="37.0" prefWidth="89.0" text="Away Mode:" />
                                     <Button fx:id="pickLightsToKeepOnButton" layoutX="133.0" layoutY="279.0" mnemonicParsing="false" onMouseClicked="#pickLightsToKeepOnClick" text="Pick Lights to Keep On" />
                                     <Label fx:id="call_authorities_label" layoutX="38.0" layoutY="90.0" text="Call authorities delay:" />
-                                    <Label fx:id="delay_minutes_label" layoutX="174.0" layoutY="90.0" text="Enter delay in minutes" onMouseClicked="#handleAuthoritiesDelayMin"/>
+                                    <Label fx:id="delay_minutes_label" layoutX="174.0" layoutY="90.0" onMouseClicked="#handleAuthoritiesDelayMin" text="Enter delay in minutes" />
                                  </children></AnchorPane>
                            </content>
+                        </Tab>
+                        <Tab text="SHH">
+                            <fx:include source="SHH.fxml"></fx:include>
                         </Tab>
                      </tabs></TabPane>
                         <TabPane prefHeight="371.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
