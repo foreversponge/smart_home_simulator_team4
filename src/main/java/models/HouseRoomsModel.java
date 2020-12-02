@@ -1,9 +1,5 @@
 package models;
 
-
-import java.util.Map;
-import java.util.Set;
-
 /**
  * This class stores all the available rooms extracted from the uploaded house layout text file
  * @author Team 4
