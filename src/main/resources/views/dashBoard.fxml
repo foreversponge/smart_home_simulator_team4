@@ -106,6 +106,9 @@
                                                 <JFXButton fx:id="autoBtn" alignment="CENTER" disable="true" onAction="#handleAutoSelection" text="Auto" />
                                              </children>
                                           </HBox>
+                                          <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
+
+                                          </HBox>
                                        </children>
                                     </VBox>
                                  </children></AnchorPane>
@@ -124,7 +127,7 @@
                            </content>
                         </Tab>
                         <Tab text="SHH">
-                            <fx:include source="SHH.fxml"></fx:include>
+                            <fx:include source="SHH.fxml" />
                         </Tab>
                      </tabs></TabPane>
                         <TabPane prefHeight="371.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">

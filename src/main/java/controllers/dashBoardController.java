@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import models.*;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -32,6 +31,7 @@ import java.util.logging.Level;
  *
  */
 public class dashBoardController {
+
 	private HouseRoomsModel houseRoomsModel=HouseRoomsModel.getInstance();
 	@FXML private JFXToggleButton toggleAwayMode;
 	@FXML private JFXButton OnBtn;
