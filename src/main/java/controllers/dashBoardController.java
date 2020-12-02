@@ -32,6 +32,7 @@ import java.util.logging.Level;
  *
  */
 public class dashBoardController {
+
 	private HouseRoomsModel houseRoomsModel=HouseRoomsModel.getInstance();
 	@FXML private JFXToggleButton toggleAwayMode;
 	@FXML private JFXButton OnBtn;

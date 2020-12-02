@@ -8,10 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import models.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 /**
  * this is controller to handle the set up zone and room
@@ -24,13 +22,14 @@ public class setUpZoneRoomController {
     private Main mainController;
     private ObservableList<String> observableZoneList=FXCollections.observableArrayList();;
     private ObservableList<String> observableRoomList = FXCollections.observableArrayList();
-    private ObservableList<String> observableZoneRoomList= FXCollections.observableArrayList();
-    Map<String, Set<String>> zoneRoomMap = new HashMap<>();
+    private ObservableList<RoomModel> observableListAllRoom = FXCollections.observableArrayList();
+    Map<String, Set<String>> zoneRoomMap = new TreeMap<>();
     private Stage currentStage;
     private int id=1;
     private HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();
     private UserModel loggedUser;
     private SHHController shhController;
+    private RoomModel [] allRoom ;
 
     /**
      * keep the Main instance
@@ -44,7 +43,8 @@ public class setUpZoneRoomController {
         this.mainController = main;
         this.currentStage = currentstage;
         this.shhController =shhCon;
-        for(RoomModel roomModel: houseRoomsModel.getAllRoomsArray()){
+        allRoom= houseRoomsModel.getAllRoomsArray();
+        for(RoomModel roomModel: allRoom){
             observableRoomList.add(roomModel.getName());
         }
         zoneList.setItems(observableZoneList);
@@ -134,13 +134,30 @@ public class setUpZoneRoomController {
             errorLabel.setText("*each room have to have a zone");
             return;
         }
-        else{
-            houseRoomsModel.setZoneRoomMap(zoneRoomMap);
-        }
         zoneRoomMap.forEach((k,v)->{
-            observableZoneRoomList.add(k+":"+v);
+            v.forEach( room ->{
+                int i = getIndexOfRoom(room);
+                allRoom[i].setZone(k);
+                observableListAllRoom.add(allRoom[i]);
+            });
         });
-        shhController.updateListView(observableZoneRoomList);
+        houseRoomsModel.setAllRooms(allRoom);
+        shhController.updateTableView(observableListAllRoom);
         currentStage.close();
+    }
+
+    /**
+     * getter index of the specific room in all rom array
+     * @param room
+     * @return
+     */
+    public int getIndexOfRoom(String room){
+        int index=-1;
+        for(int i=0 ;i < allRoom.length;i++){
+            if(allRoom[i].getName().equalsIgnoreCase(room)){
+                index=i;
+            }
+        }
+        return index;
     }
 }

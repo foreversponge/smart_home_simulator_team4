@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
  */
 public class RoomModel {
 
+	private transient String zone;
 	private String mode;
 	private String name;
 	private int numWindows;
@@ -37,6 +38,7 @@ public class RoomModel {
 		this.numLights = numLights;
 		this.nextRoomName = nextRoomName;
 		this.temperature = new Temperature();
+		this.zone=null;
 	}
 
 	/**
@@ -227,15 +229,37 @@ public class RoomModel {
 		this.temperature = temperature;
 	}
 
+	/**
+	 * getter of the zone of the room
+	 * @return
+	 */
+	public String getZone() {
+		return zone;
+	}
+
+	/**
+	 * setter of the zone of the room
+	 */
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
+
 	@Override
 	public String toString() {
-		return "room{" +
-				"name='" + name + '\'' +
+		return "RoomModel{" +
+				"zone='" + zone + '\'' +
+				", mode='" + mode + '\'' +
+				", name='" + name + '\'' +
 				", numWindows=" + numWindows +
 				", numDoors=" + numDoors +
 				", numLights=" + numLights +
 				", nextRoomName='" + nextRoomName + '\'' +
-				", isObjectBlockingWindow=" + isObjectBlockingWindow + 
+				", numOpenDoor=" + numOpenDoor +
+				", numOpenLights=" + numOpenLights +
+				", numOpenWindows=" + numOpenWindows +
+				", isObjectBlockingWindow=" + isObjectBlockingWindow +
+				", objectBlockingWindowComboBox=" + objectBlockingWindowComboBox +
+				", temperature=" + temperature +
 				'}';
 	}
 }
