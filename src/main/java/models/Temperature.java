@@ -97,6 +97,37 @@ public class Temperature {
         this.nightTemp = nightTemp;
     }
 
+//    /**
+//     * getter boolean replace temperature
+//     * @return boolean replace temperature
+//     */
+//    public boolean getReplaceTemp() {
+//        return replaceTemp;
+//    }
+//
+//    /**
+//     * setter boolean replace temperature
+//     * @param replaceTemp
+//     */
+//    public void setOverrideTemp(boolean replaceTemp) {
+//        this.replaceTemp = replaceTemp;
+//    }
+//    /**
+//     * getter override temperature
+//     * @return override temperature
+//     */
+//    public double getOverrideTemp() {
+//        return overrideTemp;
+//    }
+//
+//    /**
+//     * setter override temperature
+//     * @param overrideTemp
+//     */
+//    public void setOverrideTemp(double overrideTemp) {
+//        this.overrideTemp = overrideTemp;
+//    }
+
     /**
      * to String method
      * @return

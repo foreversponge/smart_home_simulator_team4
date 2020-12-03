@@ -32,8 +32,7 @@ public class SimulationParametersController {
 	@FXML private TableColumn<UserModel, String> colname;
 	@FXML private TableColumn<UserModel, String> colrole;
 	@FXML private JFXComboBox roomLocation;
-	@FXML private JFXComboBox userSelected;
-	@FXML private JFXButton continueButton;
+	@FXML private JFXComboBox selectSeason;
 	private Main mainController;
 	private HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();
 
@@ -49,10 +48,16 @@ public class SimulationParametersController {
 		for(RoomModel r : houseRoomsModel.getAllRoomsArray()){
 			locationNames.add(r.getName());
 		}
+		ObservableList<String> seasonOptions =
+				FXCollections.observableArrayList(
+						"Summer",
+						"Winter"
+				);
 		roomLocation.setItems(locationNames);
 		dateSelected.setValue(LocalDate.now());
 		LocalTime pickTime = LocalTime.now();
 		timeLabel.setText(pickTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")).toString());
+		selectSeason.setItems(seasonOptions);
 	}
 
 	/**
@@ -91,6 +96,10 @@ public class SimulationParametersController {
 			mainController.getLoggedUser().setDate(dateSelected.getValue());
 			mainController.getLoggedUser().setCurrentLocation(roomLocation.getValue().toString());
 			mainController.getLoggedUser().setTime(LocalTime.parse(timeLabel.getText()));
+			mainController.getLoggedUser().setSeason((String) selectSeason.getValue());
+//			for(int i = 0; i < houseRoomsModel.getAllRoomsArray().length;  i++){
+//				houseRoomsModel.getAllRoomsArray()[i].getTemperature().;
+//			}
 			mainController.closeWindow();
 			try {
 				mainController.setDashboardWindow();

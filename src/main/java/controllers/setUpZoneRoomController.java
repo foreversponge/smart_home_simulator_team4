@@ -97,7 +97,7 @@ public class setUpZoneRoomController {
         String selectZone= (String) zoneList.getSelectionModel().getSelectedItem();
         String selectRoom =(String) roomList.getSelectionModel().getSelectedItem();
         if(selectRoom == null || selectZone== null){
-            errorLabel.setText("* Both zone and room have to be select");
+            errorLabel.setText("Select a zone and a room.");
             return;
         }
         Set<String> rooms;
@@ -130,7 +130,7 @@ public class setUpZoneRoomController {
      */
     public void HandleSave(ActionEvent event) {
         if(observableRoomList.stream().count()!=0){
-            errorLabel.setText("*each room have to have a zone");
+            errorLabel.setText("Each room must be assigned to a zone.");
             return;
         }
         zoneRoomMap.forEach((k,v)->{

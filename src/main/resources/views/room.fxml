@@ -13,76 +13,76 @@
 <AnchorPane fx:id="anchorpaneroom" prefHeight="109.0" prefWidth="159.0" style="-fx-background-color: #00E6EE;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RoomController">
     <children>
         <HBox alignment="CENTER" layoutX="7.0" prefHeight="28.0" prefWidth="147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <VBox layoutY="38.0" prefHeight="71.0" prefWidth="161.0" style="-fx-background-color: AFEEEE;">
-         <children>
-              <HBox prefHeight="71.0" prefWidth="267.0" spacing="10.0" style="-fx-background-color: AFEEEE;">
-                  <children>
-                      <JFXBadge fx:id="badgeWindow" position="TOP_RIGHT" styleClass="icons-badge">
-                          <StackPane prefHeight="37.0" prefWidth="35.0" style="-fx-padding: 7.5;">
-                              <ImageView fx:id="window1" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                          </StackPane>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                      </JFXBadge>
-                      <JFXBadge fx:id="badgeDoor" position="TOP_RIGHT" styleClass="icons-badge">
-                          <StackPane style="-fx-padding: 5;">
-                              <ImageView fx:id="door1" fitHeight="20.0" fitWidth="20.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                          </StackPane>
-                      </JFXBadge>
-                      <JFXBadge fx:id="badgeLight" position="TOP_RIGHT" styleClass="icons-badge">
-                          <StackPane style="-fx-padding: 5;">
-                              <ImageView fx:id="light1" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                          </StackPane>
-                      </JFXBadge>
-                  <JFXBadge layoutX="102.0" layoutY="10.0" position="TOP_RIGHT" prefWidth="24.0" styleClass="icons-badge">
-                     <control>
-                        <StackPane style="-fx-padding: 5;">
-                           <children>
-                              <ImageView fx:id="LoggedUser" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </StackPane>
-                     </control>
-                  </JFXBadge>
-                       </children>
-              </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="174.0" spacing="5.0">
-               <children>
-                  <JFXBadge fx:id="badgeWindowBlocked" position="TOP_RIGHT" prefHeight="36.0" prefWidth="16.0" styleClass="icons-badge">
-                     <control>
-                        <StackPane style="-fx-padding: 8;">
-                           <children>
-                              <ImageView fx:id="windowBlocked" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT" />
-                           </children>
-                        </StackPane>
-                     </control>
-                  </JFXBadge>
-                  <JFXBadge fx:id="badgeLock" position="TOP_RIGHT" prefHeight="36.0" prefWidth="16.0" styleClass="icons-badge">
-                     <control>
-                        <StackPane style="-fx-padding: 8;">
-                           <children>
-                              <ImageView fx:id="doorLock" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT" />
-                           </children>
-                        </StackPane>
-                     </control>
-                  </JFXBadge>
-                  <JFXBadge fx:id="badgeUserNum" layoutX="116.0" layoutY="10.0" position="TOP_RIGHT" prefHeight="36.0" prefWidth="16.0" styleClass="icons-badge">
-                     <control>
-                        <StackPane style="-fx-padding: 8;">
-                           <children>
-                              <ImageView fx:id="UserNum" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT" />
-                           </children>
-                        </StackPane>
-                     </control>
-                  </JFXBadge>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+        <VBox layoutY="38.0" prefHeight="71.0" prefWidth="161.0" style="-fx-background-color: AFEEEE;">
+            <children>
+                <HBox prefHeight="71.0" prefWidth="267.0" spacing="10.0" style="-fx-background-color: AFEEEE;">
+                    <children>
+                        <JFXBadge fx:id="badgeWindow" position="TOP_RIGHT" styleClass="icons-badge">
+                            <StackPane prefHeight="37.0" prefWidth="35.0" style="-fx-padding: 7.5;">
+                                <ImageView fx:id="window1" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                            </StackPane>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </JFXBadge>
+                        <JFXBadge fx:id="badgeDoor" position="TOP_RIGHT" styleClass="icons-badge">
+                            <StackPane style="-fx-padding: 5;">
+                                <ImageView fx:id="door1" fitHeight="20.0" fitWidth="20.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                            </StackPane>
+                        </JFXBadge>
+                        <JFXBadge fx:id="badgeLight" position="TOP_RIGHT" styleClass="icons-badge">
+                            <StackPane style="-fx-padding: 5;">
+                                <ImageView fx:id="light1" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                            </StackPane>
+                        </JFXBadge>
+                        <JFXBadge layoutX="102.0" layoutY="10.0" position="TOP_RIGHT" prefWidth="24.0" styleClass="icons-badge">
+                            <control>
+                                <StackPane style="-fx-padding: 5;">
+                                    <children>
+                                        <ImageView fx:id="LoggedUser" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </StackPane>
+                            </control>
+                        </JFXBadge>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="174.0" spacing="5.0">
+                    <children>
+                        <JFXBadge fx:id="badgeWindowBlocked" position="TOP_RIGHT" prefHeight="36.0" prefWidth="16.0" styleClass="icons-badge">
+                            <control>
+                                <StackPane style="-fx-padding: 8;">
+                                    <children>
+                                        <ImageView fx:id="windowBlocked" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT" />
+                                    </children>
+                                </StackPane>
+                            </control>
+                        </JFXBadge>
+                        <JFXBadge fx:id="badgeLock" position="TOP_RIGHT" prefHeight="36.0" prefWidth="16.0" styleClass="icons-badge">
+                            <control>
+                                <StackPane style="-fx-padding: 8;">
+                                    <children>
+                                        <ImageView fx:id="doorLock" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT" />
+                                    </children>
+                                </StackPane>
+                            </control>
+                        </JFXBadge>
+                        <JFXBadge fx:id="badgeUserNum" layoutX="116.0" layoutY="10.0" position="TOP_RIGHT" prefHeight="36.0" prefWidth="16.0" styleClass="icons-badge">
+                            <control>
+                                <StackPane style="-fx-padding: 8;">
+                                    <children>
+                                        <ImageView fx:id="UserNum" fitHeight="20.0" fitWidth="20.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT" />
+                                    </children>
+                                </StackPane>
+                            </control>
+                        </JFXBadge>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
         <Label fx:id="room1" layoutX="7.0" layoutY="4.0" prefHeight="28.0" prefWidth="154.0" text="ROOM">
-         <font>
-            <Font name="MS Reference Sans Serif" size="14.0" />
-         </font></Label>
+            <font>
+                <Font name="MS Reference Sans Serif" size="14.0" />
+            </font></Label>
     </children>
 
 </AnchorPane>

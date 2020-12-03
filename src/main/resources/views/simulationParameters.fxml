@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="618.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationParametersController">
 
     <children>
-        <JFXButton buttonType="RAISED" layoutX="614.0" layoutY="192.0" onAction="#handleEditUser" prefHeight="36.0" prefWidth="200.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-background-color: #FFFFFF;" text="Edit/Set User Profiles">
+        <JFXButton buttonType="RAISED" layoutX="481.0" layoutY="192.0" onAction="#handleEditUser" prefHeight="36.0" prefWidth="200.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-background-color: #FFFFFF;" text="Edit/Set User Profiles">
          <font>
             <Font name="SansSerif Regular" size="16.0" />
          </font></JFXButton>
@@ -23,8 +28,8 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dateSelected" layoutX="86.0" layoutY="264.0" prefHeight="36.0" prefWidth="200.0" />
-      <TableView fx:id="allUsers" layoutX="612.0" layoutY="264.0" prefHeight="200.0" prefWidth="200.0">
+      <DatePicker fx:id="dateSelected" layoutX="43.0" layoutY="264.0" prefHeight="36.0" prefWidth="200.0" />
+      <TableView fx:id="allUsers" layoutX="481.0" layoutY="269.0" prefHeight="200.0" prefWidth="200.0">
           <placeholder>
               <Label text="You have not added any users." />
           </placeholder>
@@ -36,12 +41,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <JFXButton buttonType="RAISED" layoutX="403.0" layoutY="193.0" onAction="#setTime" prefHeight="36.0" prefWidth="129.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-background-color: #FFFFFF;" text="Set Time">
+      <JFXButton buttonType="RAISED" layoutX="308.0" layoutY="192.0" onAction="#setTime" prefHeight="36.0" prefWidth="129.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-background-color: #FFFFFF;" text="Set Time">
          <font>
             <Font name="SansSerif Regular" size="16.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="129.0" layoutY="192.0" prefHeight="36.0" prefWidth="114.0" style="-fx-border-color: #000000; -fx-border-radius: 2; -fx-background-color: #FFFFFF;" text="Set Date">
+      <JFXButton layoutX="86.0" layoutY="192.0" prefHeight="36.0" prefWidth="114.0" style="-fx-border-color: #000000; -fx-border-radius: 2; -fx-background-color: #FFFFFF;" text="Set Date">
          <font>
             <Font name="SansSerif Regular" size="16.0" />
          </font>
@@ -51,21 +56,27 @@
             <Font size="16.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="889.0" layoutY="192.0" prefHeight="36.0" prefWidth="182.0" style="-fx-border-color: #000000; -fx-border-radius: 2; -fx-background-color: #FFFFFF;" text="Select Room Location">
+      <JFXButton layoutX="752.0" layoutY="192.0" prefHeight="36.0" prefWidth="182.0" style="-fx-border-color: #000000; -fx-border-radius: 2; -fx-background-color: #FFFFFF;" text="Select Room Location">
          <font>
             <Font name="SansSerif Regular" size="16.0" />
          </font>
       </JFXButton>
-      <JFXComboBox fx:id="roomLocation" layoutX="894.0" layoutY="269.0" prefHeight="25.0" prefWidth="173.0" />
-      <Label fx:id="timeLabel" alignment="CENTER" layoutX="406.0" layoutY="273.0" prefHeight="17.0" prefWidth="129.0">
+      <JFXComboBox fx:id="roomLocation" layoutX="756.0" layoutY="270.0" prefHeight="25.0" prefWidth="173.0" />
+      <Label fx:id="timeLabel" alignment="CENTER" layoutX="308.0" layoutY="274.0" prefHeight="17.0" prefWidth="129.0">
          <font>
             <Font name="SansSerif Regular" size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="permissionsExplained" fitHeight="30.0" fitWidth="30.0" layoutX="812.0" layoutY="264.0" onMouseClicked="#onPermissionsClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="permissionsExplained" fitHeight="30.0" fitWidth="30.0" layoutX="687.0" layoutY="269.0" onMouseClicked="#onPermissionsClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/help-icon.png" />
          </image>
       </ImageView>
+      <JFXButton layoutX="991.0" layoutY="192.0" prefHeight="36.0" prefWidth="129.0" style="-fx-border-color: #000000; -fx-border-radius: 2; -fx-background-color: #FFFFFF;" text="Select Season">
+         <font>
+            <Font name="SansSerif Regular" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="selectSeason" layoutX="991.0" layoutY="272.0" prefHeight="25.0" prefWidth="129.0" />
     </children>
 </AnchorPane>

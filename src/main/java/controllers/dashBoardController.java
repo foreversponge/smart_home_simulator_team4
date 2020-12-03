@@ -41,6 +41,7 @@ public class dashBoardController {
 	@FXML private JFXListView itemView;
 	@FXML private JFXSlider timeSlider;
 	@FXML private Label logUser;
+	@FXML private Label season;
 	@FXML private JFXListView consolelog;
 	@FXML private JFXToggleButton toggleSimBtn;
 	@FXML private Label userLocation;
@@ -192,6 +193,7 @@ public class dashBoardController {
 		date.setText(maincontroller.getLoggedUser().getDate().toString());
 		userLocation.setText(maincontroller.getLoggedUser().getCurrentLocation());
 		logUser.setText(maincontroller.getLoggedUser().getNameAndRole());
+		season.setText("Season: " + maincontroller.getLoggedUser().getSeason());
 		incrementTask.setTime(choosentime);
 		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
 		mainController.getShpModel().setConsoleLog(consolelog);
@@ -205,7 +207,6 @@ public class dashBoardController {
 		}
 		SHHController shhController = fxmlLoader.getController();
 		shhController.setMainController(mainController);
-
 	}
 
 	/** Initializes dynamically the house layout depending on the information receive in the layout file
@@ -658,6 +659,8 @@ public class dashBoardController {
 		case "ON":
 			toggleAwayMode.setText("OFF");
 			mainController.getShpModel().setAwayModeOn(false);
+			//call houseroom model, go through each room and then update temperature,
+
 			break;
 		case "OFF":
 			if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") || mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")) {
