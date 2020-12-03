@@ -1,5 +1,8 @@
 package models;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * This class stores all the available rooms extracted from the uploaded house layout text file
  * @author Team 4
@@ -8,6 +11,7 @@ package models;
 public class HouseRoomsModel {
 	private static HouseRoomsModel houseRoomsModel;
 	private static RoomModel[] allRoomsArray;
+	private static ArrayList<ZoneModel> allZonesArray;
 
 	/**
 	 * constructor
@@ -38,6 +42,7 @@ public class HouseRoomsModel {
 	 * This method sets the array that contains all the rooms extracted from the house layout file.
 	 * @param allRooms array of rooms
 	 */
+
 	public void setAllRooms(RoomModel[] allRooms) {
 		allRoomsArray = allRooms;
 		for(RoomModel rm : allRoomsArray){
@@ -45,5 +50,21 @@ public class HouseRoomsModel {
 				rm.setTemperature(new Temperature());
 			}
 		}
+	}
+
+	/**
+	 * get the array of all zones
+	 * @return
+	 */
+	public ArrayList<ZoneModel> getAllZonesArray() {
+		return allZonesArray;
+	}
+
+	/**
+	 * set the array of all zones
+	 * @param allZonesArray
+	 */
+	public void setAllZonesArray(ArrayList <ZoneModel> allZonesArray) {
+		HouseRoomsModel.allZonesArray = allZonesArray;
 	}
 }

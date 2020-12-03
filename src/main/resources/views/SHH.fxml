@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -11,61 +12,69 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="378.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SHHController">
+<AnchorPane prefHeight="446.0" prefWidth="613.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SHHController">
 
     <children>
-      <ScrollPane layoutX="6.0" layoutY="14.0" pannable="true" prefHeight="357.0" prefWidth="549.0">
-        <content>
-          <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="352.0" prefWidth="542.0">
-               <children>
-                  <HBox alignment="CENTER" layoutX="8.0" layoutY="9.0" spacing="15.0">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="303.0" prefWidth="226.0" spacing="1.0">
-                           <children>
-                                <JFXButton onAction="#handleZoneRoom" prefHeight="26.0" prefWidth="71.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-padding: 5;" text="Add Zone" />
-                              <TableView fx:id="zoneRoomTableView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="168.0">
-                                <columns>
-                                  <TableColumn fx:id="zoneColumn" prefWidth="93.20001411437988" text="Zone" />
-                                  <TableColumn fx:id="roomColumn" prefWidth="70.800048828125" text="Room" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                              <Label fx:id="displayTemperature" alignment="CENTER" layoutX="27.0" layoutY="291.0" prefHeight="53.0" prefWidth="226.0" textFill="#20c320">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="errorLabel" alignment="CENTER" prefHeight="51.0" prefWidth="226.0" textFill="#f60a0a" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="334.0" prefWidth="160.0" spacing="20.0">
-                           <children>
-                              <HBox alignment="CENTER">
-                                 <children>
-                                     <Label prefHeight="17.0" prefWidth="83.0" text="Temperature:" />
-                                     <JFXButton fx:id="showTempBtn" onAction="#toggleShowTemperature" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Show" />
-                                 </children>
-                              </HBox>
-                              <JFXButton onAction="#setMorningTemperature" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Set Morning" />
-                              <JFXButton onAction="#setDayTemperature" style="-fx-border-color: #000000; -fx-border-radius: 5;" text="Set Day" />
-                              <JFXButton onAction="#setNightTemperature" style="-fx-border-color: #000000; -fx-border-radius: 5;" text="Set Night" />
-                              <HBox alignment="CENTER">
-                                 <children>
-                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="198.0" text="Temperature Value:" />
-                                    <JFXTextField fx:id="InputTemperature" prefHeight="25.0" prefWidth="102.0" />
-                                 </children>
-                              </HBox>
-                              <JFXButton style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Override Temperature" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
+        <ScrollPane layoutX="6.0" layoutY="14.0" pannable="true" prefHeight="432.0" prefWidth="599.0">
+            <content>
+                <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="466.0">
+                    <children>
+                        <HBox alignment="CENTER" layoutX="-3.0" layoutY="14.0" prefHeight="393.0" prefWidth="601.0" spacing="15.0">
+                            <children>
+                                <VBox alignment="CENTER" prefHeight="385.0" prefWidth="283.0" spacing="1.0">
+                                    <children>
+                                        <JFXButton onAction="#handleZoneRoom" text="ZoneRoom" />
+                                        <JFXListView fx:id="zoneRoomList" prefHeight="119.0" prefWidth="226.0" />
+                                        <TableView fx:id="zoneRoomTableView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="403.0">
+                                            <columns>
+                                                <TableColumn fx:id="zoneColumn" prefWidth="93.20001411437988" text="Zone" />
+                                                <TableColumn fx:id="roomColumn" prefWidth="70.800048828125" text="Room" />
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                        </TableView>
+                                        <Label fx:id="displayTemperature" alignment="CENTER" layoutX="27.0" layoutY="291.0" prefHeight="57.0" prefWidth="427.0" textFill="#20c320">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="errorLabel" alignment="CENTER" prefHeight="17.0" prefWidth="445.0" textFill="#f60a0a" />
+                                    </children>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="393.0" prefWidth="205.0" spacing="20.0">
+                                    <children>
+                                        <HBox alignment="CENTER" layoutX="10.0" layoutY="56.0">
+                                            <children>
+                                                <Label text="Zone(temp)" />
+                                                <JFXButton fx:id="showZoneTemp" onAction="#toggleShowZoneTemperature" text="Show" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <Label text="Room(temp)" />
+                                                <JFXButton fx:id="showTempBtn" onAction="#toggleShowTemperature" text="Show" />
+                                            </children>
+                                        </HBox>
+                              <JFXButton onAction="#setAwayTemp" text="Set away temp" />
+                                        <Label text="Set Desired Temperature" />
+                                        <JFXButton onAction="#setMorningTemperature" text="Morning" />
+                                        <JFXButton onAction="#setDayTemperature" text="Day" />
+                                        <JFXButton onAction="#setNightTemperature" text="Night" />
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <Label alignment="CENTER" text="Temperature:" />
+                                                <JFXTextField fx:id="InputTemperature" prefHeight="25.0" prefWidth="102.0" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
     </children>
 
 </AnchorPane>

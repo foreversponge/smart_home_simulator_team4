@@ -13,10 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.input.MouseEvent;
-import models.RoomModel;
-import models.HouseRoomsModel;
-import models.TimerPickerModel;
-import models.UserModel;
+import models.*;
 
 /**
  * This class is responsible for handling 
@@ -97,9 +94,6 @@ public class SimulationParametersController {
 			mainController.getLoggedUser().setCurrentLocation(roomLocation.getValue().toString());
 			mainController.getLoggedUser().setTime(LocalTime.parse(timeLabel.getText()));
 			mainController.getLoggedUser().setSeason((String) selectSeason.getValue());
-//			for(int i = 0; i < houseRoomsModel.getAllRoomsArray().length;  i++){
-//				houseRoomsModel.getAllRoomsArray()[i].getTemperature().;
-//			}
 			mainController.closeWindow();
 			try {
 				mainController.setDashboardWindow();
