@@ -22,6 +22,7 @@ public class setUpZoneRoomController {
     private ObservableList<String> observableZoneList=FXCollections.observableArrayList();;
     private ObservableList<String> observableRoomList = FXCollections.observableArrayList();
     private ObservableList<RoomModel> observableListAllRoom = FXCollections.observableArrayList();
+    private ObservableList<String> observableZoneRoomList= FXCollections.observableArrayList();
     Map<String, Set<String>> zoneRoomMap = new TreeMap<>();
     private Stage currentStage;
     private int id=1;
@@ -141,7 +142,10 @@ public class setUpZoneRoomController {
             });
         });
         houseRoomsModel.setAllRooms(allRoom);
-        shhController.updateTableView(observableListAllRoom);
+        zoneRoomMap.forEach((k,v)->{
+            observableZoneRoomList.add(k+":"+v);
+        });
+        shhController.updateTableView(observableListAllRoom, observableZoneRoomList);
         currentStage.close();
     }
 
