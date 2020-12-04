@@ -60,6 +60,8 @@ public class dashBoardController {
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
 
+	SHHController shhControl = new SHHController();
+
 	/**
 	 * getter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
 	 * @return
@@ -111,6 +113,10 @@ public class dashBoardController {
 		 */
 		private void setTime(LocalTime ctime) {
 			this.localTime = ctime;
+		}
+
+		private LocalTime getLocalTime(){
+			return localTime;
 		}
 
 		/**
@@ -573,7 +579,6 @@ public class dashBoardController {
 		});
 		updateTime.showAndWait();
 	}
-
 	/**
 	 * display dialog and DatePicker to allow logged user to choose the date and update it on the dashboard
 	 * @param mouseEvent
@@ -588,12 +593,33 @@ public class dashBoardController {
 		updateDate.setResultConverter((ButtonType button) -> {
 			if (button == ButtonType.OK && newDate.getValue()!=null) {
 				date.setText(newDate.getValue().toString());
+				shhControl.monitorTemp();
 			}
 			return null;
 		});
 		updateDate.showAndWait();
 	}
-
+	/**
+	 *
+	 * @return the current date
+	 */
+	public LocalDate getDate(){
+		return LocalDate.parse(date.getText());
+	}
+	/**
+	 *
+	 * @return the outside temp
+	 */
+	public int getTemperature(){
+		 return Integer.parseInt(outsideT.getText());
+	}
+	/**
+	 *
+	 * @return the current time
+	 */
+	public LocalTime getTime(){
+		return LocalTime.parse(time.getText());
+	}
 	/**
 	 * Display the dialog and allow logged user to change temperature outside home
 	 * if logged user does not choose the sign before desired number of temperatuer, it consider positive
@@ -616,6 +642,7 @@ public class dashBoardController {
 				if(newTemp.getText().matches("[0-9]+")){
 					if(sign.getValue()==null || sign.getValue().equals("+")){
 						outsideT.setText("Outside Temperature: "+newTemp.getText());
+						shhControl.monitorTemp();
 					}
 					else{
 						outsideT.setText("Outside Temperature: "+"-"+newTemp.getText());
@@ -629,7 +656,6 @@ public class dashBoardController {
 		});
 		updateTemp.showAndWait();
 	}
-
 	/**
 	 * When simulation is ON, if the user clicks the edit button, the Edit Context Of Simulation window will appear
 	 * @param event user clicks the edit button

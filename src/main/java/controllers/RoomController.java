@@ -11,6 +11,7 @@ import models.HouseRoomsModel;
 import models.RoomModel;
 import models.UserModel;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ public class RoomController {
 	public ImageView light1;
 	public ImageView doorLock;
 	public ImageView windowBlocked;
+	private LocalTime localtime;
 	@FXML private Label room1;
 	private HouseRoomsModel houseRoomsModel= HouseRoomsModel.getInstance();
 	private RoomModel room;
@@ -146,5 +148,27 @@ public class RoomController {
 		else {
 			light1.setImage(new Image("file:src/main/resources/images/lighton.png"));
 		}
+	}
+	/**
+	 *
+	 * @param rm A room object to get the temperature
+	 * @return the room temperature depending of the time (morning, day , night)
+	 */
+	public double getCurrentRoomTemp(RoomModel rm){
+		dashBoardController dashcontrol = new dashBoardController();
+		LocalTime time = dashcontrol.getTime();
+		int hour = time.getHour();
+		double currentTemp = 0.0;
+
+		if(hour>6 && hour<12){
+			currentTemp = rm.getTemperature().getMorningTemp();
+		}
+		if(hour>12 && hour<18){
+			currentTemp = rm.getTemperature().getDayTemp();
+		}
+		if((hour>18 && hour<24) || (hour>0 && hour<6)){
+			currentTemp = rm.getTemperature().getNightTemp();
+		}
+		return currentTemp;
 	}
 }

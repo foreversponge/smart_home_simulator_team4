@@ -8,10 +8,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import models.HouseRoomsModel;
+import models.LogToFileModel;
 import models.RoomModel;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Set;
+import java.util.logging.Level;
 
 /**
  * responsible for the SHHTab
@@ -42,6 +45,7 @@ public class SHHController {
     public void updateListView(ObservableList<String> observableZoneRoomList){
         zoneRoomList.setItems(observableZoneRoomList);
     }
+
 
     /**
      * open the new set up zone room window
@@ -158,5 +162,42 @@ public class SHHController {
             errorLabel.setText("* input temperature have to be number");
         }
         return isNumber;
+    }
+    /**
+     * We denied that summer is from June to september
+     * When this method is called, it means that the temperature of a room or outside changed
+     * then when check if we are in summer, compare rooms with outside temp to see if we open the windows
+     * then we check if the windows are blocked, if they are send a message
+     * Also checks to see if rooms temperatures goes below 0 and sends message if so
+     */
+    //we defined that summer is from June to September
+    public void monitorTemp(){
+        dashBoardController dashBoardVal = new dashBoardController();
+        int outTemp = dashBoardVal.getTemperature();
+        LocalDate localDate = dashBoardVal.getDate();
+        RoomModel[] allRoom= houseRoomsModel.getAllRoomsArray();
+        RoomController roomcontroller = new RoomController();
+        int month = localDate.getMonthValue();
+
+        if(month >= 6 && month <= 9){
+            for(RoomModel rm: allRoom){
+                double roomTemp = roomcontroller.getCurrentRoomTemp(rm);
+                if(roomTemp>outTemp){
+                    if(rm.isObjectBlockingWindow()){
+                        int numberWindows = rm.getNumWindows();
+                        rm.setNumOpenWindows(numberWindows);
+                    }
+                    else{
+                        dashBoardVal.addToConsoleLog("The windows will not open, there is something blocking it.");
+                    }
+                }
+            }
+        }
+        for(RoomModel rm: allRoom){
+            double roomTemp = roomcontroller.getCurrentRoomTemp(rm);
+            if(roomTemp<=0){
+                dashBoardVal.addToConsoleLog("Potential Burst Pipe: Room temperature below 0C");
+            }
+        }
     }
 }
