@@ -23,7 +23,7 @@
                             <children>
                                 <VBox alignment="CENTER" prefHeight="385.0" prefWidth="283.0" spacing="1.0">
                                     <children>
-                                        <JFXButton onAction="#handleZoneRoom" text="ZoneRoom" />
+                                        <JFXButton onAction="#handleZoneRoom" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Add Zone" />
                                         <JFXListView fx:id="zoneRoomList" prefHeight="119.0" prefWidth="226.0" />
                                         <TableView fx:id="zoneRoomTableView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="403.0">
                                             <columns>
@@ -46,25 +46,25 @@
                                     <children>
                                         <HBox alignment="CENTER" layoutX="10.0" layoutY="56.0">
                                             <children>
-                                                <Label text="Zone(temp)" />
-                                                <JFXButton fx:id="showZoneTemp" onAction="#toggleShowZoneTemperature" text="Show" />
+                                                <JFXButton fx:id="showZoneTemp" onAction="#toggleShowZoneTemperature" prefHeight="27.0" prefWidth="166.0" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Show Zone Temperature" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER">
                                             <children>
-                                                <Label text="Room(temp)" />
-                                                <JFXButton fx:id="showTempBtn" onAction="#toggleShowTemperature" text="Show" />
+                                                <JFXButton fx:id="showTempBtn" onAction="#toggleShowTemperature" prefHeight="27.0" prefWidth="163.0" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Show Room Temperature" />
                                             </children>
                                         </HBox>
-                              <JFXButton onAction="#setAwayTemp" text="Set away temp" />
-                                        <Label text="Set Desired Temperature" />
-                                        <JFXButton onAction="#setMorningTemperature" text="Morning" />
-                                        <JFXButton onAction="#setDayTemperature" text="Day" />
-                                        <JFXButton onAction="#setNightTemperature" text="Night" />
+                              <JFXButton onAction="#setAwayTemp" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Set Default (Away) Temperature">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font></JFXButton>
+                                        <JFXButton onAction="#setMorningTemperature" prefHeight="25.0" prefWidth="161.0" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Set Morning Temperature" />
+                                        <JFXButton onAction="#setDayTemperature" prefHeight="25.0" prefWidth="161.0" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Set Day Temperature" />
+                                        <JFXButton onAction="#setNightTemperature" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Set Night Temperature" />
                                         <HBox alignment="CENTER">
                                             <children>
-                                                <Label alignment="CENTER" text="Temperature:" />
-                                                <JFXTextField fx:id="InputTemperature" prefHeight="25.0" prefWidth="102.0" />
+                                                <Label alignment="CENTER" prefHeight="17.0" prefWidth="106.0" text="Temperature Input:" />
+                                                <JFXTextField fx:id="InputTemperature" prefHeight="25.0" prefWidth="28.0" />
                                             </children>
                                         </HBox>
                                     </children>

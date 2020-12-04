@@ -301,8 +301,8 @@ public class SHHController {
         ZoneModel targetZone = new ZoneModel("");
 
         switch (temperatureMode.toLowerCase()){
-            case "show":
-                showTempBtn.setText("hide");
+            case "show room temperature":
+                showTempBtn.setText("Hide Room Temperature");
                 if(!checkSelectZoneRoom()){
                     return ;
                 }
@@ -312,7 +312,6 @@ public class SHHController {
                 String zoneName = selectRoom.getZone();
                 ArrayList<ZoneModel> allZones = houseRoomsModel.getAllZonesArray();
 
-
                 for (int i = 0 ; i < allZones.size() ; i++) {
                     if (allZones.get(i).getZoneName().equalsIgnoreCase(zoneName)) {
                         targetZone = allZones.get(i);
@@ -320,21 +319,30 @@ public class SHHController {
                     }
                 }
 
-                if(roomModels[index].getTemperature().getMorningTemp() != targetZone.getTemperature().getMorningTemp()
-                        || roomModels[index].getTemperature().getDayTemp() != targetZone.getTemperature().getDayTemp()
-                        || roomModels[index].getTemperature().getNightTemp() != targetZone.getTemperature().getNightTemp()) {
-                    displayTemperature.setText(selectRoom.getName() + " - Morning: "+roomModels[index].getTemperature().getMorningTemp()
-                            +" \tDay: "+roomModels[index].getTemperature().getDayTemp()
-                            + " \tNight: "+ roomModels[index].getTemperature().getNightTemp() + " (!!OVERRIDEN!!)");
+                if(mainController.getShpModel().isAwayModeOn()) {
+                    displayTemperature.setText(selectRoom.getName() + " - Morning: "+roomModels[index].getTemperature().getDefaultTemp()
+                            +" \tDay: "+roomModels[index].getTemperature().getDefaultTemp()
+                            + " \tNight: "+ roomModels[index].getTemperature().getDefaultTemp());
                 }
+
                 else {
-                    displayTemperature.setText(selectRoom.getName() + " - Morning: "+roomModels[index].getTemperature().getMorningTemp()
-                            +" \tDay: "+roomModels[index].getTemperature().getDayTemp()
-                            + " \tNight: "+ roomModels[index].getTemperature().getNightTemp());
+                    if(roomModels[index].getTemperature().getMorningTemp() != targetZone.getTemperature().getMorningTemp()
+                            || roomModels[index].getTemperature().getDayTemp() != targetZone.getTemperature().getDayTemp()
+                            || roomModels[index].getTemperature().getNightTemp() != targetZone.getTemperature().getNightTemp()) {
+                        displayTemperature.setText(selectRoom.getName() + " - Morning: "+roomModels[index].getTemperature().getMorningTemp()
+                                +" \tDay: "+roomModels[index].getTemperature().getDayTemp()
+                                + " \tNight: "+ roomModels[index].getTemperature().getNightTemp() + " (!!OVERRIDEN!!)");
+                    }
+                    else {
+                        displayTemperature.setText(selectRoom.getName() + " - Morning: "+roomModels[index].getTemperature().getMorningTemp()
+                                +" \tDay: "+roomModels[index].getTemperature().getDayTemp()
+                                + " \tNight: "+ roomModels[index].getTemperature().getNightTemp());
+                    }
                 }
+
                 break;
-            case "hide":
-                showTempBtn.setText("show");
+            case "hide room temperature":
+                showTempBtn.setText("Show Room Temperature");
                 displayTemperature.setText("");
                 display=false;
                 break;
@@ -364,7 +372,7 @@ public class SHHController {
     public void toggleShowZoneTemperature(ActionEvent event) {
         String temperatureMode = showZoneTemp.getText();
         switch (temperatureMode.toLowerCase()){
-            case "show":
+            case "show zone temperature":
                 if(!checkSelectZone()){
                     return ;
                 }
@@ -378,15 +386,21 @@ public class SHHController {
                         index = i;
                     }
                 }
-                showZoneTemp.setText("hide");
+                showZoneTemp.setText("Hide Zone Temperature");
                 display=true;
-
-                displayTemperature.setText(selectZone + " - Morning: "+allZones.get(index).getTemperature().getMorningTemp()
-                        +" \tDay: "+ allZones.get(index).getTemperature().getDayTemp()
-                        + " \tNight: "+ allZones.get(index).getTemperature().getNightTemp());
+                if(mainController.getShpModel().isAwayModeOn()) {
+                    displayTemperature.setText(selectZone + " - Morning: "+allZones.get(index).getTemperature().getDefaultTemp()
+                            +" \tDay: "+ allZones.get(index).getTemperature().getDefaultTemp()
+                            + " \tNight: "+ allZones.get(index).getTemperature().getDefaultTemp());
+                }
+                else {
+                    displayTemperature.setText(selectZone + " - Morning: "+allZones.get(index).getTemperature().getMorningTemp()
+                            +" \tDay: "+ allZones.get(index).getTemperature().getDayTemp()
+                            + " \tNight: "+ allZones.get(index).getTemperature().getNightTemp());
+                }
                 break;
-            case "hide":
-                showZoneTemp.setText("show");
+            case "hide zone temperature":
+                showZoneTemp.setText("Show Zone Temperature");
                 displayTemperature.setText("");
                 display=false;
                 break;
@@ -395,10 +409,18 @@ public class SHHController {
     }
 
     public void setAwayTemp(ActionEvent actionEvent) {
+        if (!checkValue()){
+            return;
+        }
         double inputTemperature = Double.parseDouble(InputTemperature.getText());
+
         ArrayList <ZoneModel> allZones = houseRoomsModel.getAllZonesArray();
+        for (int i = 0; i < roomModels.length ; i++) {
+            roomModels[i].getTemperature().setDefaultTemp(inputTemperature);
+        }
         for(int i = 0; i <allZones.size() ; i++){
             allZones.get(i).getTemperature().setDefaultTemp(inputTemperature);
         }
+        InputTemperature.clear();
     }
 }

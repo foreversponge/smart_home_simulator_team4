@@ -193,7 +193,7 @@ public class dashBoardController {
 		date.setText(maincontroller.getLoggedUser().getDate().toString());
 		userLocation.setText(maincontroller.getLoggedUser().getCurrentLocation());
 		logUser.setText(maincontroller.getLoggedUser().getNameAndRole());
-		season.setText("Season: " + maincontroller.getLoggedUser().getSeason());
+		season.setText("Season: " + maincontroller.getLoggedUser().getSeason() + " (" + maincontroller.getLoggedUser().getSeasonStart() + " - " + maincontroller.getLoggedUser().getSeasonEnd() + ")");
 		incrementTask.setTime(choosentime);
 		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
 		mainController.getShpModel().setConsoleLog(consolelog);
@@ -655,31 +655,30 @@ public class dashBoardController {
 	 */
 	public void setAwayMode(MouseEvent event) {
 		String awayMode = toggleAwayMode.getText();
+		ArrayList<ZoneModel> allZone = houseRoomsModel.getAllZonesArray();
 		switch (awayMode){
-		case "ON":
-			toggleAwayMode.setText("OFF");
-			mainController.getShpModel().setAwayModeOn(false);
-			//call houseroom model, go through each room and then update temperature,
-
-			break;
-		case "OFF":
-			if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") || mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")) {
-				addToConsoleLog("Cannot do the command, Permission denial");
-				toggleAwayMode.setSelected(false);
-			}
-			else if (!mainController.getLoggedUser().getCurrentLocation().equals("outside")) {
-				addToConsoleLog("Away Mode can only be set if not home. You must be outside.");
-				toggleAwayMode.setSelected(false);
-			}
-			else {
-				toggleAwayMode.setText("ON");
-				addToConsoleLog("Away Mode is now ON");
-				mainController.getLoggedUser().setCurrentLocation("outside");
-				updateLoggedLocation();
-				mainController.getShpModel().setAwayModeOn(true);
-				handleAwayModeOn();
-			}
-			break;
+			case "ON":
+				toggleAwayMode.setText("OFF");
+				mainController.getShpModel().setAwayModeOn(false);
+				break;
+			case "OFF":
+				if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") || mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")) {
+					addToConsoleLog("Cannot do the command, Permission denial");
+					toggleAwayMode.setSelected(false);
+				}
+				else if (!mainController.getLoggedUser().getCurrentLocation().equals("outside")) {
+					addToConsoleLog("Away Mode can only be set if not home. You must be outside.");
+					toggleAwayMode.setSelected(false);
+				}
+				else {
+					toggleAwayMode.setText("ON");
+					addToConsoleLog("Away Mode is now ON");
+					mainController.getLoggedUser().setCurrentLocation("outside");
+					updateLoggedLocation();
+					mainController.getShpModel().setAwayModeOn(true);
+					handleAwayModeOn();
+				}
+				break;
 		}
 	}
 

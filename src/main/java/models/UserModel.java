@@ -22,7 +22,9 @@ public class UserModel implements Subject {
 	private transient LocalDate date;
 	private transient ComboBox<String> locationOptions;	//comboBox storing possible user locations (for edit context of simulation)
 	private transient List<Observer> listOfObservers;
-	private String season;
+	private transient String season;
+	private transient String seasonStart;
+	private transient String seasonEnd;
 
 	/**
 	 * Getter to obtain the time
@@ -96,6 +98,38 @@ public class UserModel implements Subject {
 	 */
 	public void setSeason(String season) {
 		this.season = season;
+	}
+
+	/**
+	 * Getter to get the season start
+	 * @return season start
+	 */
+	public String getSeasonStart() {
+		return seasonStart;
+	}
+
+	/**
+	 * Setter to set the season start
+	 * @param seasonStart
+	 */
+	public void setSeasonStart(String seasonStart) {
+		this.seasonStart = seasonStart;
+	}
+
+	/**
+	 * Getter to get the season end
+	 * @return seasonEnd
+	 */
+	public String getSeasonEnd() {
+		return seasonEnd;
+	}
+
+	/**
+	 * Setter to set the season end
+	 * @param seasonEnd
+	 */
+	public void setSeasonEnd(String seasonEnd) {
+		this.seasonEnd = seasonEnd;
 	}
 
 	/**

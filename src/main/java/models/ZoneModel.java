@@ -1,9 +1,9 @@
 package models;
 
 /**
- * the temperature class which have 4 attribute
- * so each room would have instance of temperature which have default temperature
- * then user can change the temperature of the room according to their zone or individually
+ * the zone class
+ * so each zone would have instance of temperature which have default temperature
+ * then user can change the temperature of the zone
  */
 public class ZoneModel {
     private String zoneName = "";
@@ -19,7 +19,7 @@ public class ZoneModel {
 
     /**
      * getter of the Temperature instance
-     * @return
+     * @return temperature object
      */
     public Temperature getTemperature() {
         return temperature;
