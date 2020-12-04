@@ -8,7 +8,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import models.UserModel;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
