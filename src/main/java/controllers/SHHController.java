@@ -251,7 +251,7 @@ public class SHHController {
      * else return true
      * @return
      */
-    public Boolean checkSelectZoneRoom(){
+    public boolean checkSelectZoneRoom(){
         RoomModel selectRoom = (RoomModel) zoneRoomTableView.getSelectionModel().getSelectedItem();
         if(selectRoom == null){
             return false;
