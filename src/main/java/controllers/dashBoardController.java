@@ -41,6 +41,7 @@ public class dashBoardController {
 	@FXML private JFXListView itemView;
 	@FXML private JFXSlider timeSlider;
 	@FXML private Label logUser;
+	@FXML private Label season;
 	@FXML private JFXListView consolelog;
 	@FXML private JFXToggleButton toggleSimBtn;
 	@FXML private Label userLocation;
@@ -192,6 +193,7 @@ public class dashBoardController {
 		date.setText(maincontroller.getLoggedUser().getDate().toString());
 		userLocation.setText(maincontroller.getLoggedUser().getCurrentLocation());
 		logUser.setText(maincontroller.getLoggedUser().getNameAndRole());
+		season.setText("Season: " + maincontroller.getLoggedUser().getSeason() + " (" + maincontroller.getLoggedUser().getSeasonStart() + " - " + maincontroller.getLoggedUser().getSeasonEnd() + ")");
 		incrementTask.setTime(choosentime);
 		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
 		mainController.getShpModel().setConsoleLog(consolelog);
@@ -205,7 +207,6 @@ public class dashBoardController {
 		}
 		SHHController shhController = fxmlLoader.getController();
 		shhController.setMainController(mainController);
-
 	}
 
 	/** Initializes dynamically the house layout depending on the information receive in the layout file
@@ -654,29 +655,30 @@ public class dashBoardController {
 	 */
 	public void setAwayMode(MouseEvent event) {
 		String awayMode = toggleAwayMode.getText();
+		ArrayList<ZoneModel> allZone = houseRoomsModel.getAllZonesArray();
 		switch (awayMode){
-		case "ON":
-			toggleAwayMode.setText("OFF");
-			mainController.getShpModel().setAwayModeOn(false);
-			break;
-		case "OFF":
-			if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") || mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")) {
-				addToConsoleLog("Cannot do the command, Permission denial");
-				toggleAwayMode.setSelected(false);
-			}
-			else if (!mainController.getLoggedUser().getCurrentLocation().equals("outside")) {
-				addToConsoleLog("Away Mode can only be set if not home. You must be outside.");
-				toggleAwayMode.setSelected(false);
-			}
-			else {
-				toggleAwayMode.setText("ON");
-				addToConsoleLog("Away Mode is now ON");
-				mainController.getLoggedUser().setCurrentLocation("outside");
-				updateLoggedLocation();
-				mainController.getShpModel().setAwayModeOn(true);
-				handleAwayModeOn();
-			}
-			break;
+			case "ON":
+				toggleAwayMode.setText("OFF");
+				mainController.getShpModel().setAwayModeOn(false);
+				break;
+			case "OFF":
+				if(mainController.getLoggedUser().getRole().equalsIgnoreCase("guest") || mainController.getLoggedUser().getRole().equalsIgnoreCase("stranger")) {
+					addToConsoleLog("Cannot do the command, Permission denial");
+					toggleAwayMode.setSelected(false);
+				}
+				else if (!mainController.getLoggedUser().getCurrentLocation().equals("outside")) {
+					addToConsoleLog("Away Mode can only be set if not home. You must be outside.");
+					toggleAwayMode.setSelected(false);
+				}
+				else {
+					toggleAwayMode.setText("ON");
+					addToConsoleLog("Away Mode is now ON");
+					mainController.getLoggedUser().setCurrentLocation("outside");
+					updateLoggedLocation();
+					mainController.getShpModel().setAwayModeOn(true);
+					handleAwayModeOn();
+				}
+				break;
 		}
 	}
 

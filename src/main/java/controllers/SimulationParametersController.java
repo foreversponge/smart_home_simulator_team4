@@ -13,10 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.input.MouseEvent;
-import models.RoomModel;
-import models.HouseRoomsModel;
-import models.TimerPickerModel;
-import models.UserModel;
+import models.*;
 
 /**
  * This class is responsible for handling 
@@ -32,8 +29,10 @@ public class SimulationParametersController {
 	@FXML private TableColumn<UserModel, String> colname;
 	@FXML private TableColumn<UserModel, String> colrole;
 	@FXML private JFXComboBox roomLocation;
-	@FXML private JFXComboBox userSelected;
-	@FXML private JFXButton continueButton;
+	@FXML private JFXComboBox selectSeason;
+	@FXML private JFXComboBox selectSeasonStart;
+	@FXML private JFXComboBox selectSeasonEnd;
+
 	private Main mainController;
 	private HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();
 
@@ -49,10 +48,32 @@ public class SimulationParametersController {
 		for(RoomModel r : houseRoomsModel.getAllRoomsArray()){
 			locationNames.add(r.getName());
 		}
+		ObservableList<String> seasonOptions =
+				FXCollections.observableArrayList(
+						"Summer",
+						"Winter"
+				);
+		ObservableList<String> monthOptions =
+				FXCollections.observableArrayList(
+						"January",
+						"February",
+						"March",
+						"April",
+						"May",
+						"June",
+						"July",
+						"August",
+						"September",
+						"November",
+						"December"
+				);
 		roomLocation.setItems(locationNames);
 		dateSelected.setValue(LocalDate.now());
 		LocalTime pickTime = LocalTime.now();
 		timeLabel.setText(pickTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")).toString());
+		selectSeason.setItems(seasonOptions);
+		selectSeasonStart.setItems(monthOptions);
+		selectSeasonEnd.setItems(monthOptions);
 	}
 
 	/**
@@ -91,6 +112,9 @@ public class SimulationParametersController {
 			mainController.getLoggedUser().setDate(dateSelected.getValue());
 			mainController.getLoggedUser().setCurrentLocation(roomLocation.getValue().toString());
 			mainController.getLoggedUser().setTime(LocalTime.parse(timeLabel.getText()));
+			mainController.getLoggedUser().setSeason((String) selectSeason.getValue());
+			mainController.getLoggedUser().setSeasonStart((String) selectSeasonStart.getValue());
+			mainController.getLoggedUser().setSeasonEnd((String) selectSeasonEnd.getValue());
 			mainController.closeWindow();
 			try {
 				mainController.setDashboardWindow();

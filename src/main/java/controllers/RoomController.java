@@ -7,9 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import models.HouseRoomsModel;
 import models.RoomModel;
 import models.UserModel;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +28,7 @@ public class RoomController {
 	public JFXBadge badgeDoor;
 	public JFXBadge badgeLight;
     public JFXBadge badgeUserNum;
+    public JFXBadge badgeTemperature;
 	public ImageView UserNum;
 	public ImageView LoggedUser;
 	private Main mainController;
@@ -33,6 +37,7 @@ public class RoomController {
 	public ImageView light1;
 	public ImageView doorLock;
 	public ImageView windowBlocked;
+	public ImageView temperature1;
 	@FXML private Label room1;
 	private HouseRoomsModel houseRoomsModel= HouseRoomsModel.getInstance();
 	private RoomModel room;
@@ -61,6 +66,19 @@ public class RoomController {
 			}
 		}
 		return userInRoom;
+	}
+
+
+	/**
+	 * When the user clicks this, it will brnig the set room temperature window
+	 * @param event
+	 */
+	public void setRoomTemperature(MouseEvent event) {
+		try {
+			mainController.setRoomTemperatureWindow();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

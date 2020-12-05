@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import models.*;
+
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -22,6 +24,7 @@ public class setUpZoneRoomController {
     private ObservableList<String> observableZoneList=FXCollections.observableArrayList();;
     private ObservableList<String> observableRoomList = FXCollections.observableArrayList();
     private ObservableList<RoomModel> observableListAllRoom = FXCollections.observableArrayList();
+    private ObservableList<String> observableZoneRoomList= FXCollections.observableArrayList();
     Map<String, Set<String>> zoneRoomMap = new TreeMap<>();
     private Stage currentStage;
     private int id=1;
@@ -29,6 +32,7 @@ public class setUpZoneRoomController {
     private UserModel loggedUser;
     private SHHController shhController;
     private RoomModel [] allRoom ;
+    private ArrayList <ZoneModel> allZones = new ArrayList <ZoneModel>();
 
     /**
      * keep the Main instance
@@ -78,6 +82,9 @@ public class setUpZoneRoomController {
      */
     public void deleteZone(ActionEvent event) {
         String selectZone= (String) zoneList.getSelectionModel().getSelectedItem();
+        if(selectZone == null) {
+            return;
+        }
         Set<String> rooms = zoneRoomMap.get(selectZone);
         if(rooms !=null){
             for(String s: rooms){
@@ -139,9 +146,14 @@ public class setUpZoneRoomController {
                 allRoom[i].setZone(k);
                 observableListAllRoom.add(allRoom[i]);
             });
+            allZones.add(new ZoneModel(k));
         });
         houseRoomsModel.setAllRooms(allRoom);
-        shhController.updateTableView(observableListAllRoom);
+        houseRoomsModel.setAllZonesArray(allZones);
+        zoneRoomMap.forEach((k,v)->{
+            observableZoneRoomList.add(k+":"+v);
+        });
+        shhController.updateTableView(observableListAllRoom, observableZoneRoomList);
         currentStage.close();
     }
 
