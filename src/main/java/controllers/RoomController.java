@@ -69,6 +69,10 @@ public class RoomController {
 	}
 
 
+	/**
+	 * When the user clicks this, it will brnig the set room temperature window
+	 * @param event
+	 */
 	public void setRoomTemperature(MouseEvent event) {
 		try {
 			mainController.setRoomTemperatureWindow();

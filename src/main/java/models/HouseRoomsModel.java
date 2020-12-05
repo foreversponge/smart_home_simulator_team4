@@ -42,7 +42,6 @@ public class HouseRoomsModel {
 	 * This method sets the array that contains all the rooms extracted from the house layout file.
 	 * @param allRooms array of rooms
 	 */
-
 	public void setAllRooms(RoomModel[] allRooms) {
 		allRoomsArray = allRooms;
 		for(RoomModel rm : allRoomsArray){

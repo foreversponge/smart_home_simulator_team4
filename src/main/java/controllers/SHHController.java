@@ -111,7 +111,7 @@ public class SHHController {
     }
 
     /**
-     * set the temperature to all room in the same r
+     * set the temperature of a zone, that will also change the temperature of the corresponding rooms
      * @param timeToset
      */
     public void setTemperatureZone(String timeToset){
@@ -263,7 +263,7 @@ public class SHHController {
      * check the zone and room
      * @return
      */
-    public Boolean checkSelectZone(){
+    public boolean checkSelectZone(){
         String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
         if(selectZone == null){
             return false;
@@ -276,7 +276,7 @@ public class SHHController {
      * else return true
      * @return
      */
-    public Boolean checkValue(){
+    public boolean checkValue(){
         String tempValue = InputTemperature.getText();
         boolean isNumber=false;
         double inputTemperature;
@@ -408,6 +408,10 @@ public class SHHController {
         zoneRoomList.getSelectionModel().clearSelection();
     }
 
+    /**
+     * This method will set the temperatures of all rooms to the default away temperature.
+     * @param actionEvent
+     */
     public void setAwayTemp(ActionEvent actionEvent) {
         if (!checkValue()){
             return;
