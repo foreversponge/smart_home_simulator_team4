@@ -10,6 +10,7 @@ public class Temperature {
     private double morningTemp;
     private double dayTemp;
     private double nightTemp;
+    private double overrideTemp;
 
     /**
      * contsructor of Temperature instance

@@ -223,6 +223,22 @@ public class Main extends Application {
 		editContextStage.setScene(editContextScene);
 		editContextStage.show();
 	}
+
+	/**
+	 * Method that allows you to set the room temperature
+	 * @throws IOException
+	 */
+	public void setRoomTemperatureWindow() throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/setRoomTemperature.fxml"));
+		Parent root = fxmlLoader.load();
+		Stage setRoomTemperatureStage= new Stage();
+		setRoomTemperatureStage.initOwner(currentState);
+		setRoomTemperatureStage.setTitle("Set Room Temperature");
+		setRoomTemperatureStage.initModality(Modality.WINDOW_MODAL);
+		Scene setRoomTemperatureScene = new Scene(root);
+		setRoomTemperatureStage.setScene(setRoomTemperatureScene);
+		setRoomTemperatureStage.show();
+	}
 	
 	/**
 	 * Getter to obtain the SHPModel
