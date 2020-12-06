@@ -436,20 +436,28 @@ public class SHHController {
         InputTemperature.clear();
     }
 
-    public void handleToggleHAVC(ActionEvent event) {
-        String mode = havcToggle.getText();
-        switch (mode) {
-            case "HAVC OFF":
-                mainController.getDashBoardController().setHavc(true);
-                havcToggle.setText("HAVC ON");
-                break;
-            case "HAVC ON":
-                mainController.getDashBoardController().setHavc(false);
-                havcToggle.setText("HAVC OFF");
-                break;
-
-        }
-    }
+    /**
+     * handle the On and Off of the HAVC
+     * @param event on click of the HAVC
+     */
+	public void handleToggleHAVC(ActionEvent event) {
+		String mode = havcToggle.getText();
+		if (!mainController.getLoggedUser().getRole().equalsIgnoreCase("child")) {
+			switch (mode){
+			case "HAVC OFF":
+				mainController.getDashBoardController().setHavc(true);
+				havcToggle.setText("HAVC ON");
+				break;
+			case "HAVC ON":
+				mainController.getDashBoardController().setHavc(false);
+				havcToggle.setText("HAVC OFF");
+				break;	
+			}
+		}
+		else {
+			mainController.getDashBoardController().addToConsoleLog("Child cannot control SHH module");
+		}
+	}
 
     /**
      * When this method is called, it means that the temperature of a room or outside changed
