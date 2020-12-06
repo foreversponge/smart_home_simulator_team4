@@ -56,6 +56,7 @@ public class dashBoardController {
 	LocalTime choosentime;
 	IncrementTask incrementTask;
 	Timer scheduleTimer;
+	int outsideTemp = 0;
 	private String selectItem;
 	private List<String> selectLocation;
 	private Map<String, ArrayList<LocalTime>> awayModeLight= new HashMap<>();
@@ -519,7 +520,6 @@ public class dashBoardController {
 	public void addToConsoleLog(String err){
 		consolelog.getItems().add("[" + time.getText() + "] " + err);
 		LogToFileModel.log(Level.INFO, err);
-
 	}
 
 	/**
@@ -756,6 +756,7 @@ public class dashBoardController {
 			if (button == ButtonType.OK && tPicker.getHourList().getValue()!=null &&tPicker.getMinList().getValue()!=null) {
 				LocalTime pickTime = LocalTime.parse(tPicker.getHourList().getValue()+":"+tPicker.getMinList().getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
 				resetTimerTask(1, pickTime);
+				choosentime = LocalTime.parse(tPicker.getHourList().getValue()+":"+tPicker.getMinList().getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
 			}
 			return null;
 		});
@@ -797,6 +798,7 @@ public class dashBoardController {
 		DialogPane TempDialogPane = updateTemp.getDialogPane();
 		TempDialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		HBox content = new HBox();
+		SHHController shhcontrol = new SHHController();
 		content.getChildren().setAll(sign, newTemp);
 		TempDialogPane.setContent(content);
 		updateTemp.setResultConverter((ButtonType button) -> {
@@ -808,10 +810,13 @@ public class dashBoardController {
 					}
 					else{
 						outsideT.setText("Outside Temperature: "+"-"+newTemp.getText());
-						outSideTemperature = Double.parseDouble("-"+newTemp.getText());
+						outsideTemp = Integer.parseInt(newTemp.getText());
+						shhcontrol.monitorTemp();
 					}
 					for(RoomModel rm : houseRoomsModel.getAllRoomsArray()){
 						rm.setCurrentTemperature(outSideTemperature);
+						outsideTemp = Integer.parseInt(newTemp.getText());
+						shhcontrol.monitorTemp();
 					}
 				}
 				else{
@@ -949,3 +954,5 @@ public class dashBoardController {
 		updateDelayTime.showAndWait();
 	}
 }
+
+//update layout when temp change
