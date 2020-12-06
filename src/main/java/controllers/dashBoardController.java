@@ -157,6 +157,14 @@ public class dashBoardController {
 				displayLayout();
 			}
 		}
+
+		/**
+		 * handle summer temperature,
+		 * if the current temperature higher than the desired temperature , turn on the AC
+		 * if it reach the desired temperature(0.25 different with the desired temperature) close the AC
+		 * if anything change AC icon would be update
+		 * @param time
+		 */
 		public void summerSeason(String time){
 			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
 			for(RoomModel rm : roomModels){
@@ -216,6 +224,14 @@ public class dashBoardController {
 				}
 			}
 		}
+
+		/**
+		 * handle winter temperature
+		 * if the current temperature is lower than the desired temperature turn on the heat
+		 * if it reach the desired temperature(0.25 different with the desired temperature) close the heating
+		 * if anything change heating icon would be update
+		 * @param time
+		 */
 		public void winterSeason(String time){
 			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
 			for(RoomModel rm : roomModels){
@@ -276,6 +292,11 @@ public class dashBoardController {
 				}
 			}
 		}
+
+		/**
+		 * continuous monitor temperature
+		 * continuous monitor current temperature of the room with the desired temperature
+		 */
 		public void temperatureMonitor(){
 			if(outSideTemperature != Double.MAX_VALUE){
 				if(localTime.isAfter(LocalTime.parse("20:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("03:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")))){
@@ -296,7 +317,6 @@ public class dashBoardController {
 					}
 				}
 				else{
-//					System.out.println("day");
 					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
 						winterSeason("day");
 					}
@@ -304,9 +324,6 @@ public class dashBoardController {
 						summerSeason("day");
 					}
 				}
-				// day morning or night
-				// check the temperatue with the room temperature
-				// to open or close the window ac heating ventilation
 			}
 		}
 

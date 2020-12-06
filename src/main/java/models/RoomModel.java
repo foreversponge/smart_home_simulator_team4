@@ -24,7 +24,7 @@ public class RoomModel {
 	private transient boolean isObjectBlockingWindow;
 	private transient ComboBox<String> objectBlockingWindowComboBox;
 	private transient Temperature temperature; // each room would create with instance of Temperature with default temperature
-	private double currentTemperature;
+	private transient double currentTemperature;
 	/**
 	 * constructor to create RoomModel
 	 * @param name
@@ -247,25 +247,51 @@ public class RoomModel {
 	public void setZone(String zone) {
 		this.zone = zone;
 	}
+
+	/**
+	 * getter if the heating is on or off
+	 * @return
+	 */
 	public boolean isHeating() {
 		return heating;
 	}
 
+	/**
+	 * setter of heating
+	 * @param heating
+	 */
 	public void setHeating(boolean heating) {
 		this.heating = heating;
 	}
 
+	/**
+	 * getter of AC, if AC is on or off
+	 * @return
+	 */
 	public boolean isAc() {
 		return ac;
 	}
 
+	/**
+	 * setter of AC
+	 * @param ac
+	 */
 	public void setAc(boolean ac) {
 		this.ac = ac;
 	}
+
+	/**
+	 * getter the current temperature of the room
+	 * @return
+	 */
 	public double getCurrentTemperature() {
 		return currentTemperature;
 	}
 
+	/**
+	 * setter the current temperature of the room
+	 * @param currentTemperature
+	 */
 	public void setCurrentTemperature(double currentTemperature) {
 		this.currentTemperature = currentTemperature;
 	}
