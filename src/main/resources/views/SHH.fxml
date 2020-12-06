@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="446.0" prefWidth="613.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SHHController">
+<AnchorPane prefHeight="446.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SHHController">
 
     <children>
-        <ScrollPane layoutX="6.0" layoutY="14.0" pannable="true" prefHeight="432.0" prefWidth="599.0">
+        <ScrollPane layoutX="17.0" layoutY="14.0" pannable="true" prefHeight="432.0" prefWidth="538.0">
             <content>
                 <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="466.0">
                     <children>
-                        <HBox alignment="CENTER" layoutX="-3.0" layoutY="14.0" prefHeight="393.0" prefWidth="601.0" spacing="15.0">
+                        <HBox alignment="CENTER" layoutX="-3.0" layoutY="14.0" prefHeight="393.0" prefWidth="529.0" spacing="15.0">
                             <children>
                                 <VBox alignment="CENTER" prefHeight="385.0" prefWidth="283.0" spacing="1.0">
                                     <children>
                                         <JFXButton onAction="#handleZoneRoom" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Add Zone" />
                                         <JFXListView fx:id="zoneRoomList" prefHeight="119.0" prefWidth="226.0" />
-                                        <TableView fx:id="zoneRoomTableView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="403.0">
+                                        <TableView fx:id="zoneRoomTableView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="249.0">
                                             <columns>
                                                 <TableColumn fx:id="zoneColumn" prefWidth="93.20001411437988" text="Zone" />
                                                 <TableColumn fx:id="roomColumn" prefWidth="70.800048828125" text="Room" />
