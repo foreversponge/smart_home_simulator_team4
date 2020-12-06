@@ -44,6 +44,11 @@
                                 </VBox>
                                 <VBox alignment="CENTER" prefHeight="393.0" prefWidth="205.0" spacing="20.0">
                                     <children>
+                              <JFXButton fx:id="havcToggle" layoutX="15.0" layoutY="148.0" onAction="#handleToggleHAVC" prefHeight="26.0" prefWidth="163.0" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="HAVC OFF">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </JFXButton>
                                         <HBox alignment="CENTER" layoutX="10.0" layoutY="56.0">
                                             <children>
                                                 <JFXButton fx:id="showZoneTemp" onAction="#toggleShowZoneTemperature" prefHeight="27.0" prefWidth="166.0" style="-fx-border-radius: 5; -fx-border-color: #000000;" text="Show Zone Temperature" />

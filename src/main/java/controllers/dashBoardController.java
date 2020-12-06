@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import models.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -49,6 +50,7 @@ public class dashBoardController {
 	@FXML private Label time;
 	@FXML private Label date;
 	@FXML private Label delay_minutes_label;
+	private double outSideTemperature=Double.MAX_VALUE;
 	private Main mainController;
 	Stage currentStage;
 	LocalTime choosentime;
@@ -60,6 +62,17 @@ public class dashBoardController {
 	// the key of this map it the roomName and arrayList would store the fromTime to ToTime that the light should be on
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
+	private String seasonStr=null;
+
+	public boolean isHavc() {
+		return havc;
+	}
+
+	public void setHavc(boolean havc) {
+		this.havc = havc;
+	}
+
+	private boolean havc=false;
 
 	/**
 	 * getter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
@@ -144,6 +157,83 @@ public class dashBoardController {
 				displayLayout();
 			}
 		}
+		public void summerSeason(String time){}
+		public void winterSeason(String time){
+			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
+			for(RoomModel rm : roomModels){
+				double currentTemperature = rm.getCurrentTemperature();
+
+				switch (time){
+					case "day":
+						System.out.println(currentTemperature + "\t"+rm.getTemperature().getDayTemp());
+						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
+							System.out.println("heating on");
+							if(!rm.isHeating()){
+								rm.setHeating(true);
+								displayLayout();
+							}
+							if(currentTemperature<rm.getTemperature().getDayTemp()){
+								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+							}
+						}
+						else{
+							System.out.println("heating off ");
+							if(rm.isHeating()){
+								rm.setHeating(false);
+								displayLayout();
+							}
+						}
+						break;
+					case "night":
+						System.out.println("inside swithc case");
+						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
+							rm.setHeating(true);
+							if(currentTemperature<rm.getTemperature().getDayTemp()){
+								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+							}
+						}
+						break;
+					case "morning":
+
+						break;
+				}
+
+			}
+		}
+		public void temperatureMonitor(){
+			if(outSideTemperature != Double.MAX_VALUE){
+				if(localTime.isAfter(LocalTime.parse("20:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("03:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")))){
+					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
+						winterSeason("night");
+					}
+					else{
+						summerSeason("night");
+					}
+				}
+				else if(localTime.isAfter(LocalTime.parse("04:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("10:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")))){
+					System.out.println("morning");
+					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
+						winterSeason("morning");
+					}
+					else{
+						summerSeason("morning");
+					}
+				}
+				else{
+//					System.out.println("day");
+					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
+						winterSeason("day");
+					}
+					else{
+						summerSeason("day");
+					}
+				}
+				// day morning or night
+				// check the temperatue with the room temperature
+				// to open or close the window ac heating ventilation
+			}
+		}
+
 
 		/**
 		 * to increment the time and handle the awayModeLight
@@ -152,6 +242,7 @@ public class dashBoardController {
 			localTime = localTime.plusSeconds(timeInc);
 			time.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 			awayModeLight();
+			temperatureMonitor();
 		}
 
 		/**
@@ -193,6 +284,7 @@ public class dashBoardController {
 		date.setText(maincontroller.getLoggedUser().getDate().toString());
 		userLocation.setText(maincontroller.getLoggedUser().getCurrentLocation());
 		logUser.setText(maincontroller.getLoggedUser().getNameAndRole());
+		seasonStr=maincontroller.getLoggedUser().getSeason();
 		season.setText("Season: " + maincontroller.getLoggedUser().getSeason() + " (" + maincontroller.getLoggedUser().getSeasonStart() + " - " + maincontroller.getLoggedUser().getSeasonEnd() + ")");
 		incrementTask.setTime(choosentime);
 		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
@@ -617,9 +709,14 @@ public class dashBoardController {
 				if(newTemp.getText().matches("[0-9]+")){
 					if(sign.getValue()==null || sign.getValue().equals("+")){
 						outsideT.setText("Outside Temperature: "+newTemp.getText());
+						outSideTemperature = Double.parseDouble(newTemp.getText());
 					}
 					else{
 						outsideT.setText("Outside Temperature: "+"-"+newTemp.getText());
+						outSideTemperature = Double.parseDouble("-"+newTemp.getText());
+					}
+					for(RoomModel rm : houseRoomsModel.getAllRoomsArray()){
+						rm.setCurrentTemperature(outSideTemperature);
 					}
 				}
 				else{

@@ -17,7 +17,6 @@ import models.ZoneModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * responsible for the SHHTab
@@ -25,6 +24,7 @@ import java.util.Set;
  * dashboard would load this tab and view in their setMainController
  */
 public class SHHController {
+    public JFXButton havcToggle;
     @FXML private JFXButton showZoneTemp;
     @FXML private JFXListView zoneRoomList;
     @FXML private JFXTextField InputTemperature;
@@ -426,5 +426,20 @@ public class SHHController {
             allZones.get(i).getTemperature().setDefaultTemp(inputTemperature);
         }
         InputTemperature.clear();
+    }
+
+    public void handleToggleHAVC(ActionEvent event) {
+        String mode = havcToggle.getText();
+        switch (mode){
+            case "HAVC OFF":
+                mainController.getDashBoardController().setHavc(true);
+                havcToggle.setText("HAVC ON");
+                break;
+            case "HAVC ON":
+                mainController.getDashBoardController().setHavc(false);
+                havcToggle.setText("HAVC OFF");
+                break;
+
+        }
     }
 }

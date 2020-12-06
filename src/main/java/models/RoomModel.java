@@ -12,6 +12,8 @@ public class RoomModel {
 	private transient String zone;
 	private String mode;
 	private String name;
+	private transient boolean heating;
+	private transient boolean ac;
 	private int numWindows;
 	private int numDoors;
 	private int numLights;
@@ -22,7 +24,7 @@ public class RoomModel {
 	private transient boolean isObjectBlockingWindow;
 	private transient ComboBox<String> objectBlockingWindowComboBox;
 	private transient Temperature temperature; // each room would create with instance of Temperature with default temperature
-
+	private double currentTemperature;
 	/**
 	 * constructor to create RoomModel
 	 * @param name
@@ -39,6 +41,8 @@ public class RoomModel {
 		this.nextRoomName = nextRoomName;
 		this.temperature = new Temperature();
 		this.zone=null;
+		this.heating=false;
+		this.ac=false;
 	}
 
 	/**
@@ -242,6 +246,28 @@ public class RoomModel {
 	 */
 	public void setZone(String zone) {
 		this.zone = zone;
+	}
+	public boolean isHeating() {
+		return heating;
+	}
+
+	public void setHeating(boolean heating) {
+		this.heating = heating;
+	}
+
+	public boolean isAc() {
+		return ac;
+	}
+
+	public void setAc(boolean ac) {
+		this.ac = ac;
+	}
+	public double getCurrentTemperature() {
+		return currentTemperature;
+	}
+
+	public void setCurrentTemperature(double currentTemperature) {
+		this.currentTemperature = currentTemperature;
 	}
 
 	@Override
