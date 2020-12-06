@@ -30,6 +30,8 @@ public class RoomController {
     public JFXBadge badgeTemperature;
 	public ImageView UserNum;
 	public ImageView LoggedUser;
+	public ImageView heating;
+	public ImageView AC;
 	private Main mainController;
 	public ImageView window1;
 	public ImageView door1;
@@ -161,6 +163,18 @@ public class RoomController {
 		}
 		else {
 			light1.setImage(new Image("file:src/main/resources/images/lighton.png"));
+		}
+		if(room.isAc()){
+			AC.setImage(new Image("file:src/main/resources/images/acON.png"));
+		}
+		else{
+			AC.setImage(new Image("file:src/main/resources/images/acOFF.png"));
+		}
+		if(room.isHeating()){
+			heating.setImage(new Image("file:src/main/resources/images/heatON.png"));
+		}
+		else{
+			heating.setImage(new Image("file:src/main/resources/images/heatOFF.png"));
 		}
 	}
 }

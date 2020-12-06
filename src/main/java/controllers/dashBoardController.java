@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import models.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -49,6 +50,7 @@ public class dashBoardController {
 	@FXML private Label time;
 	@FXML private Label date;
 	@FXML private Label delay_minutes_label;
+	private double outSideTemperature=Double.MAX_VALUE;
 	private Main mainController;
 	Stage currentStage;
 	LocalTime choosentime;
@@ -61,6 +63,17 @@ public class dashBoardController {
 	// the key of this map it the roomName and arrayList would store the fromTime to ToTime that the light should be on
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
+	private String seasonStr=null;
+
+	public boolean isHavc() {
+		return havc;
+	}
+
+	public void setHavc(boolean havc) {
+		this.havc = havc;
+	}
+
+	private boolean havc=false;
 
 	/**
 	 * getter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
@@ -147,12 +160,183 @@ public class dashBoardController {
 		}
 
 		/**
+		 * handle summer temperature,
+		 * if the current temperature higher than the desired temperature , turn on the AC
+		 * if it reach the desired temperature(0.25 different with the desired temperature) close the AC
+		 * if anything change AC icon would be update
+		 * @param time
+		 */
+		public void summerSeason(String time){
+			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
+			for(RoomModel rm : roomModels){
+				double currentTemperature = rm.getCurrentTemperature();
+				switch (time){
+					case "day":
+						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
+							if(currentTemperature>rm.getTemperature().getDayTemp()){
+								if(!rm.isAc()){
+									rm.setAc(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isAc()){
+								rm.setAc(false);
+								displayLayout();
+							}
+						}
+						break;
+					case "night":
+						if(Math.abs(currentTemperature-rm.getTemperature().getNightTemp()) > 0.25) {
+							if(currentTemperature>rm.getTemperature().getNightTemp()){
+								if(!rm.isAc()){
+									rm.setAc(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isAc()){
+								rm.setAc(false);
+								displayLayout();
+							}
+						}
+						break;
+					case "morning":
+						if(Math.abs(currentTemperature-rm.getTemperature().getMorningTemp()) > 0.25) {
+							if(currentTemperature>rm.getTemperature().getMorningTemp()){
+								if(!rm.isAc()){
+									rm.setAc(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isAc()){
+								rm.setAc(false);
+								displayLayout();
+							}
+						}
+						break;
+				}
+			}
+		}
+
+		/**
+		 * handle winter temperature
+		 * if the current temperature is lower than the desired temperature turn on the heat
+		 * if it reach the desired temperature(0.25 different with the desired temperature) close the heating
+		 * if anything change heating icon would be update
+		 * @param time
+		 */
+		public void winterSeason(String time){
+			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
+			for(RoomModel rm : roomModels){
+				double currentTemperature = rm.getCurrentTemperature();
+
+				switch (time){
+					case "day":
+						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
+							if(currentTemperature<rm.getTemperature().getDayTemp()){
+								if(!rm.isHeating()){
+									rm.setHeating(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isHeating()){
+								rm.setHeating(false);
+								displayLayout();
+							}
+						}
+						break;
+					case "night":
+						if(Math.abs(currentTemperature-rm.getTemperature().getNightTemp()) > 0.25) {
+							if(currentTemperature<rm.getTemperature().getNightTemp()){
+								if(!rm.isHeating()){
+									rm.setHeating(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isHeating()){
+								rm.setHeating(false);
+								displayLayout();
+							}
+						}
+						break;
+					case "morning":
+						if(Math.abs(currentTemperature-rm.getTemperature().getMorningTemp()) > 0.25) {
+							if(currentTemperature<rm.getTemperature().getMorningTemp()){
+								if(!rm.isHeating()){
+									rm.setHeating(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isHeating()){
+								rm.setHeating(false);
+								displayLayout();
+							}
+						}
+						break;
+				}
+			}
+		}
+
+		/**
+		 * continuous monitor temperature
+		 * continuous monitor current temperature of the room with the desired temperature
+		 */
+		public void temperatureMonitor(){
+			if(outSideTemperature != Double.MAX_VALUE){
+				if(localTime.isAfter(LocalTime.parse("20:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("03:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")))){
+					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
+						winterSeason("night");
+					}
+					else{
+						summerSeason("night");
+					}
+				}
+				else if(localTime.isAfter(LocalTime.parse("04:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("10:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")))){
+					System.out.println("morning");
+					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
+						winterSeason("morning");
+					}
+					else{
+						summerSeason("morning");
+					}
+				}
+				else{
+					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
+						winterSeason("day");
+					}
+					else{
+						summerSeason("day");
+					}
+				}
+			}
+		}
+
+
+		/**
 		 * to increment the time and handle the awayModeLight
 		 */
 		private void increment(){
 			localTime = localTime.plusSeconds(timeInc);
 			time.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 			awayModeLight();
+			temperatureMonitor();
 		}
 
 		/**
@@ -194,6 +378,7 @@ public class dashBoardController {
 		date.setText(maincontroller.getLoggedUser().getDate().toString());
 		userLocation.setText(maincontroller.getLoggedUser().getCurrentLocation());
 		logUser.setText(maincontroller.getLoggedUser().getNameAndRole());
+		seasonStr=maincontroller.getLoggedUser().getSeason();
 		season.setText("Season: " + maincontroller.getLoggedUser().getSeason() + " (" + maincontroller.getLoggedUser().getSeasonStart() + " - " + maincontroller.getLoggedUser().getSeasonEnd() + ")");
 		incrementTask.setTime(choosentime);
 		scheduleTimer.scheduleAtFixedRate(incrementTask,1000,1000);
@@ -242,12 +427,14 @@ public class dashBoardController {
 			rm.setNumOpenDoor(0);
 			rm.setNumOpenLights(0);
 		}
+		scheduleTimer.cancel();
 		mainController.closeWindow();
 		try {
 			mainController.setSimulationParametersWindow();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -619,11 +806,15 @@ public class dashBoardController {
 				if(newTemp.getText().matches("[0-9]+")){
 					if(sign.getValue()==null || sign.getValue().equals("+")){
 						outsideT.setText("Outside Temperature: "+newTemp.getText());
-						outsideTemp = Integer.parseInt(newTemp.getText());
-						shhcontrol.monitorTemp();
+						outSideTemperature = Double.parseDouble(newTemp.getText());
 					}
 					else{
 						outsideT.setText("Outside Temperature: "+"-"+newTemp.getText());
+						outsideTemp = Integer.parseInt(newTemp.getText());
+						shhcontrol.monitorTemp();
+					}
+					for(RoomModel rm : houseRoomsModel.getAllRoomsArray()){
+						rm.setCurrentTemperature(outSideTemperature);
 						outsideTemp = Integer.parseInt(newTemp.getText());
 						shhcontrol.monitorTemp();
 					}

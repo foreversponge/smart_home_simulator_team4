@@ -25,6 +25,7 @@ import java.util.ArrayList;
  * dashboard would load this tab and view in their setMainController
  */
 public class SHHController {
+    public JFXButton havcToggle;
     @FXML private JFXButton showZoneTemp;
     @FXML private JFXListView zoneRoomList;
     @FXML private JFXTextField InputTemperature;
@@ -435,8 +436,22 @@ public class SHHController {
         InputTemperature.clear();
     }
 
+    public void handleToggleHAVC(ActionEvent event) {
+        String mode = havcToggle.getText();
+        switch (mode) {
+            case "HAVC OFF":
+                mainController.getDashBoardController().setHavc(true);
+                havcToggle.setText("HAVC ON");
+                break;
+            case "HAVC ON":
+                mainController.getDashBoardController().setHavc(false);
+                havcToggle.setText("HAVC OFF");
+                break;
+
+        }
+    }
+
     /**
-     * We defined that summer is from June to september
      * When this method is called, it means that the temperature of a room or outside changed
      * then when check if we are in summer, compare rooms with outside temp to see if we open the windows
      * then we check if the windows are blocked, if they are send a message
@@ -446,7 +461,6 @@ public class SHHController {
         LocalDate localDate = mainController.getLoggedUser().getDate();
         int outTemp = mainController.getDashBoardController().outsideTemp;
         RoomModel[] allRoom = houseRoomsModel.getAllRoomsArray();
-        allRoom[0].setObjectBlockingWindow(true);
         int month = localDate.getMonthValue();
         int month_start = getSummerStart();
         int month_end = getSummerEnd();
