@@ -93,12 +93,15 @@ public class SHHController {
         switch (timeToset){
             case "morning":
                 roomModels[index].getTemperature().setMorningTemp(inputTemperature);
+                mainController.getDashBoardController().addToConsoleLog(selectRoom.getName() + " morning temperature set to " + inputTemperature);
                 break;
             case "day":
                 roomModels[index].getTemperature().setDayTemp(inputTemperature);
+                mainController.getDashBoardController().addToConsoleLog(selectRoom.getName() + " day temperature set to " + inputTemperature);
                 break;
             case "night":
                 roomModels[index].getTemperature().setNightTemp(inputTemperature);
+                mainController.getDashBoardController().addToConsoleLog(selectRoom.getName() + " night temperature set to " + inputTemperature);
                 break;
         }
         houseRoomsModel.setAllRooms(roomModels);
@@ -126,12 +129,15 @@ public class SHHController {
                 switch (timeToset) {
                     case "morning":
                         allZones.get(i).getTemperature().setMorningTemp(inputTemperature);
+                        mainController.getDashBoardController().addToConsoleLog(allZones.get(i).getZoneName() + " morning temperature set to " + inputTemperature);
                         break;
                     case "day":
                         allZones.get(i).getTemperature().setDayTemp(inputTemperature);
+                        mainController.getDashBoardController().addToConsoleLog(allZones.get(i).getZoneName() + " day temperature set to " + inputTemperature);
                         break;
                     case "night":
                         allZones.get(i).getTemperature().setNightTemp(inputTemperature);
+                        mainController.getDashBoardController().addToConsoleLog(allZones.get(i).getZoneName() + " night temperature set to " + inputTemperature);
                         break;
                 }
             }
@@ -172,7 +178,6 @@ public class SHHController {
         }
         if(checkSelectZoneRoom() && !checkSelectZone()){
             setTemperatureRoom("morning");
-
         }
         else if (checkSelectZone() && !checkSelectZoneRoom()) {
             setTemperatureZone("morning");
@@ -425,6 +430,7 @@ public class SHHController {
         for(int i = 0; i <allZones.size() ; i++){
             allZones.get(i).getTemperature().setDefaultTemp(inputTemperature);
         }
+        mainController.getDashBoardController().addToConsoleLog("Default away temperature set to " + inputTemperature);
         InputTemperature.clear();
     }
 }
