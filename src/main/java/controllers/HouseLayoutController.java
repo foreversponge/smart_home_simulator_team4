@@ -6,9 +6,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import java.io.File;
 import com.google.gson.Gson;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import models.RoomModel;
 import models.HouseRoomsModel;
+import models.InvalidFileTypeException;
+import models.InvalidHouseLayoutException;
 import java.util.Scanner;
 
 /**
@@ -76,10 +80,19 @@ public class HouseLayoutController {
 	 * This method will extract the information from the json and place it in the room model array.
 	 * @param jsonText string to be read
 	 * @return array from room model that contains all the rooms in the house layout file.
+	 * @throws InvalidHouseLayoutException invalid house layout file
 	 */
-	public RoomModel[] extractFromJson(String jsonText){
-		RoomModel[] arrayRoomModel = new Gson().fromJson(jsonText, RoomModel[].class);
-		return arrayRoomModel;
+	public RoomModel[] extractFromJson(String jsonText) throws InvalidHouseLayoutException {
+		try {
+			RoomModel[] arrayRoomModel = new Gson().fromJson(jsonText, RoomModel[].class);
+			if (arrayRoomModel.length == 0) {
+				throw new Exception();
+			}
+			return arrayRoomModel;			
+		}
+		catch (Exception e) {
+			throw new InvalidHouseLayoutException();
+		}
 	}
 
 	/**
@@ -88,15 +101,35 @@ public class HouseLayoutController {
 	 * @param mouseEvent on mouse click
 	 */
 	public void onContinueClick(MouseEvent mouseEvent) {
-		String jsonString = readFromFile(pathToFile);
-		RoomModel[] allRoomModels = extractFromJson(jsonString);
-		HouseRoomsModel.getInstance().setAllRooms(allRoomModels);
-		mainController.closeWindow();
-		try{
-			mainController.setSimulationParametersWindow();
+		try {
+			if (!pathToFile.endsWith(".txt")) {
+				throw new InvalidFileTypeException(".txt");
+			}
+			else {
+				String jsonString = readFromFile(pathToFile);
+				RoomModel[] allRoomModels = extractFromJson(jsonString);
+				HouseRoomsModel.getInstance().setAllRooms(allRoomModels);
+				mainController.closeWindow();
+				mainController.setSimulationParametersWindow();
+			}
 		}
-		catch (Exception e){
+		catch (InvalidFileTypeException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Invalid File Type");
+			alert.setHeaderText("Invalid File Type Error");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
+		catch (InvalidHouseLayoutException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Invalid House Layout");
+			alert.setHeaderText("Invalid House Layout Error");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 }
