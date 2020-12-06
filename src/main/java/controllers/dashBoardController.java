@@ -332,7 +332,6 @@ public class dashBoardController {
 	public void addToConsoleLog(String err){
 		consolelog.getItems().add("[" + time.getText() + "] " + err);
 		LogToFileModel.log(Level.INFO, err);
-
 	}
 
 	/**
