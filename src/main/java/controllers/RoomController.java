@@ -172,10 +172,10 @@ public class RoomController {
 			AC.setImage(new Image("file:src/main/resources/images/acOFF.png"));
 		}
 		if(room.isHeating()){
-			AC.setImage(new Image("file:src/main/resources/images/heatON.png"));
+			heating.setImage(new Image("file:src/main/resources/images/heatON.png"));
 		}
 		else{
-			AC.setImage(new Image("file:src/main/resources/images/heatOFF.png"));
+			heating.setImage(new Image("file:src/main/resources/images/heatOFF.png"));
 		}
 	}
 }

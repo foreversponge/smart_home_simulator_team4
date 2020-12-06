@@ -157,7 +157,65 @@ public class dashBoardController {
 				displayLayout();
 			}
 		}
-		public void summerSeason(String time){}
+		public void summerSeason(String time){
+			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
+			for(RoomModel rm : roomModels){
+				double currentTemperature = rm.getCurrentTemperature();
+				switch (time){
+					case "day":
+						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
+							if(currentTemperature>rm.getTemperature().getDayTemp()){
+								if(!rm.isAc()){
+									rm.setAc(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isAc()){
+								rm.setAc(false);
+								displayLayout();
+							}
+						}
+						break;
+					case "night":
+						if(Math.abs(currentTemperature-rm.getTemperature().getNightTemp()) > 0.25) {
+							if(currentTemperature>rm.getTemperature().getNightTemp()){
+								if(!rm.isAc()){
+									rm.setAc(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isAc()){
+								rm.setAc(false);
+								displayLayout();
+							}
+						}
+						break;
+					case "morning":
+						if(Math.abs(currentTemperature-rm.getTemperature().getMorningTemp()) > 0.25) {
+							if(currentTemperature>rm.getTemperature().getMorningTemp()){
+								if(!rm.isAc()){
+									rm.setAc(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isAc()){
+								rm.setAc(false);
+								displayLayout();
+							}
+						}
+						break;
+				}
+			}
+		}
 		public void winterSeason(String time){
 			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
 			for(RoomModel rm : roomModels){
@@ -165,19 +223,16 @@ public class dashBoardController {
 
 				switch (time){
 					case "day":
-						System.out.println(currentTemperature + "\t"+rm.getTemperature().getDayTemp());
 						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
-							System.out.println("heating on");
-							if(!rm.isHeating()){
-								rm.setHeating(true);
-								displayLayout();
-							}
 							if(currentTemperature<rm.getTemperature().getDayTemp()){
+								if(!rm.isHeating()){
+									rm.setHeating(true);
+									displayLayout();
+								}
 								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
 							}
 						}
 						else{
-							System.out.println("heating off ");
 							if(rm.isHeating()){
 								rm.setHeating(false);
 								displayLayout();
@@ -185,19 +240,40 @@ public class dashBoardController {
 						}
 						break;
 					case "night":
-						System.out.println("inside swithc case");
-						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
-							rm.setHeating(true);
-							if(currentTemperature<rm.getTemperature().getDayTemp()){
+						if(Math.abs(currentTemperature-rm.getTemperature().getNightTemp()) > 0.25) {
+							if(currentTemperature<rm.getTemperature().getNightTemp()){
+								if(!rm.isHeating()){
+									rm.setHeating(true);
+									displayLayout();
+								}
 								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isHeating()){
+								rm.setHeating(false);
+								displayLayout();
 							}
 						}
 						break;
 					case "morning":
-
+						if(Math.abs(currentTemperature-rm.getTemperature().getMorningTemp()) > 0.25) {
+							if(currentTemperature<rm.getTemperature().getMorningTemp()){
+								if(!rm.isHeating()){
+									rm.setHeating(true);
+									displayLayout();
+								}
+								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+							}
+						}
+						else{
+							if(rm.isHeating()){
+								rm.setHeating(false);
+								displayLayout();
+							}
+						}
 						break;
 				}
-
 			}
 		}
 		public void temperatureMonitor(){
@@ -333,12 +409,14 @@ public class dashBoardController {
 			rm.setNumOpenDoor(0);
 			rm.setNumOpenLights(0);
 		}
+		scheduleTimer.cancel();
 		mainController.closeWindow();
 		try {
 			mainController.setSimulationParametersWindow();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
