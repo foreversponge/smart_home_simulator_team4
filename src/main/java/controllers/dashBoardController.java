@@ -56,6 +56,7 @@ public class dashBoardController {
 	LocalTime choosentime;
 	IncrementTask incrementTask;
 	Timer scheduleTimer;
+	int outsideTemp = 0;
 	private String selectItem;
 	private List<String> selectLocation;
 	private Map<String, ArrayList<LocalTime>> awayModeLight= new HashMap<>();
@@ -165,10 +166,13 @@ public class dashBoardController {
 				displayLayout();
 			}
 		}
-		
+
 		/**
-		 * Decreases temperature using the AC of the HAVC for the summer season
-		 * @param time time of day (morning, day or night)
+		 * handle summer temperature,
+		 * if the current temperature higher than the desired temperature , turn on the AC
+		 * if it reach the desired temperature(0.25 different with the desired temperature) close the AC
+		 * if anything change AC icon would be update
+		 * @param time
 		 */
 		public void summerSeason(String time){
 			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
@@ -234,8 +238,11 @@ public class dashBoardController {
 		}
 		
 		/**
-		 * Increase temperature using the Heater of the HAVC for the winter season
-		 * @param time time of day (morning, day or night)
+		 * handle winter temperature
+		 * if the current temperature is lower than the desired temperature turn on the heat
+		 * if it reach the desired temperature(0.25 different with the desired temperature) close the heating
+		 * if anything change heating icon would be update
+		 * @param time
 		 */
 		public void winterSeason(String time){
 			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
@@ -302,7 +309,8 @@ public class dashBoardController {
 		}
 		
 		/**
-		 * Monitor temperature of zones and rooms
+		 * continuous monitor temperature
+		 * continuous monitor current temperature of the room with the desired temperature
 		 */
 		public void temperatureMonitor(){
 			if(outSideTemperature != Double.MAX_VALUE && isHavc()){
@@ -525,7 +533,6 @@ public class dashBoardController {
 	public void addToConsoleLog(String err){
 		consolelog.getItems().add("[" + time.getText() + "] " + err);
 		LogToFileModel.log(Level.INFO, err);
-
 	}
 
 	/**
@@ -762,6 +769,7 @@ public class dashBoardController {
 			if (button == ButtonType.OK && tPicker.getHourList().getValue()!=null &&tPicker.getMinList().getValue()!=null) {
 				LocalTime pickTime = LocalTime.parse(tPicker.getHourList().getValue()+":"+tPicker.getMinList().getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
 				resetTimerTask(1, pickTime);
+				choosentime = LocalTime.parse(tPicker.getHourList().getValue()+":"+tPicker.getMinList().getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
 			}
 			return null;
 		});
@@ -803,6 +811,7 @@ public class dashBoardController {
 		DialogPane TempDialogPane = updateTemp.getDialogPane();
 		TempDialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		HBox content = new HBox();
+		SHHController shhcontrol = new SHHController();
 		content.getChildren().setAll(sign, newTemp);
 		TempDialogPane.setContent(content);
 		updateTemp.setResultConverter((ButtonType button) -> {
@@ -814,10 +823,13 @@ public class dashBoardController {
 					}
 					else{
 						outsideT.setText("Outside Temperature: "+"-"+newTemp.getText());
-						outSideTemperature = Double.parseDouble("-"+newTemp.getText());
+						outsideTemp = Integer.parseInt(newTemp.getText());
+						shhcontrol.monitorTemp();
 					}
 					for(RoomModel rm : houseRoomsModel.getAllRoomsArray()){
 						rm.setCurrentTemperature(outSideTemperature);
+						outsideTemp = Integer.parseInt(newTemp.getText());
+						shhcontrol.monitorTemp();
 					}
 				}
 				else{
@@ -967,3 +979,5 @@ public class dashBoardController {
 	    return (double) Math.round(value * scale) / scale;
 	}
 }
+
+//update layout when temp change

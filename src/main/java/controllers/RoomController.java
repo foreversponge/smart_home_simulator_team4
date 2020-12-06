@@ -11,7 +11,6 @@ import javafx.scene.input.MouseEvent;
 import models.HouseRoomsModel;
 import models.RoomModel;
 import models.UserModel;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
