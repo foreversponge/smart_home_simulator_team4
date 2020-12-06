@@ -192,7 +192,7 @@ public class Main extends Application {
 	}
 
 	/**
-	 * method to load teh DashBoard Window
+	 * method to load the DashBoard Window
 	 * @throws IOException
 	 */
 	public void setDashboardWindow() throws IOException {

@@ -64,10 +64,18 @@ public class dashBoardController {
 	@FXML private GridPane grid;
 	private String seasonStr=null;
 
+	/**
+	 * Check if HAVC is on or off
+	 * @return true if On, false if off
+	 */
 	public boolean isHavc() {
 		return havc;
 	}
 
+	/**
+	 * Setter to set HAVC value
+	 * @param havc true for On, false for Off
+	 */
 	public void setHavc(boolean havc) {
 		this.havc = havc;
 	}
@@ -157,19 +165,25 @@ public class dashBoardController {
 				displayLayout();
 			}
 		}
+		
+		/**
+		 * Decreases temperature using the AC of the HAVC for the summer season
+		 * @param time time of day (morning, day or night)
+		 */
 		public void summerSeason(String time){
 			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
 			for(RoomModel rm : roomModels){
 				double currentTemperature = rm.getCurrentTemperature();
 				switch (time){
 					case "day":
-						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
+						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25 || round(currentTemperature, 1) != round(rm.getTemperature().getDayTemp(), 1)) {
 							if(currentTemperature>rm.getTemperature().getDayTemp()){
 								if(!rm.isAc()){
 									rm.setAc(true);
 									displayLayout();
 								}
 								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+								addToConsoleLog("HAVC is decreasing day temperature of the " + rm.getName() + " " + round(rm.getCurrentTemperature(), 1));
 							}
 						}
 						else{
@@ -180,13 +194,14 @@ public class dashBoardController {
 						}
 						break;
 					case "night":
-						if(Math.abs(currentTemperature-rm.getTemperature().getNightTemp()) > 0.25) {
+						if(Math.abs(currentTemperature-rm.getTemperature().getNightTemp()) > 0.25 || round(currentTemperature, 1) != round(rm.getTemperature().getDayTemp(), 1)) {
 							if(currentTemperature>rm.getTemperature().getNightTemp()){
 								if(!rm.isAc()){
 									rm.setAc(true);
 									displayLayout();
 								}
 								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+								addToConsoleLog("HAVC is decreasing night temperature of the " + rm.getName() + " " + round(rm.getCurrentTemperature(), 1));
 							}
 						}
 						else{
@@ -197,13 +212,14 @@ public class dashBoardController {
 						}
 						break;
 					case "morning":
-						if(Math.abs(currentTemperature-rm.getTemperature().getMorningTemp()) > 0.25) {
+						if(Math.abs(currentTemperature-rm.getTemperature().getMorningTemp()) > 0.25 || round(currentTemperature, 1) != round(rm.getTemperature().getDayTemp(), 1)) {
 							if(currentTemperature>rm.getTemperature().getMorningTemp()){
 								if(!rm.isAc()){
 									rm.setAc(true);
 									displayLayout();
 								}
 								rm.setCurrentTemperature(currentTemperature-0.1*timeInc);
+								addToConsoleLog("HAVC is decreasing morning temperature of the " + rm.getName() + " " + round(rm.getCurrentTemperature(), 1));
 							}
 						}
 						else{
@@ -216,6 +232,11 @@ public class dashBoardController {
 				}
 			}
 		}
+		
+		/**
+		 * Increase temperature using the Heater of the HAVC for the winter season
+		 * @param time time of day (morning, day or night)
+		 */
 		public void winterSeason(String time){
 			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
 			for(RoomModel rm : roomModels){
@@ -223,13 +244,14 @@ public class dashBoardController {
 
 				switch (time){
 					case "day":
-						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25) {
+						if(Math.abs(currentTemperature-rm.getTemperature().getDayTemp()) > 0.25 || round(currentTemperature, 1) != round(rm.getTemperature().getDayTemp(), 1)) {
 							if(currentTemperature<rm.getTemperature().getDayTemp()){
 								if(!rm.isHeating()){
 									rm.setHeating(true);
 									displayLayout();
 								}
 								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+								addToConsoleLog("HAVC is increasing temperature of the " + rm.getName() + " " + round(rm.getCurrentTemperature(), 1));
 							}
 						}
 						else{
@@ -240,13 +262,14 @@ public class dashBoardController {
 						}
 						break;
 					case "night":
-						if(Math.abs(currentTemperature-rm.getTemperature().getNightTemp()) > 0.25) {
+						if(Math.abs(currentTemperature-rm.getTemperature().getNightTemp()) > 0.25 || round(currentTemperature, 1) != round(rm.getTemperature().getDayTemp(), 1)) {
 							if(currentTemperature<rm.getTemperature().getNightTemp()){
 								if(!rm.isHeating()){
 									rm.setHeating(true);
 									displayLayout();
 								}
 								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+								addToConsoleLog("HAVC is increasing temperature of the " + rm.getName() + " " + round(rm.getCurrentTemperature(), 1));
 							}
 						}
 						else{
@@ -257,13 +280,14 @@ public class dashBoardController {
 						}
 						break;
 					case "morning":
-						if(Math.abs(currentTemperature-rm.getTemperature().getMorningTemp()) > 0.25) {
+						if(Math.abs(currentTemperature-rm.getTemperature().getMorningTemp()) > 0.25 || round(currentTemperature, 1) != round(rm.getTemperature().getDayTemp(), 1)) {
 							if(currentTemperature<rm.getTemperature().getMorningTemp()){
 								if(!rm.isHeating()){
 									rm.setHeating(true);
 									displayLayout();
 								}
 								rm.setCurrentTemperature(currentTemperature+0.1*timeInc);
+								addToConsoleLog("HAVC is increasing temperature of the " + rm.getName() + " " + round(rm.getCurrentTemperature(), 1));
 							}
 						}
 						else{
@@ -276,8 +300,12 @@ public class dashBoardController {
 				}
 			}
 		}
+		
+		/**
+		 * Monitor temperature of zones and rooms
+		 */
 		public void temperatureMonitor(){
-			if(outSideTemperature != Double.MAX_VALUE){
+			if(outSideTemperature != Double.MAX_VALUE && isHavc()){
 				if(localTime.isAfter(LocalTime.parse("20:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("03:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")))){
 					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
 						winterSeason("night");
@@ -296,7 +324,6 @@ public class dashBoardController {
 					}
 				}
 				else{
-//					System.out.println("day");
 					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
 						winterSeason("day");
 					}
@@ -304,12 +331,8 @@ public class dashBoardController {
 						summerSeason("day");
 					}
 				}
-				// day morning or night
-				// check the temperatue with the room temperature
-				// to open or close the window ac heating ventilation
 			}
 		}
-
 
 		/**
 		 * to increment the time and handle the awayModeLight
@@ -322,7 +345,7 @@ public class dashBoardController {
 		}
 
 		/**
-		 * to decreemnt the time
+		 * to decrement the time
 		 */
 		private void decrement(){
 			localTime = localTime.minusSeconds(timeInc);
@@ -930,5 +953,17 @@ public class dashBoardController {
 			return null;
 		});
 		updateDelayTime.showAndWait();
+	}
+	
+	/**
+	 * Given a number and a rounding precision, the method will return the rounded value
+	 * (e.g. 1.23 with a precision of 1 will return 1.2)
+	 * @param value number you want to round
+	 * @param precision number of decimals of precision to round the number
+	 * @return the rounded number
+	 */
+	private static double round (double value, int precision) {
+	    int scale = (int) Math.pow(10, precision);
+	    return (double) Math.round(value * scale) / scale;
 	}
 }

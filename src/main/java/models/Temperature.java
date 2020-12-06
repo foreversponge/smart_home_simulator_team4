@@ -13,7 +13,7 @@ public class Temperature {
     private double overrideTemp;
 
     /**
-     * contsructor of Temperature instance
+     * constructor of Temperature instance
      * @param morningTemp
      * @param dayTemp
      * @param nightTemp
