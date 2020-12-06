@@ -14,10 +14,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import models.HouseRoomsModel;
 import models.RoomModel;
 import models.ZoneModel;
-
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * responsible for the SHHTab
@@ -161,6 +161,7 @@ public class SHHController {
         houseRoomsModel.setAllRooms(roomModels);
         houseRoomsModel.setAllZonesArray(allZones);
         roomModels=houseRoomsModel.getAllRoomsArray();
+        monitorTemp();
     }
 
 
@@ -432,5 +433,168 @@ public class SHHController {
         }
         mainController.getDashBoardController().addToConsoleLog("Default away temperature set to " + inputTemperature);
         InputTemperature.clear();
+    }
+
+    /**
+     * We defined that summer is from June to september
+     * When this method is called, it means that the temperature of a room or outside changed
+     * then when check if we are in summer, compare rooms with outside temp to see if we open the windows
+     * then we check if the windows are blocked, if they are send a message
+     * Also checks to see if rooms temperatures goes below 0 and sends message if so
+     */
+    public void monitorTemp() {
+        LocalDate localDate = mainController.getLoggedUser().getDate();
+        int outTemp = mainController.getDashBoardController().outsideTemp;
+        RoomModel[] allRoom = houseRoomsModel.getAllRoomsArray();
+        allRoom[0].setObjectBlockingWindow(true);
+        int month = localDate.getMonthValue();
+        int month_start = getSummerStart();
+        int month_end = getSummerEnd();
+        if (month >= month_start && month <= month_end) {
+            for (RoomModel rm : allRoom) {
+                double roomTemp = getCurrentRoomTemp(rm);
+                if (roomTemp > outTemp) {
+                    if (!rm.isObjectBlockingWindow()) {
+                        int numberWindows = rm.getNumWindows();
+                        rm.setNumOpenWindows(numberWindows);
+                    } else {
+                        mainController.getDashBoardController().addToConsoleLog(" "+rm.getName()+": Object blocking window");
+                    }
+                }
+                else{
+                   rm.setNumOpenWindows(0);
+                }
+            }
+            mainController.getDashBoardController().displayLayout();
+        }
+        for (RoomModel rm : allRoom) {
+            double roomTemp = getCurrentRoomTemp(rm);
+            if (roomTemp <= 0) {
+                mainController.getDashBoardController().addToConsoleLog(" "+rm.getName()+": Warning! Possible Burst Pipe ");
+            }
+        }
+    }
+
+    /**
+     *
+     * @param rm
+     * @return Gets the current room temperature depending of the time during the day
+     */
+    public double getCurrentRoomTemp(RoomModel rm){
+        LocalTime time = mainController.getLoggedUser().getTime();
+        int hour = time.getHour();
+        double currentTemp = 0.0;
+
+        if(hour>6 && hour<12){
+            currentTemp = rm.getTemperature().getMorningTemp();
+        }
+        if(hour>12 && hour<18){
+            currentTemp = rm.getTemperature().getDayTemp();
+        }
+        if((hour>18 && hour<24) || (hour>0 && hour<6)){
+            currentTemp = rm.getTemperature().getNightTemp();
+        }
+        return currentTemp;
+    }
+
+    /**
+     *
+     * @return the start of the summer as an integer
+     */
+    public int getSummerStart(){
+        int summer_start = 0;
+
+        String month_start = mainController.getLoggedUser().getSeasonStart();
+
+
+        switch (month_start){
+            case "January":
+                summer_start=1;
+                break;
+            case "February":
+                summer_start=2;
+                break;
+            case "March":
+                summer_start=3;
+                break;
+            case "April":
+                summer_start=4;
+                break;
+            case "May":
+                summer_start=5;
+                break;
+            case "June":
+                summer_start=6;
+                break;
+            case "July":
+                summer_start=7;
+                break;
+            case "August":
+                summer_start=8;
+                break;
+            case "September":
+                summer_start=9;
+                break;
+            case "October":
+                summer_start=10;
+                break;
+            case "November":
+                summer_start=11;
+                break;
+            case "December":
+                summer_start=12;
+                break;
+        }
+
+        return summer_start;
+    }
+
+    /**
+     *
+     * @return returns the end of the summer as an integer
+     */
+    public int getSummerEnd(){
+        int summer_end = 0;
+        String month_end = mainController.getLoggedUser().getSeasonEnd();
+
+        switch (month_end){
+            case "January":
+                summer_end=1;
+                break;
+            case "February":
+                summer_end=2;
+                break;
+            case "March":
+                summer_end=3;
+                break;
+            case "April":
+                summer_end=4;
+                break;
+            case "May":
+                summer_end=5;
+                break;
+            case "June":
+                summer_end=6;
+                break;
+            case "July":
+                summer_end=7;
+                break;
+            case "August":
+                summer_end=8;
+                break;
+            case "September":
+                summer_end=9;
+                break;
+            case "October":
+                summer_end=10;
+                break;
+            case "November":
+                summer_end=11;
+                break;
+            case "December":
+                summer_end=12;
+                break;
+        }
+        return summer_end;
     }
 }
