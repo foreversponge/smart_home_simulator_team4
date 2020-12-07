@@ -1,6 +1,5 @@
 package models;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +20,7 @@ public class HouseRoomsModel {
 
 	/**
 	 * to get instance of the HouseRoomModel
-	 * @return
+	 * @return HouseRoomModel instance
 	 */
 	public static HouseRoomsModel getInstance(){
 		if(houseRoomsModel==null){
@@ -32,7 +31,7 @@ public class HouseRoomsModel {
 
 	/**
 	 * get the array of all room in the house layout
-	 * @return
+	 * @return array of all RoomModel
 	 */
 	public RoomModel[] getAllRoomsArray() {
 		return allRoomsArray;
@@ -53,7 +52,7 @@ public class HouseRoomsModel {
 
 	/**
 	 * get the array of all zones
-	 * @return
+	 * @return arraylist of zoneModel
 	 */
 	public ArrayList<ZoneModel> getAllZonesArray() {
 		return allZonesArray;
@@ -61,7 +60,7 @@ public class HouseRoomsModel {
 
 	/**
 	 * set the array of all zones
-	 * @param allZonesArray
+	 * @param allZonesArray arraylist of all zone
 	 */
 	public void setAllZonesArray(ArrayList <ZoneModel> allZonesArray) {
 		HouseRoomsModel.allZonesArray = allZonesArray;

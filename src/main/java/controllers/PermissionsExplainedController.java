@@ -13,15 +13,13 @@ import javafx.stage.Stage;
  */
 public class PermissionsExplainedController {
 
-    @FXML
-    public Button closeButton; //Name of the close button
+    @FXML private Button closeButton;
 
     /**
      * When user clicks the close button, the permissions stage will be closed
      * @param event user clicks on close button
      */
-    @FXML
-    public void handleCloseButtonAction(ActionEvent event) {
+    @FXML private void handleCloseButtonAction(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }

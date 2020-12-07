@@ -1,7 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +12,9 @@ import javafx.stage.Stage;
 import models.HouseRoomsModel;
 import models.RoomModel;
 import models.UserModel;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class acts as a controller for the EditContextOfSimulation.fxml
@@ -98,7 +99,7 @@ public class EditContextOfSimulationController {
 	 * "Yes" represents that an object is present on window
 	 * "No" represents that an object is not present on window
 	 * @param isWindowBlocked initial value of the ComboBox
-	 * @return
+	 * @return ComboBox of choice
 	 */
 	public ComboBox setupOjectPresentComboBox(boolean isWindowBlocked) {
 		ComboBox<String> objectPresentComboBox = new ComboBox<String>();

@@ -1,6 +1,5 @@
 package controllers;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,12 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import models.HouseRoomsModel;
+import models.RoomModel;
+import models.TimerPickerModel;
+import models.UserModel;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import javafx.scene.input.MouseEvent;
-import models.*;
 
 /**
  * This class is responsible for handling 
@@ -32,13 +35,12 @@ public class SimulationParametersController {
 	@FXML private JFXComboBox selectSeason;
 	@FXML private JFXComboBox selectSeasonStart;
 	@FXML private JFXComboBox selectSeasonEnd;
-
 	private Main mainController;
 	private HouseRoomsModel houseRoomsModel = HouseRoomsModel.getInstance();
 
 	/**
 	 * Initalize the values of the table that contains the user names and roles
-	 * & the room names extracted from the house layout file
+	 * and the room names extracted from the house layout file
 	 * set the date to current date and time to current time by default
 	 */
 	public void initialize(){
@@ -133,7 +135,7 @@ public class SimulationParametersController {
 
 	/**
 	 * display the dialog and set the label text
-	 * @param event
+	 * @param event button to set time
 	 */
 	public void setTime(ActionEvent event) {
 		TimerPickerModel timeDialog = new TimerPickerModel();

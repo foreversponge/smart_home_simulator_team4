@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * dashboard would load this tab and view in their setMainController
  */
 public class SHHController {
-    public JFXButton havcToggle;
+    @FXML private JFXButton havcToggle;
     @FXML private JFXButton showZoneTemp;
     @FXML private JFXListView zoneRoomList;
     @FXML private JFXTextField InputTemperature;
@@ -44,7 +44,7 @@ public class SHHController {
 
     /**
      * keep an instance of the mainController
-     * @param main
+     * @param main instance of Main
      */
     public void setMainController(Main main){
         mainController=main;
@@ -60,7 +60,8 @@ public class SHHController {
 
     /**
      * update the zone room view after finish adding zone and room
-     * @param observableZoneRoomList
+     * @param observableZoneRoomList observable list of zone and room
+     * @param observableZoneList observable list of zone
      */
     public void updateTableView(ObservableList<RoomModel> observableZoneList, ObservableList<String> observableZoneRoomList){
         zoneRoomTableView.setItems(observableZoneList);
@@ -69,7 +70,7 @@ public class SHHController {
 
     /**
      * open the new set up zone room window
-     * @param event
+     * @param event button to pop up add zone screen
      */
     public void handleZoneRoom(ActionEvent event) {
         String loggedUser = mainController.getLoggedUser().getRole();
@@ -86,6 +87,7 @@ public class SHHController {
     }
     /**
      * set temperature of the room
+     * @param timeToset time to set the temperture
      */
     public void setTemperatureRoom(String timeToset){
         RoomModel selectRoom = (RoomModel) zoneRoomTableView.getSelectionModel().getSelectedItem();
@@ -116,7 +118,7 @@ public class SHHController {
 
     /**
      * set the temperature of a zone, that will also change the temperature of the corresponding rooms
-     * @param timeToset
+     * @param timeToset time to set the temperature
      */
     public void setTemperatureZone(String timeToset){
         String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
@@ -169,7 +171,7 @@ public class SHHController {
     /**
      * set the morning temperature to the selected zone and room
      * each room have an instance of the Temperature so change the new value with the existing one
-     * @param event
+     * @param event button set set Morning temperature
      */
     public void setMorningTemperature(ActionEvent event) {
         if(!checkValue()){
@@ -196,7 +198,7 @@ public class SHHController {
     /**
      * set the day temperature to the select zone and room
      * each room have an instance of the Temperature so change the new value with the existing one
-     * @param event
+     * @param event  button set set Day temperature
      */
     public void setDayTemperature(ActionEvent event) {
         if(!checkValue()){
@@ -227,7 +229,7 @@ public class SHHController {
     /**
      * set the night temperature to the zone and room
      * each room have an instance of the Temperature so change the new value with the existing one
-     * @param event
+     * @param event button set set Night temperature
      */
     public void setNightTemperature(ActionEvent event) {
         if(!checkValue()){
@@ -256,7 +258,7 @@ public class SHHController {
      * check if the zone is select or not
      * if it is not select display error log return false
      * else return true
-     * @return
+     * @return boolean if zoneRoom selected
      */
     public boolean checkSelectZoneRoom(){
         RoomModel selectRoom = (RoomModel) zoneRoomTableView.getSelectionModel().getSelectedItem();
@@ -268,7 +270,7 @@ public class SHHController {
 
     /**
      * check the zone and room
-     * @return
+     * @return boolean is zone is selected
      */
     public boolean checkSelectZone(){
         String selectZone= (String) zoneRoomList.getSelectionModel().getSelectedItem();
@@ -281,7 +283,7 @@ public class SHHController {
      * check the value of the desired temperature is a number or not
      * if it is not a number or cannot cast to double display error log and return fasle
      * else return true
-     * @return
+     * @return boolean if user input value
      */
     public boolean checkValue(){
         String tempValue = InputTemperature.getText();
@@ -300,7 +302,7 @@ public class SHHController {
 
     /**
      * toggle to show the temperature of the room
-     * @param event
+     * @param event button to show hide temperature
      */
     public void toggleShowTemperature(ActionEvent event) {
         String temperatureMode = showTempBtn.getText();
@@ -359,7 +361,7 @@ public class SHHController {
      * compare the room temperature to the target temperature
      * @param targetZone target temperature
      * @param index room index
-     * @return
+     * @return boolean of compare
      */
 	public boolean compareRoomTempToTargetTemp(ZoneModel targetZone, int index) {
 		boolean compareMorningTemp = (roomModels[index].getTemperature().getMorningTemp() != targetZone.getTemperature().getMorningTemp());
@@ -370,8 +372,8 @@ public class SHHController {
 
     /**
      * getter index of the specific room in all rom array
-     * @param room
-     * @return
+     * @param room string room name
+     * @return index of the that room
      */
     public int getIndexOfRoom(String room){
         int index=-1;
@@ -385,7 +387,7 @@ public class SHHController {
 
     /**
      * show zone temperature
-     * @param event
+     * @param event show/hide zone temperature
      */
     public void toggleShowZoneTemperature(ActionEvent event) {
         String temperatureMode = showZoneTemp.getText();
@@ -428,7 +430,7 @@ public class SHHController {
 
     /**
      * This method will set the temperatures of all rooms to the default away temperature.
-     * @param actionEvent
+     * @param actionEvent button to set awy temperature
      */
     public void setAwayTemp(ActionEvent actionEvent) {
         if (!checkValue()){
@@ -448,8 +450,8 @@ public class SHHController {
     }
 
     /**
-     * handle the On and Off of the HAVC
-     * @param event on click of the HAVC
+     * to handle Toggle HAVC
+     * @param event button to toggle HAVC
      */
 	public void handleToggleHAVC(ActionEvent event) {
 		String mode = havcToggle.getText();
@@ -509,8 +511,8 @@ public class SHHController {
     }
 
     /**
-     *
-     * @param rm
+     * to get the current room temperature
+     * @param rm room model
      * @return Gets the current room temperature depending of the time during the day
      */
     public double getCurrentRoomTemp(RoomModel rm){
@@ -531,15 +533,12 @@ public class SHHController {
     }
 
     /**
-     *
+     * to get the integer represent the month of summer start
      * @return the start of the summer as an integer
      */
     public int getSummerStart(){
         int summer_start = 0;
-
         String month_start = mainController.getLoggedUser().getSeasonStart();
-
-
         switch (month_start){
             case "January":
                 summer_start=1;
@@ -578,12 +577,11 @@ public class SHHController {
                 summer_start=12;
                 break;
         }
-
         return summer_start;
     }
 
     /**
-     *
+     *to get the integer represent the month of summer end
      * @return returns the end of the summer as an integer
      */
     public int getSummerEnd(){

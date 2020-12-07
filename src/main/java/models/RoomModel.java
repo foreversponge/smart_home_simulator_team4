@@ -27,11 +27,11 @@ public class RoomModel {
 	private transient double currentTemperature;
 	/**
 	 * constructor to create RoomModel
-	 * @param name
-	 * @param numWindows
-	 * @param numDoors
-	 * @param numLights
-	 * @param nextRoomName
+	 * @param name name of room
+	 * @param numWindows number of window
+	 * @param numDoors number of doors
+	 * @param numLights number of lights
+	 * @param nextRoomName nextRoom name
 	 */
 	public RoomModel(String name, int numWindows, int numDoors, int numLights, String nextRoomName) {
 		this.name = name;
@@ -47,7 +47,7 @@ public class RoomModel {
 
 	/**
 	  * getter to get the mode of light in the room
-	 * @return
+	 * @return string mode
 	 */
 	public String getMode() {
 		return mode;
@@ -55,7 +55,7 @@ public class RoomModel {
 
 	/**
 	 * setter to set the mode of light in the room
-	 * @param mode
+	 * @param mode string mode
 	 */
 	public void setMode(String mode) {
 		this.mode = mode;
@@ -150,7 +150,7 @@ public class RoomModel {
 
 	/**
 	 * Setter to set if an object is blocking the window
-	 * @param isObjectBlockingWindow
+	 * @param isObjectBlockingWindow is window is blocked by object
 	 */
 	public void setObjectBlockingWindow(boolean isObjectBlockingWindow) {
 		this.isObjectBlockingWindow = isObjectBlockingWindow;
@@ -174,7 +174,7 @@ public class RoomModel {
 
 	/**
 	 * getter to get the number of open door
-	 * @return
+	 * @return number of open door
 	 */
 	public int getNumOpenDoor() {
 		return numOpenDoor;
@@ -182,7 +182,7 @@ public class RoomModel {
 
 	/**
 	 * setter to set the number of open door
-	 * @param numOpenDoor
+	 * @param numOpenDoor number of door to open
 	 */
 	public void setNumOpenDoor(int numOpenDoor) {
 		this.numOpenDoor = numOpenDoor;
@@ -190,28 +190,28 @@ public class RoomModel {
 
 	/**
 	 * getter to get the number of open light
-	 * @return
+	 * @return number of open light
 	 */
 	public int getNumOpenLights() {
 		return numOpenLights;
 	}
 	/**
 	 * setter to set the number of open lights
-	 * @param numOpenLights
+	 * @param numOpenLights number of light to open
 	 */
 	public void setNumOpenLights(int numOpenLights) {
 		this.numOpenLights = numOpenLights;
 	}
 	/**
 	 * getter to get the number of open widows
-	 * @return
+	 * @return number of window
 	 */
 	public int getNumOpenWindows() {
 		return numOpenWindows;
 	}
 	/**
 	 * setter to set the number of open windows
-	 * @param numOpenWindows
+	 * @param numOpenWindows number window to open
 	 */
 	public void setNumOpenWindows(int numOpenWindows) {
 		this.numOpenWindows = numOpenWindows;
@@ -219,7 +219,7 @@ public class RoomModel {
 
 	/**
 	 * getter of the Temperature instance
-	 * @return
+	 * @return temperature instance of the room
 	 */
 	public Temperature getTemperature() {
 		return temperature;
@@ -227,7 +227,7 @@ public class RoomModel {
 
 	/**
 	 * setter of the Temperature instance
-	 * @param temperature
+	 * @param temperature temperature instance
 	 */
 	public void setTemperature(Temperature temperature) {
 		this.temperature = temperature;
@@ -235,7 +235,7 @@ public class RoomModel {
 
 	/**
 	 * getter of the zone of the room
-	 * @return
+	 * @return zone string name
 	 */
 	public String getZone() {
 		return zone;
@@ -243,6 +243,7 @@ public class RoomModel {
 
 	/**
 	 * setter of the zone of the room
+	 * @param  zone string name of zone
 	 */
 	public void setZone(String zone) {
 		this.zone = zone;
@@ -250,7 +251,7 @@ public class RoomModel {
 
 	/**
 	 * getter if the heating is on or off
-	 * @return
+	 * @return heaing value of heating
 	 */
 	public boolean isHeating() {
 		return heating;
@@ -258,7 +259,7 @@ public class RoomModel {
 
 	/**
 	 * setter of heating
-	 * @param heating
+	 * @param heating boolean of heating
 	 */
 	public void setHeating(boolean heating) {
 		this.heating = heating;
@@ -266,7 +267,7 @@ public class RoomModel {
 
 	/**
 	 * getter of AC, if AC is on or off
-	 * @return
+	 * @return ac value of AC
 	 */
 	public boolean isAc() {
 		return ac;
@@ -274,7 +275,7 @@ public class RoomModel {
 
 	/**
 	 * setter of AC
-	 * @param ac
+	 * @param ac value of AC
 	 */
 	public void setAc(boolean ac) {
 		this.ac = ac;
@@ -282,7 +283,7 @@ public class RoomModel {
 
 	/**
 	 * getter the current temperature of the room
-	 * @return
+	 * @return currentTemperature current Temperature
 	 */
 	public double getCurrentTemperature() {
 		return currentTemperature;
@@ -290,7 +291,7 @@ public class RoomModel {
 
 	/**
 	 * setter the current temperature of the room
-	 * @param currentTemperature
+	 * @param currentTemperature value of current temperature
 	 */
 	public void setCurrentTemperature(double currentTemperature) {
 		this.currentTemperature = currentTemperature;

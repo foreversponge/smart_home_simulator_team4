@@ -39,7 +39,7 @@ public class Main extends Application {
 	 * Launches the simulator
 	 * if the there is user from text file that save in the previous launching app
 	 * set the userModelData and tempUserModelData to that value
-	 * @param args
+	 * @param args String array of argument
 	 */
 	public static void main(String[] args) {
 		launch(args);
@@ -68,7 +68,7 @@ public class Main extends Application {
 	/**
 	 * to read the user and permission from file
 	 * avoid add every time launching the app
-	 * @return
+	 * @return string read from the file
 	 */
 	public String readFromFile(){
 		String jsonString="";
@@ -88,7 +88,7 @@ public class Main extends Application {
 
 	/**
 	 * getter method of the UserModelData that is ObservableList of the all the User in the application
-	 * @return
+	 * @return observable list of all user in application
 	 */
 	public ObservableList<UserModel> getUserModelData() {
 		return userModelData;
@@ -96,7 +96,7 @@ public class Main extends Application {
 
 	/**
 	 * getter method of the TempUserModelData, which is use for User Management window
-	 * @return
+	 * @return observable list of temporary user in application
 	 */
 	public ObservableList<UserModel> getTempUserModelData() {
 		return tempUserModelData;
@@ -104,7 +104,7 @@ public class Main extends Application {
 
 	/**
 	 * getter to get the ObservableList of LogMessages
-	 * @return
+	 * @return observable list of all log message to console
 	 */
 	public ObservableList<LogMessageModel> getLogMessages() {
 		return logMessageModels;
@@ -119,14 +119,14 @@ public class Main extends Application {
 
 	/**
 	 * getter method to get the Logged User
-	 * @return
+	 * @return logged User
 	 */
 	public UserModel getLoggedUser() {
 		return this.loggedUser;
 	}
 	/**
 	 * setter method to set the Logged User
-	 * @return
+	 * @param  loggedUser current logged user
 	 */
 	public void setLoggedUser(UserModel loggedUser) {
 		this.loggedUser = loggedUser;
@@ -134,7 +134,7 @@ public class Main extends Application {
 
 	/**
 	 * getter to get the dashboardController
-	 * @return
+	 * @return instance of dashboardControlller
 	 */
 	public dashBoardController getDashBoardController() {
 		return dashBoardController;
@@ -142,7 +142,7 @@ public class Main extends Application {
 
 	/**
 	 * set house layout window
-	 * @throws IOException
+	 * @throws IOException if cannot load file
 	 */
 	public void setHouseLayoutWindow() throws IOException {
 		currentState.setTitle("Smart Home Simulator");
@@ -157,7 +157,7 @@ public class Main extends Application {
 
 	/**
 	 * method to open Simulation parameter Window
-	 * @throws IOException
+	 * @throws IOException if cannot load file
 	 */
 	public void setSimulationParametersWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/simulationParameters.fxml"));
@@ -172,7 +172,7 @@ public class Main extends Application {
 	/**
 	 * method to open the user manager window
 	 * when you close this window you still on the simulator parameter window
-	 * @throws IOException
+	 * @throws IOException if cannot load file
 	 */
 	public void setUserManagerWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/userManager.fxml"));
@@ -192,8 +192,8 @@ public class Main extends Application {
 	}
 
 	/**
-	 * method to load the DashBoard Window
-	 * @throws IOException
+	 * method to load teh DashBoard Window
+	 * @throws IOException if cannot load file
 	 */
 	public void setDashboardWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/dashBoard.fxml"));
@@ -208,7 +208,7 @@ public class Main extends Application {
 	/**
 	 * method to open the edit Context of Simulation window
 	 * when closing this window, the user is returned to the dashboard
-	 * @throws IOException
+	 * @throws IOException if cannot load file
 	 */
 	public void setEditContextWindow() throws IOException{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/EditContextOfSimulation.fxml"));
@@ -226,7 +226,7 @@ public class Main extends Application {
 
 	/**
 	 * Method that allows you to set the room temperature
-	 * @throws IOException
+	 * @throws IOException if cannot load file
 	 */
 	public void setRoomTemperatureWindow() throws IOException{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/setRoomTemperature.fxml"));
@@ -242,7 +242,7 @@ public class Main extends Application {
 	
 	/**
 	 * Getter to obtain the SHPModel
-	 * @return SHPModel
+	 * @return SHPModel instance of SHPModel
 	 */
 	public SHPModel getShpModel() {
 		return shpModel;
@@ -251,7 +251,7 @@ public class Main extends Application {
 	/**
 	 * Method to open the permissions explained window
 	 * when closing this window, the user is returned to the simulation parameter window
-	 * @throws IOException
+	 * @throws IOException if cannot load file
 	 */
 	public void setPermissionsWindow() throws IOException{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/permissionsExplained.fxml"));
@@ -269,7 +269,7 @@ public class Main extends Application {
 	/**
 	 * Method to open the setup of lights to remain on window
 	 * when closing this window, the user is returned to the dashboard
-	 * @throws IOException
+	 * @throws IOException if cannot load file
 	 */
 	public void setLightsToRemainOpenWindow() throws IOException{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/lightsToRemainOn.fxml"));
@@ -290,8 +290,8 @@ public class Main extends Application {
 	/**
 	 * set the zone Room set up window
 	 * to add new zone and add room to the existing zone
-	 * @param shhCont
-	 * @throws IOException
+	 * @param shhCont shhController
+	 * @throws IOException if cannot load file
 	 */
 	public void setZoneRoomWindow(SHHController shhCont) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/setUpZoneRoom.fxml"));

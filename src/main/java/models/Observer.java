@@ -9,7 +9,7 @@ public interface Observer {
 
 	/**
 	 * When notified, the observer will be updated
-	 * @param user
+	 * @param user userModel
 	 */
 	public void update(UserModel user);
 }
