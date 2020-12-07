@@ -16,3 +16,4 @@ log/
 target/
 
 # Log file
+logs.txt
