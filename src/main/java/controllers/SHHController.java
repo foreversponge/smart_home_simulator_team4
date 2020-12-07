@@ -333,9 +333,7 @@ public class SHHController {
                 }
 
                 else {
-                    if(roomModels[index].getTemperature().getMorningTemp() != targetZone.getTemperature().getMorningTemp()
-                            || roomModels[index].getTemperature().getDayTemp() != targetZone.getTemperature().getDayTemp()
-                            || roomModels[index].getTemperature().getNightTemp() != targetZone.getTemperature().getNightTemp()) {
+                    if(compareRoomTempToTargetTemp(targetZone, index)) {
                         displayTemperature.setText(selectRoom.getName() + " - Morning: "+roomModels[index].getTemperature().getMorningTemp()
                                 +" \tDay: "+roomModels[index].getTemperature().getDayTemp()
                                 + " \tNight: "+ roomModels[index].getTemperature().getNightTemp() + " (!!OVERRIDEN!!)");
@@ -356,6 +354,19 @@ public class SHHController {
         }
         zoneRoomTableView.getSelectionModel().clearSelection();
     }
+
+    /**
+     * compare the room temperature to the target temperature
+     * @param targetZone target temperature
+     * @param index room index
+     * @return
+     */
+	public boolean compareRoomTempToTargetTemp(ZoneModel targetZone, int index) {
+		boolean compareMorningTemp = (roomModels[index].getTemperature().getMorningTemp() != targetZone.getTemperature().getMorningTemp());
+		boolean compareDayTemp = (roomModels[index].getTemperature().getDayTemp() != targetZone.getTemperature().getDayTemp());
+		boolean compareNightTemp = (roomModels[index].getTemperature().getNightTemp() != targetZone.getTemperature().getNightTemp());
+		return compareMorningTemp || compareDayTemp || compareNightTemp; 
+	}
 
     /**
      * getter index of the specific room in all rom array

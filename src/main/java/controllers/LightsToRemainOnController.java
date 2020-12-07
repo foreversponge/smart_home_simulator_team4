@@ -111,20 +111,12 @@ public class LightsToRemainOnController {
         }
         else {
             if(fromHour.getValue()!=null && fromMinute.getValue() !=null && toHour.getValue()!=null && toMinute.getValue()!=null){
-                LocalTime startTime = LocalTime.parse(fromHour.getValue()+":"+fromMinute.getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
-                LocalTime finishTime = LocalTime.parse(toHour.getValue()+":"+toMinute.getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
-                Map<String, ArrayList<LocalTime>> awayModeLight = dashboardController.getAwayModeLight();
-                ArrayList<LocalTime> times = new ArrayList<>();
-                times.add(0,startTime);
-                times.add(1, finishTime);
-                for (String location : listSelectedRooms) {
-                    awayModeLight.put(location, times);
-                }
-                dashboardController.setAwayModeLight(awayModeLight);
+                setupAwayModeLights(listSelectedRooms);
             }
             currentStage.close();
         }
     }
+
 
     /**
      * When user clicks the Cancel button, the lights to remain on stage will close
@@ -133,4 +125,21 @@ public class LightsToRemainOnController {
     public void cancelClick(MouseEvent event) {
         currentStage.close();
     }
+    
+    /**
+     * setup away Mode lights so that they remain On for the time indicated
+     * @param listSelectedRooms rooms to keep lights On
+     */
+    public void setupAwayModeLights(List<String> listSelectedRooms) {
+		LocalTime startTime = LocalTime.parse(fromHour.getValue()+":"+fromMinute.getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+		LocalTime finishTime = LocalTime.parse(toHour.getValue()+":"+toMinute.getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+		Map<String, ArrayList<LocalTime>> awayModeLight = dashboardController.getAwayModeLight();
+		ArrayList<LocalTime> times = new ArrayList<>();
+		times.add(0,startTime);
+		times.add(1, finishTime);
+		for (String location : listSelectedRooms) {
+		    awayModeLight.put(location, times);
+		}
+		dashboardController.setAwayModeLight(awayModeLight);
+	}
 }
