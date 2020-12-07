@@ -9,8 +9,11 @@ import javafx.scene.control.ComboBox;
  */
 public class RoomModel {
 
+	private transient String zone;
 	private String mode;
 	private String name;
+	private transient boolean heating;
+	private transient boolean ac;
 	private int numWindows;
 	private int numDoors;
 	private int numLights;
@@ -20,14 +23,15 @@ public class RoomModel {
 	private int numOpenWindows;
 	private transient boolean isObjectBlockingWindow;
 	private transient ComboBox<String> objectBlockingWindowComboBox;
-
+	private transient Temperature temperature; // each room would create with instance of Temperature with default temperature
+	private transient double currentTemperature;
 	/**
 	 * constructor to create RoomModel
-	 * @param name
-	 * @param numWindows
-	 * @param numDoors
-	 * @param numLights
-	 * @param nextRoomName
+	 * @param name name of room
+	 * @param numWindows number of window
+	 * @param numDoors number of doors
+	 * @param numLights number of lights
+	 * @param nextRoomName nextRoom name
 	 */
 	public RoomModel(String name, int numWindows, int numDoors, int numLights, String nextRoomName) {
 		this.name = name;
@@ -35,11 +39,15 @@ public class RoomModel {
 		this.numDoors = numDoors;
 		this.numLights = numLights;
 		this.nextRoomName = nextRoomName;
+		this.temperature = new Temperature();
+		this.zone=null;
+		this.heating=false;
+		this.ac=false;
 	}
 
 	/**
 	  * getter to get the mode of light in the room
-	 * @return
+	 * @return string mode
 	 */
 	public String getMode() {
 		return mode;
@@ -47,7 +55,7 @@ public class RoomModel {
 
 	/**
 	 * setter to set the mode of light in the room
-	 * @param mode
+	 * @param mode string mode
 	 */
 	public void setMode(String mode) {
 		this.mode = mode;
@@ -142,7 +150,7 @@ public class RoomModel {
 
 	/**
 	 * Setter to set if an object is blocking the window
-	 * @param isObjectBlockingWindow
+	 * @param isObjectBlockingWindow is window is blocked by object
 	 */
 	public void setObjectBlockingWindow(boolean isObjectBlockingWindow) {
 		this.isObjectBlockingWindow = isObjectBlockingWindow;
@@ -166,7 +174,7 @@ public class RoomModel {
 
 	/**
 	 * getter to get the number of open door
-	 * @return
+	 * @return number of open door
 	 */
 	public int getNumOpenDoor() {
 		return numOpenDoor;
@@ -174,7 +182,7 @@ public class RoomModel {
 
 	/**
 	 * setter to set the number of open door
-	 * @param numOpenDoor
+	 * @param numOpenDoor number of door to open
 	 */
 	public void setNumOpenDoor(int numOpenDoor) {
 		this.numOpenDoor = numOpenDoor;
@@ -182,42 +190,129 @@ public class RoomModel {
 
 	/**
 	 * getter to get the number of open light
-	 * @return
+	 * @return number of open light
 	 */
 	public int getNumOpenLights() {
 		return numOpenLights;
 	}
 	/**
 	 * setter to set the number of open lights
-	 * @param numOpenLights
+	 * @param numOpenLights number of light to open
 	 */
 	public void setNumOpenLights(int numOpenLights) {
 		this.numOpenLights = numOpenLights;
 	}
 	/**
 	 * getter to get the number of open widows
-	 * @return
+	 * @return number of window
 	 */
 	public int getNumOpenWindows() {
 		return numOpenWindows;
 	}
 	/**
 	 * setter to set the number of open windows
-	 * @param numOpenWindows
+	 * @param numOpenWindows number window to open
 	 */
 	public void setNumOpenWindows(int numOpenWindows) {
 		this.numOpenWindows = numOpenWindows;
 	}
 
+	/**
+	 * getter of the Temperature instance
+	 * @return temperature instance of the room
+	 */
+	public Temperature getTemperature() {
+		return temperature;
+	}
+
+	/**
+	 * setter of the Temperature instance
+	 * @param temperature temperature instance
+	 */
+	public void setTemperature(Temperature temperature) {
+		this.temperature = temperature;
+	}
+
+	/**
+	 * getter of the zone of the room
+	 * @return zone string name
+	 */
+	public String getZone() {
+		return zone;
+	}
+
+	/**
+	 * setter of the zone of the room
+	 * @param  zone string name of zone
+	 */
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
+
+	/**
+	 * getter if the heating is on or off
+	 * @return heaing value of heating
+	 */
+	public boolean isHeating() {
+		return heating;
+	}
+
+	/**
+	 * setter of heating
+	 * @param heating boolean of heating
+	 */
+	public void setHeating(boolean heating) {
+		this.heating = heating;
+	}
+
+	/**
+	 * getter of AC, if AC is on or off
+	 * @return ac value of AC
+	 */
+	public boolean isAc() {
+		return ac;
+	}
+
+	/**
+	 * setter of AC
+	 * @param ac value of AC
+	 */
+	public void setAc(boolean ac) {
+		this.ac = ac;
+	}
+
+	/**
+	 * getter the current temperature of the room
+	 * @return currentTemperature current Temperature
+	 */
+	public double getCurrentTemperature() {
+		return currentTemperature;
+	}
+
+	/**
+	 * setter the current temperature of the room
+	 * @param currentTemperature value of current temperature
+	 */
+	public void setCurrentTemperature(double currentTemperature) {
+		this.currentTemperature = currentTemperature;
+	}
+
 	@Override
 	public String toString() {
-		return "room{" +
-				"name='" + name + '\'' +
+		return "RoomModel{" +
+				"zone='" + zone + '\'' +
+				", mode='" + mode + '\'' +
+				", name='" + name + '\'' +
 				", numWindows=" + numWindows +
 				", numDoors=" + numDoors +
 				", numLights=" + numLights +
 				", nextRoomName='" + nextRoomName + '\'' +
-				", isObjectBlockingWindow=" + isObjectBlockingWindow + 
+				", numOpenDoor=" + numOpenDoor +
+				", numOpenLights=" + numOpenLights +
+				", numOpenWindows=" + numOpenWindows +
+				", isObjectBlockingWindow=" + isObjectBlockingWindow +
+				", objectBlockingWindowComboBox=" + objectBlockingWindowComboBox +
+				", temperature=" + temperature +
 				'}';
 	}
 }

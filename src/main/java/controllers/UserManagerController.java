@@ -40,8 +40,8 @@ public class UserManagerController {
 	/**
 	 * keep an instance of Main and currentStage
 	 * set the table View with the Observable list
-	 * @param maincontroller
-	 * @param currentstage
+	 * @param maincontroller instance of Main
+	 * @param currentstage current stage
 	 */
 	public void setMaincontroller(Main maincontroller, Stage currentstage) {
 		this.mainController = maincontroller;
@@ -50,7 +50,7 @@ public class UserManagerController {
 	}
 	/**
 	 * cancel all the action that is done during user Manager window
-	 * @param event
+	 * @param event button to cancel
 	 */
 	public void handleCancel(ActionEvent event) {
 		currentStage.close();
@@ -58,8 +58,8 @@ public class UserManagerController {
 
 	/**
 	 * helper class to create the Dialog of type User object so it can be use when user want to add or delete user
-	 * @param editUserModel
-	 * @return
+	 * @param editUserModel userModel to edit
+	 * @return dialog of userModel
 	 */
 	public Dialog<UserModel> getDialog(UserModel editUserModel){
 		String editName="";
@@ -102,7 +102,7 @@ public class UserManagerController {
 
 	/**
 	 * display the Dialog to add User
-	 * @param event
+	 * @param event to add user
 	 */
 	public void handleAdd(ActionEvent event) {
 		Dialog<UserModel> addDialog = getDialog(null);
@@ -111,7 +111,7 @@ public class UserManagerController {
 
 	/**
 	 * display the Dialog to Edit the existing user
-	 * @param event
+	 * @param event to  edit user
 	 */
 	public void handleEdit(ActionEvent event) {
 		UserModel selectedUser = (UserModel) tableView.getSelectionModel().getSelectedItem();
@@ -126,7 +126,7 @@ public class UserManagerController {
 
 	/**
 	 * Delete that is selected and remove from the list
-	 * @param event
+	 * @param event to delete user
 	 */
 	public void handleDelete(ActionEvent event) {
 		UserModel selectedUserModel = (UserModel) tableView.getSelectionModel().getSelectedItem();
@@ -141,7 +141,7 @@ public class UserManagerController {
 	/**
 	 * Save all the action in the window and update the PersonData observable list
 	 * save all the user to text file to reuse in next launching app
-	 * @param event
+	 * @param event to save all action
 	 */
 	public void handleSave(ActionEvent event) {
 		mainController.getUserModelData().clear();

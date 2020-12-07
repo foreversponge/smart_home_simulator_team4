@@ -10,7 +10,11 @@ import models.HouseRoomsModel;
 import models.RoomModel;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class acts as a controller for the lightsToRemainOn.fxml
@@ -37,7 +41,7 @@ public class LightsToRemainOnController {
 
     /**
      * Initializes the list of rooms and sets up the ComboBox items related to the time frame
-     * @throws IOException
+     * @throws IOException exception
      */
     public void initialize() throws IOException {
         setRoomsView();
@@ -98,7 +102,7 @@ public class LightsToRemainOnController {
     /**
      * When user clicks the confirm button, the lights to remain on stage will close
      * and the house layout will be updated
-     * @param event
+     * @param event button
      */
     public void confirmClick(MouseEvent event) {
         List<String> listSelectedRooms = roomsView.getSelectionModel().getSelectedItems();
@@ -106,24 +110,36 @@ public class LightsToRemainOnController {
             currentStage.close();
         }
         else {
-            RoomModel[] allRooms = houseRoomsModel.getAllRoomsArray();
-            for (RoomModel room : allRooms) {
-                for (String location : listSelectedRooms) {
-                    if (room.getName().equalsIgnoreCase(location)) {
-                        room.setNumOpenLights(room.getNumLights());
-                    }
-                }
+            if(fromHour.getValue()!=null && fromMinute.getValue() !=null && toHour.getValue()!=null && toMinute.getValue()!=null){
+                setupAwayModeLights(listSelectedRooms);
             }
             currentStage.close();
-            dashboardController.displayLayout();
         }
     }
 
+
     /**
      * When user clicks the Cancel button, the lights to remain on stage will close
-     * @param event
+     * @param event button to cancel their action
      */
     public void cancelClick(MouseEvent event) {
         currentStage.close();
     }
+    
+    /**
+     * setup away Mode lights so that they remain On for the time indicated
+     * @param listSelectedRooms rooms to keep lights On
+     */
+    public void setupAwayModeLights(List<String> listSelectedRooms) {
+		LocalTime startTime = LocalTime.parse(fromHour.getValue()+":"+fromMinute.getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+		LocalTime finishTime = LocalTime.parse(toHour.getValue()+":"+toMinute.getValue()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+		Map<String, ArrayList<LocalTime>> awayModeLight = dashboardController.getAwayModeLight();
+		ArrayList<LocalTime> times = new ArrayList<>();
+		times.add(0,startTime);
+		times.add(1, finishTime);
+		for (String location : listSelectedRooms) {
+		    awayModeLight.put(location, times);
+		}
+		dashboardController.setAwayModeLight(awayModeLight);
+	}
 }

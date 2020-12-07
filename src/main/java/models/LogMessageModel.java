@@ -16,8 +16,8 @@ public class LogMessageModel {
 
 	/**
 	 * Constructor of LogMessageModel
-	 * @param time
-	 * @param message
+	 * @param time time to log
+	 * @param message message to log
 	 */
 	public LogMessageModel(LocalTime time, String message) {
 		this.time = time;

@@ -1,8 +1,8 @@
 package models;
 
-import java.util.logging.Level;
-
 import com.jfoenix.controls.JFXListView;
+
+import java.util.logging.Level;
 
 /**
  * This class stores the data about the security module (SHP)
@@ -42,7 +42,7 @@ public class SHPModel implements Observer {
 
 	/**
 	 * Setter for the delay alert police
-	 * @param minutes
+	 * @param minutes value of minute
 	 */
 	public void setAlertpolice(String minutes){
 		this.alertpolice = minutes;
@@ -50,7 +50,7 @@ public class SHPModel implements Observer {
 
 	/**
 	 * Getter for the delay alert police
-	 * @return
+	 * @return alertpolice string value
 	 */
 	public String getAlertpolice(){
 		return alertpolice;
