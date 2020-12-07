@@ -1,18 +1,17 @@
 package controllers;
 
 import com.jfoenix.controls.JFXBadge;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Tooltip;
-
+import javafx.scene.input.MouseEvent;
 import models.HouseRoomsModel;
 import models.RoomModel;
 import models.UserModel;
-
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,14 +27,18 @@ public class RoomController {
 	public JFXBadge badgeDoor;
 	public JFXBadge badgeLight;
     public JFXBadge badgeUserNum;
+    public JFXBadge badgeTemperature;
 	public ImageView UserNum;
 	public ImageView LoggedUser;
+	public ImageView heating;
+	public ImageView AC;
 	private Main mainController;
 	public ImageView window1;
 	public ImageView door1;
 	public ImageView light1;
 	public ImageView doorLock;
 	public ImageView windowBlocked;
+	public ImageView temperature1;
 	@FXML private Label room1;
 	private HouseRoomsModel houseRoomsModel= HouseRoomsModel.getInstance();
 	private RoomModel room;
@@ -64,6 +67,19 @@ public class RoomController {
 			}
 		}
 		return userInRoom;
+	}
+
+
+	/**
+	 * When the user clicks this, it will brnig the set room temperature window
+	 * @param event
+	 */
+	public void setRoomTemperature(MouseEvent event) {
+		try {
+			mainController.setRoomTemperatureWindow();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -147,6 +163,18 @@ public class RoomController {
 		}
 		else {
 			light1.setImage(new Image("file:src/main/resources/images/lighton.png"));
+		}
+		if(room.isAc()){
+			AC.setImage(new Image("file:src/main/resources/images/acON.png"));
+		}
+		else{
+			AC.setImage(new Image("file:src/main/resources/images/acOFF.png"));
+		}
+		if(room.isHeating()){
+			heating.setImage(new Image("file:src/main/resources/images/heatON.png"));
+		}
+		else{
+			heating.setImage(new Image("file:src/main/resources/images/heatOFF.png"));
 		}
 	}
 }

@@ -5,11 +5,10 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import models.LogMessageModel;
 import models.Observer;
 import models.SHPModel;
@@ -193,7 +192,7 @@ public class Main extends Application {
 	}
 
 	/**
-	 * method to load teh DashBoard Window
+	 * method to load the DashBoard Window
 	 * @throws IOException
 	 */
 	public void setDashboardWindow() throws IOException {
@@ -223,6 +222,22 @@ public class Main extends Application {
 		Scene editContextScene = new Scene(root);
 		editContextStage.setScene(editContextScene);
 		editContextStage.show();
+	}
+
+	/**
+	 * Method that allows you to set the room temperature
+	 * @throws IOException
+	 */
+	public void setRoomTemperatureWindow() throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/setRoomTemperature.fxml"));
+		Parent root = fxmlLoader.load();
+		Stage setRoomTemperatureStage= new Stage();
+		setRoomTemperatureStage.initOwner(currentState);
+		setRoomTemperatureStage.setTitle("Set Room Temperature");
+		setRoomTemperatureStage.initModality(Modality.WINDOW_MODAL);
+		Scene setRoomTemperatureScene = new Scene(root);
+		setRoomTemperatureStage.setScene(setRoomTemperatureScene);
+		setRoomTemperatureStage.show();
 	}
 	
 	/**
@@ -270,6 +285,25 @@ public class Main extends Application {
 		lightsToRemainOnStage.setScene(lightsToRemainOnScene);
 		lightsToRemainOnStage.setResizable(false);
 		lightsToRemainOnStage.show();
+	}
+
+	/**
+	 * set the zone Room set up window
+	 * to add new zone and add room to the existing zone
+	 * @param shhCont
+	 * @throws IOException
+	 */
+	public void setZoneRoomWindow(SHHController shhCont) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/setUpZoneRoom.fxml"));
+		Parent root = fxmlLoader.load();
+		setUpZoneRoomController setUpZoneRoomController = fxmlLoader.getController();
+		Stage editstage = new Stage();
+		setUpZoneRoomController.setMaincontroller(this, editstage, shhCont);
+		editstage.initOwner(currentState);
+		editstage.initModality(Modality.WINDOW_MODAL);
+		Scene userManager = new Scene(root);
+		editstage.setScene(userManager);
+		editstage.show();
 	}
 }
 
