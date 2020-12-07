@@ -13,10 +13,10 @@ public class Temperature {
     private double overrideTemp;
 
     /**
-     * constructor of Temperature instance
-     * @param morningTemp
-     * @param dayTemp
-     * @param nightTemp
+     * contsructor of Temperature instance
+     * @param morningTemp morning temperature
+     * @param dayTemp day temperature
+     * @param nightTemp night temperature
      */
     public Temperature(double morningTemp, double dayTemp, double nightTemp) {
         this.morningTemp = morningTemp;
@@ -36,7 +36,7 @@ public class Temperature {
 
     /**
      * set default Temperature
-     * @return
+     * @return defaultTemp value
      */
     public double getDefaultTemp() {
         return defaultTemp;
@@ -44,7 +44,7 @@ public class Temperature {
 
     /**
      * getter default temperature
-     * @param defaultTemp
+     * @param defaultTemp value
      */
     public void setDefaultTemp(double defaultTemp) {
         this.defaultTemp = defaultTemp;
@@ -52,7 +52,7 @@ public class Temperature {
 
     /**
      * getter morning temperature
-     * @return
+     * @return morningTemp value
      */
     public double getMorningTemp() {
         return morningTemp;
@@ -60,7 +60,7 @@ public class Temperature {
 
     /**
      * setter morning temperature
-     * @param morningTemp
+     * @param morningTemp value
      */
     public void setMorningTemp(double morningTemp) {
         this.morningTemp = morningTemp;
@@ -68,7 +68,7 @@ public class Temperature {
 
     /**
      * setter day temperature
-     * @return
+     * @return dayTemp value
      */
     public double getDayTemp() {
         return dayTemp;
@@ -76,7 +76,7 @@ public class Temperature {
 
     /**
      * getter day temperature
-     * @param dayTemp
+     * @param dayTemp value
      */
     public void setDayTemp(double dayTemp) {
         this.dayTemp = dayTemp;
@@ -84,7 +84,7 @@ public class Temperature {
 
     /**
      * getter night temperature
-     * @return
+     * @return nightTemp value
      */
     public double getNightTemp() {
         return nightTemp;
@@ -92,16 +92,12 @@ public class Temperature {
 
     /**
      * setter night temperature
-     * @param nightTemp
+     * @param nightTemp value
      */
     public void setNightTemp(double nightTemp) {
         this.nightTemp = nightTemp;
     }
 
-    /**
-     * to String method
-     * @return
-     */
     @Override
     public String toString() {
         return "Temperature{" +

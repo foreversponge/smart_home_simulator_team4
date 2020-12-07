@@ -1,11 +1,9 @@
 package models;
 
-import javafx.beans.binding.ObjectExpression;
 import javafx.scene.control.ComboBox;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +34,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the time
-	 * @param time
+	 * @param time LocalTime
 	 */
 	public void setTime(LocalTime time) {
 		this.time = time;
@@ -52,7 +50,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the date
-	 * @param date
+	 * @param date localDate
 	 */
 	public void setDate(LocalDate date) {
 		this.date = date;
@@ -70,7 +68,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Getter to get the name of the user profile
-	 * @return
+	 * @return name String
 	 */
 	public String getName() {
 		return name;
@@ -78,7 +76,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the name of the user profile
-	 * @param name
+	 * @param name String
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -86,7 +84,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Getter to get the season
-	 * @return
+	 * @return season String
 	 */
 	public String getSeason() {
 		return season;
@@ -94,7 +92,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the season
-	 * @param season
+	 * @param season string
 	 */
 	public void setSeason(String season) {
 		this.season = season;
@@ -110,7 +108,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the season start
-	 * @param seasonStart
+	 * @param seasonStart String season start
 	 */
 	public void setSeasonStart(String seasonStart) {
 		this.seasonStart = seasonStart;
@@ -118,7 +116,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Getter to get the season end
-	 * @return seasonEnd
+	 * @return seasonEnd string
 	 */
 	public String getSeasonEnd() {
 		return seasonEnd;
@@ -126,7 +124,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the season end
-	 * @param seasonEnd
+	 * @param seasonEnd string
 	 */
 	public void setSeasonEnd(String seasonEnd) {
 		this.seasonEnd = seasonEnd;
@@ -134,7 +132,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Getter to obtain the ComboBox containing all possible rooms of the house
-	 * @return ComboBox
+	 * @return ComboBox of all option
 	 */
 	public ComboBox<String> getLocationOptions() {
 		return locationOptions;
@@ -142,7 +140,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the ComboBox containing all possible rooms of the house that the user can be placed in
-	 * @param locationComboBox
+	 * @param locationComboBox of all location
 	 */
 	public void setLocationOptions(ComboBox<String> locationComboBox) {
 		this.locationOptions = locationComboBox;
@@ -158,7 +156,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the permission/role of the user profile
-	 * @param role
+	 * @param role string
 	 */
 	public void setRole(String role) {
 		this.role = role;
@@ -182,7 +180,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the current location in the house of the user profile
-	 * @param currentLocation
+	 * @param currentLocation string
 	 */
 	public void setCurrentLocation(String currentLocation) {
 		this.currentLocation = currentLocation;
@@ -201,7 +199,7 @@ public class UserModel implements Subject {
 
 	/**
 	 * Setter to set the list of observers
-	 * @param listOfObservers
+	 * @param listOfObservers list 
 	 */
 	public void setListOfObservers(List<Observer> listOfObservers) {
 		this.listOfObservers = listOfObservers;

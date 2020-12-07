@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import models.HouseRoomsModel;
 import models.RoomModel;
 import models.UserModel;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,29 +24,29 @@ import java.util.Map;
  */
 public class RoomController {
 
-	public JFXBadge badgeWindow;
-	public JFXBadge badgeDoor;
-	public JFXBadge badgeLight;
-    public JFXBadge badgeUserNum;
-    public JFXBadge badgeTemperature;
-	public ImageView UserNum;
-	public ImageView LoggedUser;
-	public ImageView heating;
-	public ImageView AC;
-	private Main mainController;
-	public ImageView window1;
-	public ImageView door1;
-	public ImageView light1;
-	public ImageView doorLock;
-	public ImageView windowBlocked;
-	public ImageView temperature1;
+	@FXML private JFXBadge badgeWindow;
+	@FXML private JFXBadge badgeDoor;
+	@FXML private JFXBadge badgeLight;
+	@FXML private JFXBadge badgeUserNum;
+	@FXML private JFXBadge badgeTemperature;
+	@FXML private ImageView UserNum;
+	@FXML private ImageView LoggedUser;
+	@FXML private ImageView heating;
+	@FXML private ImageView AC;
+	@FXML private Main mainController;
+	@FXML private ImageView window1;
+	@FXML private ImageView door1;
+	@FXML private ImageView light1;
+	@FXML private ImageView doorLock;
+	@FXML private ImageView windowBlocked;
+	@FXML private ImageView temperature1;
 	@FXML private Label room1;
 	private HouseRoomsModel houseRoomsModel= HouseRoomsModel.getInstance();
 	private RoomModel room;
 
 	/**
 	 * keep an instance of the Main
-	 * @param maincontroller
+	 * @param maincontroller instance of Main to call another page
 	 */
 	public void setMainController(Main maincontroller) {
 		this.mainController = maincontroller;
@@ -53,7 +54,7 @@ public class RoomController {
 
 	/**
 	 * get the Map of room location and number of user in the room include the logged user
-	 * @return
+	 * @return map of string name and number of user
 	 */
 	private Map<String, Integer> extractUserInRoom(){
 		Map<String, Integer> userInRoom = new HashMap<>();
@@ -72,7 +73,7 @@ public class RoomController {
 
 	/**
 	 * When the user clicks this, it will brnig the set room temperature window
-	 * @param event
+	 * @param event button
 	 */
 	public void setRoomTemperature(MouseEvent event) {
 		try {
@@ -84,7 +85,7 @@ public class RoomController {
 
 	/**
 	 * Receives information about a room to display in the house layout tab
-	 * @param room
+	 * @param room roomModel instance to set the value and display
 	 */
 	public void setData(RoomModel room){
 		boolean userInRoom= false;

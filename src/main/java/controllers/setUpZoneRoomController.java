@@ -7,9 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import models.*;
+import models.HouseRoomsModel;
+import models.RoomModel;
+import models.UserModel;
+import models.ZoneModel;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -38,9 +40,9 @@ public class setUpZoneRoomController {
      * keep the Main instance
      * CurrentStage to close
      * SHHController to update the zone list on SHH tab of dashbaord
-     * @param main
-     * @param currentstage
-     * @param shhCon
+     * @param main instance of Main
+     * @param currentstage the current stage to close window
+     * @param shhCon shhController instance
      */
     public void setMaincontroller(Main main, Stage currentstage, SHHController shhCon) {
         this.mainController = main;
@@ -57,7 +59,7 @@ public class setUpZoneRoomController {
 
     /**
      * add the zone first before add the room to zone
-     * @param event
+     * @param event button add zone
      */
     public void addZone(ActionEvent event) {
         int currentId=0;
@@ -78,7 +80,7 @@ public class setUpZoneRoomController {
 
     /**
      * delete the zone, set the room back the roomlist
-     * @param event
+     * @param event button to delete zone
      */
     public void deleteZone(ActionEvent event) {
         String selectZone= (String) zoneList.getSelectionModel().getSelectedItem();
@@ -98,7 +100,7 @@ public class setUpZoneRoomController {
     /**
      * add the select room to the select zone
      * zone and room have to be select cannot be null
-     * @param event
+     * @param event button to add room to zone
      */
     public void HandleAddRoomToZone(ActionEvent event) {
         String selectZone= (String) zoneList.getSelectionModel().getSelectedItem();
@@ -121,7 +123,7 @@ public class setUpZoneRoomController {
 
     /**
      * close the set Zone Room window
-     * @param event
+     * @param event button to cancel all action
      */
     public void HandleCancel(ActionEvent event) {
         currentStage.close();
@@ -133,7 +135,7 @@ public class setUpZoneRoomController {
      * one zone can have multiple room
      * update the zoneRoom list on the SHH tab
      * close the current stage
-     * @param event
+     * @param event button to save all action
      */
     public void HandleSave(ActionEvent event) {
         if(observableRoomList.stream().count()!=0){
@@ -159,8 +161,8 @@ public class setUpZoneRoomController {
 
     /**
      * getter index of the specific room in all rom array
-     * @param room
-     * @return
+     * @param room name of the room
+     * @return index of the room
      */
     public int getIndexOfRoom(String room){
         int index=-1;

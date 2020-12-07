@@ -41,7 +41,7 @@ public class LightsToRemainOnController {
 
     /**
      * Initializes the list of rooms and sets up the ComboBox items related to the time frame
-     * @throws IOException
+     * @throws IOException exception
      */
     public void initialize() throws IOException {
         setRoomsView();
@@ -102,7 +102,7 @@ public class LightsToRemainOnController {
     /**
      * When user clicks the confirm button, the lights to remain on stage will close
      * and the house layout will be updated
-     * @param event
+     * @param event button
      */
     public void confirmClick(MouseEvent event) {
         List<String> listSelectedRooms = roomsView.getSelectionModel().getSelectedItems();
@@ -120,7 +120,7 @@ public class LightsToRemainOnController {
 
     /**
      * When user clicks the Cancel button, the lights to remain on stage will close
-     * @param event
+     * @param event button to cancel their action
      */
     public void cancelClick(MouseEvent event) {
         currentStage.close();

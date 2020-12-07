@@ -11,6 +11,7 @@ public class ZoneModel {
 
     /**
      * Empty constructor of Temperature instance
+     * @param  key String
      */
     public ZoneModel(String key) {
         this.zoneName = key;
@@ -27,7 +28,7 @@ public class ZoneModel {
 
     /**
      * setter of the Temperature instance
-     * @param temperature
+     * @param temperature instance of Temperature
      */
     public void setTemperature(Temperature temperature) {
         this.temperature = temperature;
@@ -35,7 +36,7 @@ public class ZoneModel {
 
     /**
      * getter of the Zone Name
-     * @param
+     * @return  zoneName name of zone
      */
     public String getZoneName() {
         return zoneName;
@@ -43,7 +44,7 @@ public class ZoneModel {
 
     /**
      * setter of the Zone Name
-     * @return zoneName
+     * @param  zoneName name of zone
      */
     public void setZoneName(String zoneName) {
         this.zoneName = zoneName;

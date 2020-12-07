@@ -64,6 +64,7 @@ public class dashBoardController {
 	@FXML private ScrollPane scroll;
 	@FXML private GridPane grid;
 	private String seasonStr=null;
+	private boolean havc=false;
 
 	/**
 	 * Check if HAVC is on or off
@@ -81,18 +82,16 @@ public class dashBoardController {
 		this.havc = havc;
 	}
 
-	private boolean havc=false;
-
 	/**
 	 * getter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
-	 * @return
+	 * @return Map of AwayMode, string is the room name arraylist is start and end time
 	 */
 	public Map<String, ArrayList<LocalTime>> getAwayModeLight() {
 		return awayModeLight;
 	}
 	/**
 	 * setter awayModeLight map which store the key of the room name and the value it is array of start time to open and time to close
-	 * @param awayModeLight
+	 * @param awayModeLight map of awaymode, string room name, array list of start time and end time
 	 */
 	public void setAwayModeLight(Map<String, ArrayList<LocalTime>> awayModeLight) {
 		this.awayModeLight = awayModeLight;
@@ -122,7 +121,7 @@ public class dashBoardController {
 
 		/**
 		 * set how much would the time increment
-		 * @param timeInc
+		 * @param timeInc value
 		 */
 		public void setTimeInc(int timeInc) {
 			this.timeInc = timeInc;
@@ -130,7 +129,7 @@ public class dashBoardController {
 
 		/**
 		 * set the Time
-		 * @param ctime
+		 * @param ctime localTime
 		 */
 		private void setTime(LocalTime ctime) {
 			this.localTime = ctime;
@@ -181,7 +180,7 @@ public class dashBoardController {
 		 * if the current temperature higher than the desired temperature , turn on the AC
 		 * if it reach the desired temperature(0.25 different with the desired temperature) close the AC
 		 * if anything change AC icon would be update
-		 * @param time
+		 * @param time string
 		 */
 		public void summerSeason(String time){
 			RoomModel [] roomModels = houseRoomsModel.getAllRoomsArray();
@@ -382,7 +381,6 @@ public class dashBoardController {
 		 */
 		private void decrement(){
 			localTime = localTime.minusSeconds(timeInc);
-			
 		}
 
 		/**
@@ -406,8 +404,8 @@ public class dashBoardController {
 	/**
 	 * Store an instance of the Main and currentStage
 	 * set the schdeuleTimer so that the time would continuous display the value
-	 * @param maincontroller
-	 * @param currentStage
+	 * @param maincontroller instance of the Main class
+	 * @param currentStage current stage
 	 */
 	public void setMainController(Main maincontroller, Stage currentStage) {
 		this.mainController = maincontroller;
@@ -433,9 +431,9 @@ public class dashBoardController {
 		shhController.setMainController(mainController);
 	}
 
-	/** Initializes dynamically the house layout depending on the information receive in the layout file
-	 *
-	 * @throws IOException
+	/**
+	 * Initializes dynamically the house layout depending on the information receive in the layout file
+	 * @throws IOException exception
 	 */
 	public void initialize() throws IOException {
 		incrementTask = new IncrementTask();
@@ -450,7 +448,7 @@ public class dashBoardController {
 	/**
 	 * method to clear the console log, clear date time, logged user location before return back the simulation parameter screen
 	 * reset the block window, close the dashboard screen to go back to simulation parameter
-	 * @param event
+	 * @param event button back
 	 */
 	public void handleBack(ActionEvent event) {
 		UserModel userModel = mainController.getLoggedUser();
@@ -477,9 +475,9 @@ public class dashBoardController {
 
 	/**
 	 * check the permission of logged user before before the action like turn on/turn off window light door
-	 * @param user
-	 * @param location
-	 * @return
+	 * @param user to check the permission of that user
+	 * @param location permission of user depend on their location
+	 * @return boolean represent the permission of user at location
 	 */
 	public boolean checkPermission(UserModel user,String location){
 		String role = user.getRole();
@@ -539,7 +537,7 @@ public class dashBoardController {
 
 	/**
 	 * when the select item is light, the auto mode is enable other wise set to disable
-	 * @param mouseEvent
+	 * @param mouseEvent when row of table view is selected
 	 */
 	public void handleItemSelected(MouseEvent mouseEvent) {
 		List<String> listSelectItem = itemView.getSelectionModel().getSelectedItems();
@@ -553,7 +551,7 @@ public class dashBoardController {
 
 	/**
 	 * add the error message to the console list view
-	 * @param err
+	 * @param err error message to set to console
 	 */
 	public void addToConsoleLog(String err){
 		consolelog.getItems().add("[" + time.getText() + "] " + err);
@@ -596,7 +594,7 @@ public class dashBoardController {
 	 * handle the on button
 	 * when either item or room not select display error message on console
 	 * if both is selected turn on the item in the select room(multiple room can be selected)
-	 * @param event
+	 * @param event when button on is clicked
 	 */
 	public void handleOnSelection(ActionEvent event) {
 		RoomModel[] allRoom = toggleOnOff("on");
@@ -657,7 +655,7 @@ public class dashBoardController {
 	 * handle the on button
 	 * when either item or room not select display error message on console
 	 * if both is selecte turn off the item in the select room(multiple room can be selected)
-	 * @param event
+	 * @param event when button off is clicked
 	 */
 	public void handleOffSelection(ActionEvent event) {
 		RoomModel[] allRoom= toggleOnOff("off");
@@ -668,7 +666,7 @@ public class dashBoardController {
 	/**
 	 * auto select is for light when there is at least one person in the room, the light is automatically turn on
 	 * if there is no person in the room, it would turn off the light
-	 * @param event
+	 * @param event when button auto(light only) is clicked
 	 */
 	public void handleAutoSelection(ActionEvent event) {
 		checkItemAndLocationSelection();
@@ -690,7 +688,7 @@ public class dashBoardController {
 	/**
 	 * reset the current timer
 	 * @param i increment value of the time(speed time)
-	 * @param time
+	 * @param time the new LocalTime to set
 	 */
 	public void resetTimerTask(int i, LocalTime time){
 		scheduleTimer.cancel();
@@ -703,7 +701,7 @@ public class dashBoardController {
 
 	/**
 	 * handle the slider change of time
-	 * @param mouseEvent
+	 * @param mouseEvent slider of timer
 	 */
 	public void timerSliderHandler(MouseEvent mouseEvent) {
 		resetTimerTask((int) Math.round(timeSlider.getValue()), LocalTime.parse(time.getText()));
@@ -712,7 +710,7 @@ public class dashBoardController {
 
 	/**
 	 * toggle the disable of the element such as time slider, item list view, location list view
-	 * @param disable
+	 * @param disable boolean of toggle to disable or not
 	 */
 	public void toggleDisable(boolean disable){
 		timeSlider.setDisable(disable);
@@ -728,7 +726,7 @@ public class dashBoardController {
 	 * Turn on and Turn off Simulation
 	 * when simulation on, the time could adjust by the using time slider
 	 * when simulation is off set back to default which is 1
-	 * @param event
+	 * @param event when on off simulation is toggle
 	 */
 	public void toggleSimulation(ActionEvent event) {
 		String mode = toggleSimBtn.getText();
@@ -756,7 +754,7 @@ public class dashBoardController {
 	}
 	/**
 	 * Display the dialog , and all the available location that logged user can choose to change location
-	 * @param mouseEvent
+	 * @param mouseEvent when button change location of logged user is clicked
 	 */
 	public void handleChangeLocation(MouseEvent mouseEvent) {
 		Dialog<String> updateLocation  = new Dialog<>();
@@ -785,7 +783,7 @@ public class dashBoardController {
 	/**
 	 * display the dialog and allow use to change the time
 	 * set the cancel the old scheduleTimer and set the new scheduleTimer to continuous display the time
-	 * @param mouseEvent
+	 * @param mouseEvent when button change time is clicked
 	 */
 	public void handleChangeTime(MouseEvent mouseEvent) {
 		TimerPickerModel tPicker = new TimerPickerModel();
@@ -803,7 +801,7 @@ public class dashBoardController {
 
 	/**
 	 * display dialog and DatePicker to allow logged user to choose the date and update it on the dashboard
-	 * @param mouseEvent
+	 * @param mouseEvent when button change date is clicked
 	 */
 	public void handleChangeDate(MouseEvent mouseEvent) {
 		Dialog<LocalDate> updateDate = new Dialog<>();
@@ -824,7 +822,7 @@ public class dashBoardController {
 	/**
 	 * Display the dialog and allow logged user to change temperature outside home
 	 * if logged user does not choose the sign before desired number of temperatuer, it consider positive
-	 * @param mouseEvent
+	 * @param mouseEvent when button change outside temperature is clicked
 	 */
 	public void handleChangeTemp(MouseEvent mouseEvent) {
 		Dialog<String> updateTemp = new Dialog<>();
@@ -960,6 +958,7 @@ public class dashBoardController {
 	/**
 	 *
 	 * The user will be able to enter the number of minutes they want to delay the call to the authorities
+	 * @param mouseEvent button to the add delay minute to call authorities
 	 */
 	public void handleAuthoritiesDelayMin(MouseEvent mouseEvent){
 
@@ -1005,4 +1004,3 @@ public class dashBoardController {
 	}
 }
 
-//update layout when temp change
