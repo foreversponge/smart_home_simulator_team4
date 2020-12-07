@@ -145,8 +145,7 @@ public class dashBoardController {
 				RoomModel[] allRoom = houseRoomsModel.getAllRoomsArray();
 				for(RoomModel rm : allRoom){
 					if(awayModeLight.containsKey(rm.getName())){
-						if(localTime.isAfter(awayModeLight.get(rm.getName()).get(0))
-								&& localTime.isBefore(awayModeLight.get(rm.getName()).get(1)))
+						if(isTimeDuringAwayModeLights(rm))
 						{
 							if(rm.getNumOpenLights()==0){
 								rm.setNumOpenLights(rm.getNumLights());
@@ -165,6 +164,16 @@ public class dashBoardController {
 			if(update){
 				displayLayout();
 			}
+		}
+		
+		/**
+		 * Checks if local time is during the away mode lights time interval
+		 * @param rm room
+		 * @return true if it is, false otherwise
+		 */
+		public boolean isTimeDuringAwayModeLights(RoomModel rm) {
+			return localTime.isAfter(awayModeLight.get(rm.getName()).get(0))
+					&& localTime.isBefore(awayModeLight.get(rm.getName()).get(1));
 		}
 
 		/**
@@ -314,7 +323,7 @@ public class dashBoardController {
 		 */
 		public void temperatureMonitor(){
 			if(outSideTemperature != Double.MAX_VALUE && isHavc()){
-				if(localTime.isAfter(LocalTime.parse("20:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("03:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")))){
+				if(isNight()){
 					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
 						winterSeason("night");
 					}
@@ -322,7 +331,7 @@ public class dashBoardController {
 						summerSeason("night");
 					}
 				}
-				else if(localTime.isAfter(LocalTime.parse("04:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("10:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")))){
+				else if(isMorning()){
 					System.out.println("morning");
 					if(seasonStr!=null&& seasonStr.equalsIgnoreCase("winter")){
 						winterSeason("morning");
@@ -340,6 +349,22 @@ public class dashBoardController {
 					}
 				}
 			}
+		}
+		
+		/**
+		 * Checks if the current time is during the morning
+		 * @return true if yes, false otherwise
+		 */
+		public boolean isMorning() {
+			return localTime.isAfter(LocalTime.parse("04:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("10:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")));
+		}
+		
+		/**
+		 * Checks if the current time is during the night
+		 * @return true if yes, false otherwise
+		 */
+		public boolean isNight() {
+			return localTime.isAfter(LocalTime.parse("20:00:00",DateTimeFormatter.ofPattern("HH:mm:ss"))) && localTime.isBefore(LocalTime.parse("03:00:00" , DateTimeFormatter.ofPattern("HH:mm:ss")));
 		}
 
 		/**
